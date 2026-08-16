@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RootNamespace>Fpe2001Remake.UnitTests</RootNamespace>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Application\Fpe2001Remake.Application.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Automation\Fpe2001Remake.Automation.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.BinaryEditor.Core\Fpe2001Remake.BinaryEditor.Core.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Domain\Fpe2001Remake.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Contracts\Fpe2001Remake.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

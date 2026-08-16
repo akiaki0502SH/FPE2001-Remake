@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Fpe2001Remake.UI</RootNamespace>
+    <AssemblyName>Fpe2001Remake.UI</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\FPE2001-Remake.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\FPE2001-Remake.ico" />
+    <ProjectReference Include="..\Fpe2001Remake.AddressBook\Fpe2001Remake.AddressBook.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.Application\Fpe2001Remake.Application.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.Automation\Fpe2001Remake.Automation.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.BinaryEditor.Core\Fpe2001Remake.BinaryEditor.Core.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.ByteSources.File\Fpe2001Remake.ByteSources.File.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.ByteSources.Process\Fpe2001Remake.ByteSources.Process.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.Contracts\Fpe2001Remake.Contracts.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.Domain\Fpe2001Remake.Domain.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.FileScan\Fpe2001Remake.FileScan.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.Media\Fpe2001Remake.Media.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.Scan\Fpe2001Remake.Scan.csproj" />
+  </ItemGroup>
+
+</Project>

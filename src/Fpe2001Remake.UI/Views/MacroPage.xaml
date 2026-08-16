@@ -1,0 +1,125 @@
+<UserControl x:Class="Fpe2001Remake.UI.Views.MacroPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Fpe2001Remake.UI.ViewModels.Modules"
+             xmlns:views="clr-namespace:Fpe2001Remake.UI.Views">
+    <DockPanel Background="{StaticResource WindowBrush}">
+
+        <views:ActionBar DockPanel.Dock="Top" />
+
+        <!-- 状态栏 -->
+        <Border DockPanel.Dock="Bottom" Background="{StaticResource CanvasBrush}"
+                BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Padding="12,4">
+            <DockPanel>
+                <TextBlock Text="{Binding StatusText}" Foreground="{StaticResource MutedBrush}" FontSize="11" />
+                <TextBlock Text="{Binding StateDetail}" Foreground="{StaticResource MutedBrush}" FontSize="11"
+                           HorizontalAlignment="Right" TextTrimming="CharacterEllipsis" />
+            </DockPanel>
+        </Border>
+
+        <Grid Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260" />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 宏列表 -->
+            <Border Grid.Column="0" Background="{StaticResource SurfaceBrush}"
+                    BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="4">
+                <ListBox ItemsSource="{Binding Macros}" SelectedItem="{Binding Selected}"
+                         BorderThickness="0" Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type vm:MacroRow}">
+                            <StackPanel Margin="2">
+                                <TextBlock Text="{Binding Name}" FontSize="12.5" FontWeight="SemiBold" />
+                                <TextBlock FontSize="11" Foreground="{StaticResource MutedBrush}">
+                                    <Run Text="{Binding Hotkey, Mode=OneWay}" /><Run Text=" · " /><Run Text="{Binding EnabledText, Mode=OneWay}" /><Run Text=" · " /><Run Text="{Binding StepCount, Mode=OneWay}" /><Run Text=" 步" />
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+
+            <!-- 编辑面板 -->
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="4,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="名称" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" />
+                        <TextBox Grid.Column="1" Text="{Binding EditName, UpdateSourceTrigger=PropertyChanged}"
+                                 Height="30" VerticalContentAlignment="Center" Padding="8,0" BorderBrush="{StaticResource LineBrush}" />
+                        <TextBlock Grid.Column="3" Text="热键" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" />
+                        <TextBox Grid.Column="4" Text="{Binding EditHotkey, UpdateSourceTrigger=PropertyChanged}"
+                                 Height="30" VerticalContentAlignment="Center" Padding="8,0" BorderBrush="{StaticResource LineBrush}"
+                                 ToolTip="如 Ctrl+Alt+F9；启用后全局触发" />
+                    </Grid>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="重复" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" />
+                        <TextBox Grid.Column="1" Text="{Binding EditRepeat, UpdateSourceTrigger=PropertyChanged}"
+                                 Height="30" VerticalContentAlignment="Center" Padding="8,0" BorderBrush="{StaticResource LineBrush}" />
+                        <TextBlock Grid.Column="3" Text="窗口" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" />
+                        <TextBox Grid.Column="4" Text="{Binding EditWindowTitle, UpdateSourceTrigger=PropertyChanged}"
+                                 Height="30" VerticalContentAlignment="Center" Padding="8,0" BorderBrush="{StaticResource LineBrush}"
+                                 ToolTip="目标窗口标题（留空不聚焦）" />
+                    </Grid>
+
+                    <DockPanel Margin="0,12,0,4">
+                        <Button Content="添加步骤" Style="{StaticResource GhostButton}" DockPanel.Dock="Right"
+                                Command="{Binding AddStepCommand}" />
+                        <Button Content="删除步骤" Style="{StaticResource GhostButton}" DockPanel.Dock="Right" Margin="0,0,8,0"
+                                Command="{Binding RemoveStepCommand}" />
+                        <TextBlock Text="步骤" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" FontSize="11" />
+                    </DockPanel>
+
+                    <DataGrid ItemsSource="{Binding Steps}" SelectedItem="{Binding SelectedStep}"
+                              AutoGenerateColumns="False" CanUserAddRows="False" RowHeight="30"
+                              HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                              Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}"
+                              BorderThickness="1" FontSize="12" Height="220">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="动作" Width="130">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding DataContext.ActionKinds, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                  SelectedItem="{Binding Action}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="键码" Width="110">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding KeyCode, UpdateSourceTrigger=PropertyChanged}"
+                                                 IsEnabled="{Binding UsesKey}" BorderThickness="0" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="延迟 ms" Width="90">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding DelayMs, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="注释" Binding="{Binding Comment}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</UserControl>

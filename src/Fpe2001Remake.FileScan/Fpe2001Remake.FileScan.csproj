@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Fpe2001Remake.FileScan</RootNamespace>
+    <AssemblyName>Fpe2001Remake.FileScan</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fpe2001Remake.BinaryEditor.Core\Fpe2001Remake.BinaryEditor.Core.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.ByteSources.File\Fpe2001Remake.ByteSources.File.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.Contracts\Fpe2001Remake.Contracts.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.Domain\Fpe2001Remake.Domain.csproj" />
+    <ProjectReference Include="..\Fpe2001Remake.Scan\Fpe2001Remake.Scan.csproj" />
+  </ItemGroup>
+
+</Project>

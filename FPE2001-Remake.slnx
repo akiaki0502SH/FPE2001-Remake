@@ -1,0 +1,27 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Fpe2001Remake.AdapterHost/Fpe2001Remake.AdapterHost.csproj" />
+    <Project Path="src/Fpe2001Remake.AddressBook/Fpe2001Remake.AddressBook.csproj" />
+    <Project Path="src/Fpe2001Remake.Application/Fpe2001Remake.Application.csproj" />
+    <Project Path="src/Fpe2001Remake.Automation/Fpe2001Remake.Automation.csproj" />
+    <Project Path="src/Fpe2001Remake.BinaryEditor.Core/Fpe2001Remake.BinaryEditor.Core.csproj" />
+    <Project Path="src/Fpe2001Remake.ByteSources.File/Fpe2001Remake.ByteSources.File.csproj" />
+    <Project Path="src/Fpe2001Remake.ByteSources.Process/Fpe2001Remake.ByteSources.Process.csproj" />
+    <Project Path="src/Fpe2001Remake.Contracts/Fpe2001Remake.Contracts.csproj" />
+    <Project Path="src/Fpe2001Remake.Domain/Fpe2001Remake.Domain.csproj" />
+    <Project Path="src/Fpe2001Remake.FileScan/Fpe2001Remake.FileScan.csproj" />
+    <Project Path="src/Fpe2001Remake.Media/Fpe2001Remake.Media.csproj" />
+    <Project Path="src/Fpe2001Remake.Memory.Win32/Fpe2001Remake.Memory.Win32.csproj" />
+    <Project Path="src/Fpe2001Remake.Scan/Fpe2001Remake.Scan.csproj" />
+    <Project Path="src/Fpe2001Remake.UI/Fpe2001Remake.UI.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SyntheticTarget.x64/SyntheticTarget.x64.csproj" />
+  </Folder>
+  <Folder Name="/tests/Integration/">
+    <Project Path="tests/Integration/Fpe2001Remake.IntegrationTests.csproj" />
+  </Folder>
+  <Folder Name="/tests/Unit/">
+    <Project Path="tests/Unit/Fpe2001Remake.UnitTests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Fpe2001Remake.Automation</RootNamespace>
+    <AssemblyName>Fpe2001Remake.Automation</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fpe2001Remake.Contracts\Fpe2001Remake.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

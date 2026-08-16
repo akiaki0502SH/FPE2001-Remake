@@ -1,0 +1,8 @@
+{
+  "version": "2.1",
+  "font": {"ui": "Segoe UI Variable, Microsoft YaHei UI", "mono": "Cascadia Mono, Consolas"},
+  "color": {"canvas": "#D9DDDF", "window": "#F5F6F6", "surface": "#FBFBFA", "line": "#CFD5D6", "text": "#283538", "muted": "#6C797C", "primary": "#526F75", "primarySoft": "#DBE5E6", "success": "#607A69", "warning": "#8A7655", "danger": "#855E5E"},
+  "radius": {"window": 14, "card": 9, "control": 6},
+  "size": {"titlebar": 44, "moduleStrip": 66, "actionbar": 44, "statusbar": 31, "control": 33},
+  "spacing": [4, 7, 10, 13, 15, 20, 26]
+}

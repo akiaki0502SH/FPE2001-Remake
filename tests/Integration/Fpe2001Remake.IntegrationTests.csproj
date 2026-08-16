@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RootNamespace>Fpe2001Remake.IntegrationTests</RootNamespace>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fpe2001Remake.AddressBook\Fpe2001Remake.AddressBook.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Application\Fpe2001Remake.Application.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.BinaryEditor.Core\Fpe2001Remake.BinaryEditor.Core.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.ByteSources.File\Fpe2001Remake.ByteSources.File.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.ByteSources.Process\Fpe2001Remake.ByteSources.Process.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Contracts\Fpe2001Remake.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Domain\Fpe2001Remake.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.FileScan\Fpe2001Remake.FileScan.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Memory.Win32\Fpe2001Remake.Memory.Win32.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Media\Fpe2001Remake.Media.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Scan\Fpe2001Remake.Scan.csproj" />
+  </ItemGroup>
+
+</Project>

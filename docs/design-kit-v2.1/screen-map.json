@@ -1,0 +1,14 @@
+{
+  "screens": [
+    {"id":"scan","file":"screens/01-scan.png","legacy":"M01 TabScan","scope":"process target, first/next scan, candidates"},
+    {"id":"addresses","file":"screens/02-addresses.png","legacy":"M02 TabTabs","scope":".fpe table, edit, write, freeze"},
+    {"id":"editor","file":"screens/03-editor.png","legacy":"M03 TabEditor","scope":"file/process/snapshot hex editor"},
+    {"id":"files","file":"screens/04-files.png","legacy":"M04 TabSelect","scope":"directory, filter, recursive content scan"},
+    {"id":"picture","file":"screens/05-picture.png","legacy":"M05 TabGPE + SPE","scope":"load, preview, scale, export"},
+    {"id":"macro","file":"screens/06-macro.png","legacy":"M06 TabMacKey + tt.dll","scope":"auditable user-mode macro"},
+    {"id":"speed","file":"screens/07-speed.png","legacy":"M07 TabSpeed","scope":"adapter-declared speed control"},
+    {"id":"settings","file":"screens/08-settings.png","legacy":"M08 TabOthers","scope":"limits, temp, undo, lock interval"},
+    {"id":"about","file":"screens/09-about.png","legacy":"M09 About","scope":"version and safety boundary"},
+    {"id":"dialogs","file":"screens/10-dialogs.png","legacy":"cross-module","scope":"risk confirmation and states"}
+  ]
+}
