@@ -1,6 +1,6 @@
 # UI-DEVIATIONS
 
-本文件记录 FPE2001-Remake 实现与 `FPE2001-Remake UI/UX 实施规格 v2.7`（Deep Boundary Blue + Native DWM Frame）之间的结构差异（验收项：UIUX 规格 §17）。
+本文件记录 FPE2001-Remake 实现与 `FPE2001-Remake UI/UX 实施规格 v2.8`（Deep Boundary Blue + Native DWM Frame + 程序名聚合）之间的结构差异（验收项：UIUX 规格 §17）。
 
 > 规则：九模块功能入口不得省略；结构差异必须记录；无法在实现中表达的设计意图标注原因。
 
@@ -188,3 +188,20 @@ HEX-001~004 全部通过：>4GB 稀疏文件跳转/覆盖/撤销/另存校验；
 - UI Automation：最小化、最大化、还原和关闭全部通过。
 - 测试程序：`artifacts/ui-native-dwm-frame-v27/Fpe2001Remake.UI.exe`。
 - 对应文档：UI/UX v2.7、代码实施规格 v2.4、Win11 架构设计 v2.4。
+
+## v2.8 进程列表按程序名聚合 — 2026-08-16
+
+### 实施记录
+
+- 扫描页目标下拉框按 `ProcessName`（OrdinalIgnoreCase）合并，同一程序只显示一行纯程序名，不再把 PID 展开为数十行重复条目。
+- `ScanApplicationService` 仍返回逐进程 `(ProcessId, ProcessName)`；`TargetItem` 在 UI 层保存程序名及完整 PID 集合，未改变扫描引擎、地址表或内存适配器契约。
+- 多实例程序显示紧凑“实例”PID 选择器，扫描、再次扫描和添加地址表均使用 `SelectedProcessId`；单实例程序保持简洁布局。
+- 刷新时优先恢复原程序和仍存在的 PID；状态文案同时显示目标程序数与进程总数，并继续提示 Windows 系统进程已隐藏。
+
+### 验证记录
+
+- UI Automation 展开真实下拉框确认：当前环境 223 个候选进程压缩为 52 个目标程序，列表视觉文本仅为程序名。
+- 选择 `asus_framework` 等多实例程序后实例 ComboBox 出现并包含全部 PID；标题栏/状态栏同步最终 PID。
+- Release 构建：0 警告、0 错误；单元测试：76 通过；集成测试：20 通过。
+- 测试程序：`artifacts/ui-process-groups-v28/Fpe2001Remake.UI.exe`。
+- 对应文档：UI/UX v2.8、代码实施规格 v2.5、Win11 架构设计 v2.5。

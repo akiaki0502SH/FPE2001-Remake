@@ -40,11 +40,13 @@ public sealed class MainViewModel : ViewModelBase
         _freeze = freeze;
 
         var scanVm = new ScanViewModel(scanApp, engine, addressBook);
-        scanVm.TargetChanged += target =>
+        scanVm.TargetChanged += (target, processId) =>
         {
             CurrentTarget = target.ProcessName;
-            TargetDetail = $"PID {target.ProcessId}";
-            StatusSource = $"目标：{target.Display}";
+            TargetDetail = target.HasMultipleInstances
+                ? $"PID {processId} / {target.InstanceCount} 个实例"
+                : $"PID {processId}";
+            StatusSource = $"目标：{target.Display} (PID {processId})";
         };
 
         var editor = new HexEditorViewModel();

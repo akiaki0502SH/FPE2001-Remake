@@ -15,11 +15,36 @@
                     <TextBlock Text="目标进程" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" Width="64" />
                     <Button Content="刷新" Style="{StaticResource ActionButton}" Height="30" Width="58"
                             Command="{Binding RefreshTargetsCommand}" DockPanel.Dock="Right" />
+                    <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedTarget.HasMultipleInstances}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <TextBlock Text="实例" VerticalAlignment="Center"
+                                   Foreground="{StaticResource MutedBrush}" Margin="0,0,6,0" />
+                        <ComboBox ItemsSource="{Binding SelectedTarget.Instances}"
+                                  SelectedItem="{Binding SelectedProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Width="106" Height="30" VerticalContentAlignment="Center"
+                                  ToolTip="同名程序的进程实例 PID；扫描和地址表会绑定当前选择的 PID" />
+                    </StackPanel>
                     <ComboBox ItemsSource="{Binding Targets}"
                               SelectedItem="{Binding SelectedTarget}"
                               DisplayMemberPath="Display"
                               Height="30" VerticalContentAlignment="Center"
-                              FontFamily="{StaticResource UiFont}" FontSize="12.5" />
+                              FontFamily="{StaticResource UiFont}" FontSize="12.5"
+                              ToolTip="按程序名合并显示；多实例程序请在右侧选择 PID">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="AutomationProperties.Name" Value="{Binding Display}" />
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                    </ComboBox>
                 </DockPanel>
                 <DockPanel Margin="0,8,0,0">
                     <TextBlock Text="任务" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" Width="64" />

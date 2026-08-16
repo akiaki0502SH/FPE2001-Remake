@@ -5,10 +5,28 @@ using Fpe2001Remake.Domain;
 
 namespace Fpe2001Remake.UI.ViewModels.Modules;
 
-/// <summary>目标进程项（UI 展示）。</summary>
-public sealed record TargetItem(int ProcessId, string ProcessName)
+/// <summary>
+/// 目标程序项（UI 展示）。同名进程合并为一行，但保留该程序的全部 PID，
+/// 以便扫描时仍能精确绑定到一个进程实例。
+/// </summary>
+public sealed record TargetItem(string ProcessName, IReadOnlyList<int> ProcessIds)
 {
-    public string Display => $"{ProcessName} (PID {ProcessId})";
+    /// <summary>默认实例 PID；单实例或未选择实例时作为兼容回退值。</summary>
+    public int ProcessId => ProcessIds.Count > 0 ? ProcessIds[0] : 0;
+
+    /// <summary>实例选择器使用的 PID 列表。</summary>
+    public IReadOnlyList<int> Instances => ProcessIds;
+
+    public int InstanceCount => ProcessIds.Count;
+
+    public bool HasMultipleInstances => ProcessIds.Count > 1;
+
+    /// <summary>主列表只显示程序名，避免同一程序多进程造成列表膨胀。</summary>
+    public string Display => ProcessName;
+
+    public string InstanceSummary => HasMultipleInstances
+        ? $"{InstanceCount} 个实例"
+        : $"PID {ProcessId}";
 }
 
 /// <summary>候选行（UI 展示）。</summary>
@@ -34,6 +52,7 @@ public sealed class ScanViewModel : ModuleViewModelBase
     private readonly IScanApplicationService _targets;
 
     private TargetItem? _selectedTarget;
+    private int _selectedProcessId;
     private string _selectedDataType = "32 位";
     private string _selectedComparison = "等于";
     private string _valueText = "";
@@ -84,13 +103,33 @@ public sealed class ScanViewModel : ModuleViewModelBase
         {
             if (SetProperty(ref _selectedTarget, value))
             {
-                TargetChanged?.Invoke(value!);
+                var nextPid = value?.ProcessId ?? 0;
+                SetProperty(ref _selectedProcessId, nextPid, nameof(SelectedProcessId));
+                NotifyTargetChanged();
             }
         }
     }
 
-    /// <summary>目标变化（标题栏/状态栏联动）。</summary>
-    public event Action<TargetItem>? TargetChanged;
+    /// <summary>当前选中实例 PID；同名多进程时由实例选择器更新。</summary>
+    public int SelectedProcessId
+    {
+        get => _selectedProcessId;
+        set
+        {
+            if (_selectedTarget is null || !_selectedTarget.ProcessIds.Contains(value))
+            {
+                return;
+            }
+
+            if (SetProperty(ref _selectedProcessId, value))
+            {
+                NotifyTargetChanged();
+            }
+        }
+    }
+
+    /// <summary>目标变化（标题栏/状态栏联动），携带程序项和精确 PID。</summary>
+    public event Action<TargetItem, int>? TargetChanged;
 
     /// <summary>数据类型（显示文本 → ScanDataType 映射由扫描逻辑处理）。</summary>
     public IReadOnlyList<string> DataTypes { get; } =
@@ -173,16 +212,45 @@ public sealed class ScanViewModel : ModuleViewModelBase
 
     private async Task RefreshTargetsAsync()
     {
+        var previousName = SelectedTarget?.ProcessName;
+        var previousPid = SelectedProcessId;
+
         Targets.Clear();
         var list = await _targets.ListTargetsAsync(CancellationToken.None);
-        foreach (var (pid, name) in list)
+        var grouped = list
+            .GroupBy(item => item.ProcessName, StringComparer.OrdinalIgnoreCase)
+            .OrderBy(group => group.Key, StringComparer.OrdinalIgnoreCase)
+            .Select(group => new TargetItem(
+                group.Key,
+                group.Select(item => item.ProcessId).Distinct().OrderBy(pid => pid).ToArray()))
+            .ToList();
+
+        foreach (var target in grouped)
         {
-            Targets.Add(new TargetItem(pid, name));
+            Targets.Add(target);
         }
+
+        // 刷新后尽量恢复用户当前的程序和 PID；如果 PID 已退出，则回退到该程序的第一个实例。
+        var restored = previousName is null
+            ? null
+            : grouped.FirstOrDefault(item => string.Equals(item.ProcessName, previousName, StringComparison.OrdinalIgnoreCase));
+        if (restored is not null)
+        {
+            SelectedTarget = restored;
+            if (restored.ProcessIds.Contains(previousPid))
+            {
+                SelectedProcessId = previousPid;
+            }
+        }
+        else if (SelectedTarget is not null)
+        {
+            SelectedTarget = null;
+        }
+
         State = Targets.Count > 0 ? PageState.Ready : PageState.Empty;
         StateDetail = Targets.Count > 0
-            ? $"发现 {Targets.Count} 个可用目标进程（Windows 系统进程已隐藏）。"
-            : "未发现可用目标进程；Windows 系统进程已隐藏，启动目标程序后点“刷新”。";
+            ? $"发现 {Targets.Count} 个目标程序，共 {list.Count} 个进程（Windows 系统进程已隐藏）。"
+            : "未发现可用目标程序；Windows 系统进程已隐藏，启动目标程序后点“刷新”。";
     }
 
     private async Task ScanAsync()
@@ -191,10 +259,10 @@ public sealed class ScanViewModel : ModuleViewModelBase
         {
             return;
         }
-        if (SelectedTarget is null)
+        if (SelectedTarget is null || SelectedProcessId <= 0)
         {
-            ProgressText = "请先选择目标进程。";
-            StateDetail = "请先选择目标进程。";
+            ProgressText = "请先选择目标程序和实例。";
+            StateDetail = "请先选择目标程序和实例。";
             return;
         }
 
@@ -226,6 +294,15 @@ public sealed class ScanViewModel : ModuleViewModelBase
 
     private async Task RunFirstScanAsync()
     {
+        var target = SelectedTarget;
+        var processId = SelectedProcessId;
+        if (target is null || processId <= 0)
+        {
+            ProgressText = "请先选择目标程序和实例。";
+            StateDetail = "请先选择目标程序和实例。";
+            return;
+        }
+
         var condition = BuildCondition(ScanStepKind.FirstScan);
         if (condition is null)
         {
@@ -239,10 +316,10 @@ public sealed class ScanViewModel : ModuleViewModelBase
         });
 
         var session = await _engine.BeginFirstScanAsync(
-            SelectedTarget!.ProcessId, MissionName, condition, null, null, progress, CancellationToken.None);
+            processId, MissionName, condition, null, null, progress, CancellationToken.None);
 
         _sessionId = session.Id;
-        ProgressText = $"首次扫描完成：{session.CandidateCount} 个候选（目标 {SelectedTarget.Display}）。";
+        ProgressText = $"首次扫描完成：{session.CandidateCount} 个候选（目标 {target.Display}，PID {processId}）。";
         StateDetail = $"任务“{MissionName}”：{session.CandidateCount} 个候选。再次扫描可进一步筛选。";
         State = session.CandidateCount > 0 ? PageState.Ready : PageState.Empty;
         await LoadCandidatesAsync();
@@ -297,7 +374,7 @@ public sealed class ScanViewModel : ModuleViewModelBase
 
     private async Task AddToAddressTableAsync()
     {
-        if (SelectedCandidate is null || SelectedTarget is null || _sessionId is null)
+        if (SelectedCandidate is null || SelectedTarget is null || SelectedProcessId <= 0 || _sessionId is null)
         {
             return;
         }
@@ -306,7 +383,7 @@ public sealed class ScanViewModel : ModuleViewModelBase
         var endianness = Endianness.LittleEndian;
         var entry = new AddressBookEntry(
             Guid.NewGuid(),
-            SelectedCandidate.ToLogicalAddress(SelectedTarget.ProcessId, endianness, WidthOf(dataType)),
+            SelectedCandidate.ToLogicalAddress(SelectedProcessId, endianness, WidthOf(dataType)),
             $"候选 {SelectedCandidate.AddressText}",
             "扫描结果",
             SelectedTarget.ProcessName,
@@ -321,6 +398,14 @@ public sealed class ScanViewModel : ModuleViewModelBase
 
         await _addressBook.UpsertAsync(entry, CancellationToken.None);
         StateDetail = $"已添加 {SelectedCandidate.AddressText} 到地址表。";
+    }
+
+    private void NotifyTargetChanged()
+    {
+        if (_selectedTarget is not null && _selectedProcessId > 0)
+        {
+            TargetChanged?.Invoke(_selectedTarget, _selectedProcessId);
+        }
     }
 
     private void ClearResults()
