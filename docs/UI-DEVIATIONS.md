@@ -1,6 +1,6 @@
 # UI-DEVIATIONS
 
-本文件记录 FPE2001-Remake 实现与 `FPE2001-Remake UI/UX 实施规格 v2.5`（Deep Boundary Blue + Process Target Filtering）之间的结构差异（验收项：UIUX 规格 §17）。
+本文件记录 FPE2001-Remake 实现与 `FPE2001-Remake UI/UX 实施规格 v2.6`（Deep Boundary Blue + WindowFrame）之间的结构差异（验收项：UIUX 规格 §17）。
 
 > 规则：九模块功能入口不得省略；结构差异必须记录；无法在实现中表达的设计意图标注原因。
 
@@ -152,3 +152,18 @@ HEX-001~004 全部通过：>4GB 稀疏文件跳转/覆盖/撤销/另存校验；
 - 扫描页状态文本明确提示“Windows 系统进程已隐藏”，空列表时引导用户启动目标程序并刷新。
 - `ProcessTargetFilterTests` 覆盖 Session 0、已知系统名、Windows 目录、游戏/模拟器、路径不可读和当前进程六类边界。
 - Release 构建：0 警告、0 错误；单元测试：76 通过、0 失败、0 跳过。
+
+## v2.6 窗口级边界与透明阴影 — 2026-08-16
+
+### 实施记录
+
+- `MainWindow` 根内容由 `WindowFrame` Border 统一包裹，`Margin=2`、`BorderThickness=1`、`CornerRadius=WindowRadius`、`ClipToBounds=True`。
+- `Theme/Colors.xaml` 新增 `WindowFrameBrush #75869A`，用于四边连续的 1 DIP 边框。
+- 新增 `WindowFrameShadow`：`BlurRadius=4`、`ShadowDepth=0`、`Opacity=0.18`、`Color=#233447`，在边框外形成约 2 DIP 的低透明度阴影。
+- `WindowChrome`、标题栏右侧窗口按钮和四行既有布局未改变；边框/阴影只属于 UI Shell，不参与页面命令或 ViewModel 状态。
+
+### 验证记录
+
+- Release 构建：0 警告、0 错误；启动冒烟测试通过。
+- 文档验收：UI/UX v2.6、代码实施规格 v2.3、Win11 架构设计 v2.3 已完成回退渲染检查。
+- DPI 验收要求：100%、125%、150%、200% 下边框连续，阴影不裁切，文字和窗口按钮不遮挡。
