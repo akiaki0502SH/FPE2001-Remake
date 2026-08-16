@@ -1,6 +1,6 @@
 # UI-DEVIATIONS
 
-本文件记录 FPE2001-Remake 实现与 `FPE2001-Remake UI Design Kit v2.3`（Clear Blue）之间的结构差异（验收项：UIUX 规格 §17）。
+本文件记录 FPE2001-Remake 实现与 `FPE2001-Remake UI/UX 实施规格 v2.4`（Deep Boundary Blue）之间的结构差异（验收项：UIUX 规格 §17）。
 
 > 规则：九模块功能入口不得省略；结构差异必须记录；无法在实现中表达的设计意图标注原因。
 
@@ -109,3 +109,30 @@ HEX-001~004 全部通过：>4GB 稀疏文件跳转/覆盖/撤销/另存校验；
 
 - [ ] UI-01 九模块导航 / DPI / 键盘验收截图对比（Design Kit screens/ 逐页对照）
 - [ ] UI-02~UI-06 各阶段实现后补记差异
+
+## v2.4 Deep Boundary Blue 视觉实施 — 2026-08-16
+
+### 实施边界
+
+- 保持 v2.3 已确认的“标题栏 → 九模块横向导航 → 模块动作栏 → 工作区 → 状态栏”布局。
+- 保持页面信息架构、命令绑定、快捷键、进程扫描和十六进制编辑逻辑不变。
+- 仅调整颜色层级、边界线、按钮反馈、图标底板和阴影强度，解决浅色界面中控件边界不清的问题。
+
+| 视觉项 | v2.4 规范 | 当前实现 |
+|------|-----------|----------|
+| 窗口/画布 | `#DDE3EA` / `#E9EEF3` | `Theme/Colors.xaml` 的 `WindowBrush` / `CanvasBrush` |
+| 内容面板 | 白色表面，与灰蓝工作区形成明确层级 | `SurfaceBrush #FFFFFF`，页面布局未改变 |
+| 分隔线 | 普通边界 `#AAB6C4`，强调边界 `#75869A` | DataGrid、工具栏、状态栏和控件统一引用主题资源 |
+| 文字 | 主文字 `#18222E`，辅助文字 `#4F5F70` | 全局 `TextBrush` / `MutedBrush` |
+| 主操作 | 深蓝 `#245F9E`，按下态 `#174574` | `PrimaryButton`、选中模块和焦点态已更新 |
+| 按钮反馈 | hover/pressed 使用灰蓝填充，危险按钮使用低饱和红色 | `GhostButton`、`PrimaryButton`、`DangerButton` 模板已更新 |
+| 模块导航 | 顶部横排保持不变；选中态增加深边框和图标底板 | `ModuleButton` 保持 72 DIP 带内布局，标签不遮挡 |
+| 窗口控制 | 最小化、最大化/还原、关闭固定最右端 | UI Automation 实测最大化后状态为 `Maximized`，关闭后进程正常退出 |
+| 阴影 | 仅保留低透明度立体层次 | `SoftShadow` / `CardShadow` / `ButtonShadow` 透明度提升至 0.11–0.14 |
+
+### 验证记录
+
+- .NET 10 Release 构建：0 警告、0 错误。
+- 单元测试：70 通过，0 失败，0 跳过。
+- 实际运行窗口截图：`deliverables/FPE2001-Remake_UI_Mockups_v2.4/scan-deep-boundary-blue-implemented-v24.png`。
+- 测试程序：`artifacts/ui-deep-boundary-blue-v24/Fpe2001Remake.UI.exe`。

@@ -155,18 +155,18 @@
             <RowDefinition Height="{StaticResource StatusbarRowHeight}" />
         </Grid.RowDefinitions>
 
-        <!-- ========== 标题栏：原结构不变，v2.3 Clear Blue 视觉主题 ========== -->
+        <!-- ========== 标题栏：原结构不变，v2.4 Deep Boundary Blue 视觉主题 ========== -->
         <Border Grid.Row="0" Background="{StaticResource HeaderGradient}"
                 BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1">
             <DockPanel LastChildFill="False">
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="18,0,0,0">
-                    <Border Width="28" Height="28" CornerRadius="7" Background="{StaticResource PrimarySoftBrush}"
-                            BorderBrush="#C7DEFF" BorderThickness="1">
+                        <Border Width="28" Height="28" CornerRadius="7" Background="{StaticResource PrimarySoftBrush}"
+                            BorderBrush="#8BA5BE" BorderThickness="1">
                         <Image Source="/Fpe2001Remake.UI;component/Assets/FPE2001-Remake.ico" Width="20" Height="20" />
                     </Border>
                     <TextBlock Text="FPE2001-Remake" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
                     <Border Margin="14,0,0,0" Padding="9,3" CornerRadius="6"
-                            Background="{StaticResource PrimarySoftBrush}" BorderBrush="#C7DEFF" BorderThickness="1">
+                            Background="{StaticResource PrimarySoftBrush}" BorderBrush="#8BA5BE" BorderThickness="1">
                         <TextBlock Text="{Binding CurrentTarget}"
                                    Foreground="{StaticResource PrimaryDarkBrush}" FontSize="12"
                                    VerticalAlignment="Center" />
@@ -180,12 +180,12 @@
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal"
                             VerticalAlignment="Center" Margin="24,0,0,0">
                     <Border Style="{StaticResource StatusBadge}"
-                            Background="#FFF4E5" BorderBrush="#E8C58E"
+                            Background="#F6EBD9" BorderBrush="#C9A96C"
                             Visibility="{Binding FreezeRunning, Converter={StaticResource BoolToVisibilityConverter}}">
                         <TextBlock Text="冻结运行中" Foreground="{StaticResource WarningBrush}" FontSize="11" />
                     </Border>
                     <Border Style="{StaticResource StatusBadge}"
-                            Background="#FFF4E5" BorderBrush="#E8C58E"
+                            Background="#F6EBD9" BorderBrush="#C9A96C"
                             Margin="6,0,0,0"
                             Visibility="{Binding MacroRunning, Converter={StaticResource BoolToVisibilityConverter}}">
                         <TextBlock Text="宏运行中" Foreground="{StaticResource WarningBrush}" FontSize="11" />

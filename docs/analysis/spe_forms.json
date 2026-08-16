@@ -1,0 +1,495 @@
+[
+  {
+    "offset": 388756,
+    "error": "not a plausible component stream"
+  },
+  {
+    "offset": 448888,
+    "end": 484606,
+    "object": {
+      "class": "TForm1",
+      "name": "Form1",
+      "properties": {
+        "Left": 271,
+        "Top": 199,
+        "AutoScroll": false,
+        "Caption": "Show Picture Expert - by Guoo-jaw Li",
+        "ClientHeight": 449,
+        "ClientWidth": 632,
+        "Font.Charset": {
+          "ident": "DEFAULT_CHARSET"
+        },
+        "Font.Color": {
+          "ident": "clWindowText"
+        },
+        "Font.Height": -13,
+        "Font.Name": "MS Sans Serif",
+        "Font.Style": {
+          "set": []
+        },
+        "Position": {
+          "ident": "poScreenCenter"
+        },
+        "Scaled": false,
+        "OnActivate": {
+          "ident": "FormActivate"
+        },
+        "OnCreate": {
+          "ident": "FormCreate"
+        },
+        "OnDestroy": {
+          "ident": "FormDestroy"
+        },
+        "PixelsPerInch": 120,
+        "TextHeight": 16
+      },
+      "children": [
+        {
+          "class": "TWallpaper",
+          "name": "Wallpaper1",
+          "properties": {
+            "Left": 0,
+            "Top": 0,
+            "Width": 632,
+            "Height": 41,
+            "Align": {
+              "ident": "alTop"
+            },
+            "TabOrder": 1,
+            "Wallpaper.Data": {
+              "binary_bytes": 29298,
+              "sha1_prefix": "323e16065ceb"
+            }
+          },
+          "children": [
+            {
+              "class": "TGauge",
+              "name": "Gauge1",
+              "properties": {
+                "Left": 578,
+                "Top": 8,
+                "Width": 51,
+                "Height": 25,
+                "Color": {
+                  "ident": "clBtnFace"
+                },
+                "ForeColor": {
+                  "ident": "clNavy"
+                },
+                "ParentColor": false,
+                "ParentShowHint": false,
+                "Progress": 0,
+                "ShowHint": false
+              },
+              "children": []
+            },
+            {
+              "class": "TBitBtn",
+              "name": "BmpBitBtn",
+              "properties": {
+                "Left": 296,
+                "Top": 8,
+                "Width": 65,
+                "Height": 24,
+                "Hint": "[F5]",
+                "Caption": "BMP",
+                "TabOrder": 4,
+                "OnClick": {
+                  "ident": "BmpBitBtnClick"
+                },
+                "Glyph.Data": {
+                  "binary_bytes": 378,
+                  "sha1_prefix": "bd00d6cb148e"
+                },
+                "NumGlyphs": 2
+              },
+              "children": []
+            },
+            {
+              "class": "TBitBtn",
+              "name": "JpgBitBtn",
+              "properties": {
+                "Left": 368,
+                "Top": 8,
+                "Width": 65,
+                "Height": 24,
+                "Hint": "[F6]",
+                "Caption": "JPG",
+                "TabOrder": 5,
+                "OnClick": {
+                  "ident": "JpgBitBtnClick"
+                },
+                "Glyph.Data": {
+                  "binary_bytes": 378,
+                  "sha1_prefix": "be1a39abbeef"
+                },
+                "NumGlyphs": 2
+              },
+              "children": []
+            },
+            {
+              "class": "TBitBtn",
+              "name": "GifBitBtn",
+              "properties": {
+                "Left": 225,
+                "Top": 8,
+                "Width": 65,
+                "Height": 24,
+                "Hint": "[F4]",
+                "Caption": "GIF",
+                "TabOrder": 3,
+                "OnClick": {
+                  "ident": "GifBitBtnClick"
+                },
+                "Glyph.Data": {
+                  "binary_bytes": 378,
+                  "sha1_prefix": "2f5c70359026"
+                },
+                "NumGlyphs": 2
+              },
+              "children": []
+            },
+            {
+              "class": "TBitBtn",
+              "name": "PaintBitBtn",
+              "properties": {
+                "Left": 144,
+                "Top": 8,
+                "Width": 75,
+                "Height": 24,
+                "Hint": "[F3]",
+                "TabOrder": 2,
+                "OnClick": {
+                  "ident": "PaintBitBtnClick"
+                },
+                "Glyph.Data": {
+                  "binary_bytes": 698,
+                  "sha1_prefix": "8310a5bc1aa7"
+                }
+              },
+              "children": []
+            },
+            {
+              "class": "TBitBtn",
+              "name": "DelBitBtn",
+              "properties": {
+                "Left": 73,
+                "Top": 8,
+                "Width": 65,
+                "Height": 24,
+                "Hint": "[F2]",
+                "ModalResult": 2,
+                "TabOrder": 1,
+                "OnClick": {
+                  "ident": "DelBitBtnClick"
+                },
+                "Glyph.Data": {
+                  "binary_bytes": 570,
+                  "sha1_prefix": "2133235a3b9e"
+                }
+              },
+              "children": []
+            },
+            {
+              "class": "TBitBtn",
+              "name": "NameBitBtn",
+              "properties": {
+                "Left": 3,
+                "Top": 8,
+                "Width": 65,
+                "Height": 24,
+                "Hint": "[F1]",
+                "ParentShowHint": false,
+                "ShowHint": true,
+                "TabOrder": 0,
+                "OnClick": {
+                  "ident": "NameBitBtnClick"
+                },
+                "Glyph.Data": {
+                  "binary_bytes": 570,
+                  "sha1_prefix": "dbfbb987d6d2"
+                }
+              },
+              "children": []
+            },
+            {
+              "class": "TSpinEdit",
+              "name": "SpinEdit1",
+              "properties": {
+                "Left": 438,
+                "Top": 7,
+                "Width": 41,
+                "Height": 26,
+                "Hint": "JPG quality",
+                "MaxLength": 3,
+                "MaxValue": 100,
+                "MinValue": 1,
+                "TabOrder": 6,
+                "Value": 80
+              },
+              "children": []
+            },
+            {
+              "class": "TEdit",
+              "name": "Edit1",
+              "properties": {
+                "Left": 483,
+                "Top": 8,
+                "Width": 89,
+                "Height": 24,
+                "Color": {
+                  "ident": "clYellow"
+                },
+                "ParentShowHint": false,
+                "ReadOnly": true,
+                "ShowHint": false,
+                "TabOrder": 7
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "class": "TPanel",
+          "name": "Panel1",
+          "properties": {
+            "Left": 0,
+            "Top": 41,
+            "Width": 185,
+            "Height": 408,
+            "Align": {
+              "ident": "alLeft"
+            },
+            "BevelOuter": {
+              "ident": "bvNone"
+            },
+            "TabOrder": 0
+          },
+          "children": [
+            {
+              "class": "TPanel",
+              "name": "Panel2",
+              "properties": {
+                "Left": 0,
+                "Top": 0,
+                "Width": 185,
+                "Height": 200,
+                "Align": {
+                  "ident": "alTop"
+                },
+                "BevelOuter": {
+                  "ident": "bvNone"
+                },
+                "TabOrder": 0
+              },
+              "children": [
+                {
+                  "class": "TBitBtn",
+                  "name": "BitBtn1",
+                  "properties": {
+                    "Left": 24,
+                    "Top": 183,
+                    "Width": 137,
+                    "Height": 19,
+                    "Hint": "*.bmp,jpg,gif",
+                    "ModalResult": 8,
+                    "ParentShowHint": false,
+                    "ShowHint": true,
+                    "TabOrder": 0,
+                    "OnClick": {
+                      "ident": "BitBtn1Click"
+                    },
+                    "Glyph.Data": {
+                      "binary_bytes": 634,
+                      "sha1_prefix": "7bad629532f8"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "class": "TDirectoryListBox",
+                  "name": "DirectoryListBox1",
+                  "properties": {
+                    "Left": 0,
+                    "Top": 24,
+                    "Width": 183,
+                    "Height": 160,
+                    "FileList": {
+                      "ident": "FileListBox1"
+                    },
+                    "ItemHeight": 16,
+                    "TabOrder": 1
+                  },
+                  "children": []
+                },
+                {
+                  "class": "TDriveComboBox",
+                  "name": "DriveComboBox1",
+                  "properties": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Width": 183,
+                    "Height": 22,
+                    "DirList": {
+                      "ident": "DirectoryListBox1"
+                    },
+                    "TabOrder": 2
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "class": "TFileListBox",
+              "name": "FileListBox1",
+              "properties": {
+                "Left": 0,
+                "Top": 200,
+                "Width": 185,
+                "Height": 208,
+                "Align": {
+                  "ident": "alClient"
+                },
+                "ItemHeight": 16,
+                "Mask": "*.jpg;*.gif;*.bmp;",
+                "MultiSelect": true,
+                "TabOrder": 1,
+                "OnClick": {
+                  "ident": "FileListBox1Click"
+                },
+                "OnDblClick": {
+                  "ident": "FileListBox1DblClick"
+                },
+                "OnKeyDown": {
+                  "ident": "FileListBox1KeyDown"
+                }
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "class": "TScrollBox",
+          "name": "ScrollBox1",
+          "properties": {
+            "Left": 185,
+            "Top": 41,
+            "Width": 447,
+            "Height": 408,
+            "Align": {
+              "ident": "alClient"
+            },
+            "TabOrder": 2
+          },
+          "children": [
+            {
+              "class": "TImage",
+              "name": "Image1",
+              "properties": {
+                "Left": 0,
+                "Top": 0,
+                "Width": 443,
+                "Height": 404,
+                "Align": {
+                  "ident": "alClient"
+                },
+                "Center": true,
+                "IncrementalDisplay": true,
+                "OnDblClick": {
+                  "ident": "Image1DblClick"
+                }
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "class": "TDanHint",
+          "name": "DanHint1",
+          "properties": {
+            "HintDirection": {
+              "ident": "hdDownRight"
+            },
+            "HintFont.Charset": {
+              "ident": "DEFAULT_CHARSET"
+            },
+            "HintFont.Color": {
+              "ident": "clBlue"
+            },
+            "HintFont.Height": -17,
+            "HintFont.Name": "MS Sans Serif",
+            "HintFont.Style": {
+              "set": []
+            },
+            "HintPauseTime": 1000,
+            "Left": 283,
+            "Top": 208
+          },
+          "children": []
+        }
+      ]
+    }
+  },
+  {
+    "offset": 484608,
+    "end": 505103,
+    "object": {
+      "class": "TForm2",
+      "name": "Form2",
+      "properties": {
+        "Left": 263,
+        "Top": 156,
+        "AutoScroll": false,
+        "Caption": "SPE - Zoom",
+        "ClientHeight": 393,
+        "ClientWidth": 581,
+        "Font.Charset": {
+          "ident": "DEFAULT_CHARSET"
+        },
+        "Font.Color": {
+          "ident": "clWindowText"
+        },
+        "Font.Height": -13,
+        "Font.Name": "MS Sans Serif",
+        "Font.Style": {
+          "set": []
+        },
+        "Position": {
+          "ident": "poScreenCenter"
+        },
+        "Scaled": false,
+        "WindowState": {
+          "ident": "wsMaximized"
+        },
+        "OnKeyDown": {
+          "ident": "FormKeyDown"
+        },
+        "PixelsPerInch": 120,
+        "TextHeight": 16
+      },
+      "children": [
+        {
+          "class": "TZImage",
+          "name": "ZImage1",
+          "properties": {
+            "Left": 0,
+            "Top": 0,
+            "Width": 581,
+            "Height": 393,
+            "ShowBorder": false,
+            "Bitmap.Data": {
+              "binary_bytes": 20058,
+              "sha1_prefix": "c68a3522cfe4"
+            },
+            "BorderWidth": 15,
+            "ForceRepaint": false,
+            "Align": {
+              "ident": "alClient"
+            }
+          },
+          "children": []
+        }
+      ]
+    }
+  }
+]

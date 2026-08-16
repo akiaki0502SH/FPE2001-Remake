@@ -1,0 +1,282 @@
+[
+  {
+    "offset": 448888,
+    "form": "Form1",
+    "components": [
+      {
+        "path": "Form1",
+        "class": "TForm1",
+        "properties": {
+          "Left": 271,
+          "Top": 199,
+          "Caption": "Show Picture Expert - by Guoo-jaw Li",
+          "OnActivate": "FormActivate",
+          "OnCreate": "FormCreate",
+          "OnDestroy": "FormDestroy"
+        }
+      },
+      {
+        "path": "Form1/Wallpaper1",
+        "class": "TWallpaper",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 632,
+          "Height": 41,
+          "Align": "alTop",
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "Form1/Wallpaper1/Gauge1",
+        "class": "TGauge",
+        "properties": {
+          "Left": 578,
+          "Top": 8,
+          "Width": 51,
+          "Height": 25
+        }
+      },
+      {
+        "path": "Form1/Wallpaper1/BmpBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 296,
+          "Top": 8,
+          "Width": 65,
+          "Height": 24,
+          "Hint": "[F5]",
+          "Caption": "BMP",
+          "TabOrder": 4,
+          "OnClick": "BmpBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/Wallpaper1/JpgBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 368,
+          "Top": 8,
+          "Width": 65,
+          "Height": 24,
+          "Hint": "[F6]",
+          "Caption": "JPG",
+          "TabOrder": 5,
+          "OnClick": "JpgBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/Wallpaper1/GifBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 225,
+          "Top": 8,
+          "Width": 65,
+          "Height": 24,
+          "Hint": "[F4]",
+          "Caption": "GIF",
+          "TabOrder": 3,
+          "OnClick": "GifBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/Wallpaper1/PaintBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 144,
+          "Top": 8,
+          "Width": 75,
+          "Height": 24,
+          "Hint": "[F3]",
+          "TabOrder": 2,
+          "OnClick": "PaintBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/Wallpaper1/DelBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 73,
+          "Top": 8,
+          "Width": 65,
+          "Height": 24,
+          "Hint": "[F2]",
+          "TabOrder": 1,
+          "OnClick": "DelBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/Wallpaper1/NameBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 3,
+          "Top": 8,
+          "Width": 65,
+          "Height": 24,
+          "Hint": "[F1]",
+          "TabOrder": 0,
+          "OnClick": "NameBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/Wallpaper1/SpinEdit1",
+        "class": "TSpinEdit",
+        "properties": {
+          "Left": 438,
+          "Top": 7,
+          "Width": 41,
+          "Height": 26,
+          "Hint": "JPG quality",
+          "MaxValue": 100,
+          "MinValue": 1,
+          "TabOrder": 6,
+          "Value": 80
+        }
+      },
+      {
+        "path": "Form1/Wallpaper1/Edit1",
+        "class": "TEdit",
+        "properties": {
+          "Left": 483,
+          "Top": 8,
+          "Width": 89,
+          "Height": 24,
+          "TabOrder": 7
+        }
+      },
+      {
+        "path": "Form1/Panel1",
+        "class": "TPanel",
+        "properties": {
+          "Left": 0,
+          "Top": 41,
+          "Width": 185,
+          "Height": 408,
+          "Align": "alLeft",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/Panel1/Panel2",
+        "class": "TPanel",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 185,
+          "Height": 200,
+          "Align": "alTop",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/Panel1/Panel2/BitBtn1",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 24,
+          "Top": 183,
+          "Width": 137,
+          "Height": 19,
+          "Hint": "*.bmp,jpg,gif",
+          "TabOrder": 0,
+          "OnClick": "BitBtn1Click"
+        }
+      },
+      {
+        "path": "Form1/Panel1/Panel2/DirectoryListBox1",
+        "class": "TDirectoryListBox",
+        "properties": {
+          "Left": 0,
+          "Top": 24,
+          "Width": 183,
+          "Height": 160,
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "Form1/Panel1/Panel2/DriveComboBox1",
+        "class": "TDriveComboBox",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 183,
+          "Height": 22,
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "Form1/Panel1/FileListBox1",
+        "class": "TFileListBox",
+        "properties": {
+          "Left": 0,
+          "Top": 200,
+          "Width": 185,
+          "Height": 208,
+          "Align": "alClient",
+          "TabOrder": 1,
+          "OnClick": "FileListBox1Click",
+          "OnDblClick": "FileListBox1DblClick",
+          "OnKeyDown": "FileListBox1KeyDown"
+        }
+      },
+      {
+        "path": "Form1/ScrollBox1",
+        "class": "TScrollBox",
+        "properties": {
+          "Left": 185,
+          "Top": 41,
+          "Width": 447,
+          "Height": 408,
+          "Align": "alClient",
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "Form1/ScrollBox1/Image1",
+        "class": "TImage",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 443,
+          "Height": 404,
+          "Align": "alClient",
+          "OnDblClick": "Image1DblClick"
+        }
+      },
+      {
+        "path": "Form1/DanHint1",
+        "class": "TDanHint",
+        "properties": {
+          "Left": 283,
+          "Top": 208
+        }
+      }
+    ]
+  },
+  {
+    "offset": 484608,
+    "form": "Form2",
+    "components": [
+      {
+        "path": "Form2",
+        "class": "TForm2",
+        "properties": {
+          "Left": 263,
+          "Top": 156,
+          "Caption": "SPE - Zoom",
+          "OnKeyDown": "FormKeyDown"
+        }
+      },
+      {
+        "path": "Form2/ZImage1",
+        "class": "TZImage",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 581,
+          "Height": 393,
+          "Align": "alClient"
+        }
+      }
+    ]
+  }
+]

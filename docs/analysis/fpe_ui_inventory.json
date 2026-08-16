@@ -1,0 +1,3133 @@
+[
+  {
+    "offset": 909688,
+    "form": "Form1",
+    "components": [
+      {
+        "path": "Form1",
+        "class": "TForm1",
+        "properties": {
+          "Left": 297,
+          "Top": 202,
+          "Caption": "FPE 2001",
+          "OnActivate": "FormActivate",
+          "OnCloseQuery": "FormCloseQuery",
+          "OnCreate": "FormCreate",
+          "OnDestroy": "FormDestroy",
+          "OnKeyDown": "FormKeyDown",
+          "OnResize": "FormResize"
+        }
+      },
+      {
+        "path": "Form1/PageC",
+        "class": "TExtPageControl",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 632,
+          "Height": 449,
+          "Align": "alClient",
+          "TabOrder": 0,
+          "OnChange": "PageCChange"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan",
+        "class": "TTabSheet",
+        "properties": {}
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel3",
+        "class": "TTilePanel",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 624,
+          "Height": 40,
+          "Align": "alTop",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel3/ClearButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 2,
+          "Top": 0,
+          "Width": 47,
+          "Height": 39,
+          "Hint": "[F2]",
+          "OnClick": "ClearButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel3/NewButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 58,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F3]",
+          "OnClick": "NewButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel3/NameButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 118,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F4]",
+          "OnClick": "NameButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel3/CalButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 290,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F7]",
+          "OnClick": "CalButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel3/LoadMissionButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 178,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F5]",
+          "OnClick": "LoadMissionButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel3/SaveMissionButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 234,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F6]",
+          "OnClick": "SaveMissionButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel3/MisUndoButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 346,
+          "Top": 1,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F11]",
+          "OnClick": "MisUndoButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel3/GameBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 536,
+          "Top": 7,
+          "Width": 75,
+          "Height": 28,
+          "Hint": "[Esc]",
+          "TabOrder": 0,
+          "OnClick": "GameBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4",
+        "class": "TPanel",
+        "properties": {
+          "Left": 0,
+          "Top": 40,
+          "Width": 624,
+          "Height": 217,
+          "Align": "alTop",
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/CountDP",
+        "class": "TDigitsPanel",
+        "properties": {
+          "Left": 136,
+          "Top": 145,
+          "Width": 22,
+          "Height": 8
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/TimesDP",
+        "class": "TDigitsPanel",
+        "properties": {
+          "Left": 504,
+          "Top": 21,
+          "Width": 12,
+          "Height": 8,
+          "Value": 1
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/LrsBmp1",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 4,
+          "Width": 65,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/LrsBmp2",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 136,
+          "Top": 4,
+          "Width": 66,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/LrsBmp3",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 504,
+          "Top": 4,
+          "Width": 66,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/LrsBmp4",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 136,
+          "Top": 51,
+          "Width": 66,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/LrsBmp5",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 136,
+          "Top": 129,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/RadioGroup1",
+        "class": "TRadioGroup",
+        "properties": {
+          "Left": 368,
+          "Top": 102,
+          "Width": 241,
+          "Height": 65,
+          "Caption": "Data Type (bits)",
+          "TabOrder": 4
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/MLB",
+        "class": "TListBox",
+        "properties": {
+          "Left": 8,
+          "Top": 21,
+          "Width": 121,
+          "Height": 148,
+          "Items.Strings": [
+            "Mission1"
+          ],
+          "TabOrder": 3,
+          "OnClick": "MLBClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/targetCB",
+        "class": "TComboBox",
+        "properties": {
+          "Left": 136,
+          "Top": 67,
+          "Width": 473,
+          "Height": 28,
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/DwRB",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 500,
+          "Top": 133,
+          "Width": 43,
+          "Height": 17,
+          "Caption": "32",
+          "TabOrder": 5
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/WordRB",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 442,
+          "Top": 133,
+          "Width": 43,
+          "Height": 17,
+          "Caption": "16",
+          "Checked": true,
+          "TabOrder": 6
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/ByteRB",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 384,
+          "Top": 133,
+          "Width": 43,
+          "Height": 17,
+          "Caption": "8",
+          "TabOrder": 7
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/Panel6",
+        "class": "TPanel",
+        "properties": {
+          "Left": 0,
+          "Top": 174,
+          "Width": 624,
+          "Height": 43,
+          "Align": "alBottom",
+          "TabOrder": 9
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/Panel6/RxGIFAnimator1",
+        "class": "TRxGIFAnimator",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 44,
+          "Height": 43,
+          "Align": "alLeft"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/Panel6/ProgressBar1",
+        "class": "TProgressBar",
+        "properties": {
+          "Left": 44,
+          "Top": 0,
+          "Width": 580,
+          "Height": 43,
+          "Align": "alClient",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/ScanBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 136,
+          "Top": 100,
+          "Width": 105,
+          "Height": 25,
+          "Hint": "[Enter]",
+          "TabOrder": 1,
+          "OnClick": "ScanBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/StopBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 250,
+          "Top": 100,
+          "Width": 105,
+          "Height": 25,
+          "TabOrder": 2,
+          "OnClick": "StopBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/RBall",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 558,
+          "Top": 133,
+          "Width": 43,
+          "Height": 17,
+          "Caption": "??",
+          "TabOrder": 8
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/Panel4/TargetEdit",
+        "class": "TComboBox",
+        "properties": {
+          "Left": 136,
+          "Top": 21,
+          "Width": 365,
+          "Height": 28,
+          "TabOrder": 10,
+          "OnChange": "TargetEditChange",
+          "OnDropDown": "TargetEditDropDown",
+          "OnKeyDown": "TargetEditKeyDown",
+          "OnKeyPress": "TargetEditKeyPress"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel4",
+        "class": "TTilePanel",
+        "properties": {
+          "Left": 0,
+          "Top": 257,
+          "Width": 52,
+          "Height": 160,
+          "Align": "alLeft",
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel4/AddButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 1,
+          "Top": 2,
+          "Width": 51,
+          "Height": 40,
+          "Hint": "[F8]",
+          "OnClick": "AddButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel4/ListButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 1,
+          "Top": 43,
+          "Width": 51,
+          "Height": 40,
+          "Hint": "[F9]",
+          "OnClick": "ListButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/TilePanel4/EditButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 1,
+          "Top": 84,
+          "Width": 51,
+          "Height": 40,
+          "Hint": "[F10]",
+          "OnClick": "EditButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/GroupBox4",
+        "class": "TGroupBox",
+        "properties": {
+          "Left": 376,
+          "Top": 257,
+          "Width": 248,
+          "Height": 160,
+          "Align": "alRight",
+          "Caption": "Memory",
+          "TabOrder": 3
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/GroupBox4/Label3",
+        "class": "TLabel",
+        "properties": {
+          "Left": 8,
+          "Top": 24,
+          "Width": 233,
+          "Height": 127
+        }
+      },
+      {
+        "path": "Form1/PageC/TabScan/AddrList",
+        "class": "TRxCheckListBox",
+        "properties": {
+          "Left": 52,
+          "Top": 257,
+          "Width": 324,
+          "Height": 160,
+          "Align": "alClient",
+          "TabOrder": 4,
+          "OnClick": "AddrListClick",
+          "OnDblClick": "AddrListDblClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs",
+        "class": "TTabSheet",
+        "properties": {}
+      },
+      {
+        "path": "Form1/PageC/TabTabs/ListView1",
+        "class": "TListViewExt",
+        "properties": {
+          "Left": 0,
+          "Top": 111,
+          "Width": 624,
+          "Height": 306,
+          "Align": "alClient",
+          "OnDblClick": "ListView1DblClick",
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/TilePanel5",
+        "class": "TTilePanel",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 0,
+          "Height": 40,
+          "Align": "alTop",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/TilePanel5/AddEntryButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 2,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F1]",
+          "OnClick": "AddEntryButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/TilePanel5/DelEntryButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 58,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F2]",
+          "OnClick": "DelEntryButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/TilePanel5/DelAllButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 114,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F3]",
+          "OnClick": "DelAllButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/TilePanel5/LoadfpeButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 346,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F7]",
+          "OnClick": "LoadfpeButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/TilePanel5/SavefpeButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 402,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F8]",
+          "OnClick": "SavefpeButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/TilePanel5/EditItemButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 226,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F5]",
+          "OnClick": "EditItemButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/TilePanel5/WriteButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 282,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F6]",
+          "OnClick": "WriteButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/TilePanel5/ModifyButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 170,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F4]",
+          "OnClick": "ModifyButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/TilePanel5/MemCB",
+        "class": "TComboBox",
+        "properties": {
+          "Left": 472,
+          "Top": 8,
+          "Width": 143,
+          "Height": 24,
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/Panel5",
+        "class": "TPanel",
+        "properties": {
+          "Left": 0,
+          "Top": 40,
+          "Width": 0,
+          "Height": 71,
+          "Align": "alTop",
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/Panel5/LrsBmp6",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 11,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/Panel5/LrsBmp7",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 376,
+          "Top": 11,
+          "Width": 49,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/Panel5/LrsBmp8",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 44,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/Panel5/LrsBmp9",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 576,
+          "Top": 45,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/Panel5/GameEdit",
+        "class": "TEdit",
+        "properties": {
+          "Left": 48,
+          "Top": 6,
+          "Width": 321,
+          "Height": 28,
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/Panel5/MadeEdit",
+        "class": "TEdit",
+        "properties": {
+          "Left": 432,
+          "Top": 6,
+          "Width": 121,
+          "Height": 28,
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/Panel5/CommentEdit",
+        "class": "TEdit",
+        "properties": {
+          "Left": 48,
+          "Top": 39,
+          "Width": 505,
+          "Height": 28,
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/Panel5/TabCB",
+        "class": "TCheckBox",
+        "properties": {
+          "Left": 560,
+          "Top": 45,
+          "Width": 17,
+          "Height": 17,
+          "TabOrder": 3
+        }
+      },
+      {
+        "path": "Form1/PageC/TabTabs/Panel5/RxClock1",
+        "class": "TRxClock",
+        "properties": {
+          "Left": 557,
+          "Top": 8,
+          "Width": 65,
+          "Height": 25,
+          "OnGetTime": "RxClock1GetTime"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor",
+        "class": "TTabSheet",
+        "properties": {}
+      },
+      {
+        "path": "Form1/PageC/TabEditor/TilePanel1",
+        "class": "TTilePanel",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 0,
+          "Height": 40,
+          "Align": "alTop",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/TilePanel1/OpenButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 2,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F1]",
+          "OnClick": "OpenButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/TilePanel1/FindButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 57,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F2]",
+          "OnClick": "FindButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/TilePanel1/UndoButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 112,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F3]",
+          "OnClick": "UndoButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/TilePanel1/NoteButton1",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 280,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F6]",
+          "OnClick": "NoteButton1Click"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/TilePanel1/AddTabButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 168,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F4]",
+          "OnClick": "AddTabButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/TilePanel1/FreshButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 224,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F5]",
+          "OnClick": "FreshButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/TilePanel1/CBox",
+        "class": "TComboBox",
+        "properties": {
+          "Left": 344,
+          "Top": 8,
+          "Width": 272,
+          "Height": 24,
+          "TabOrder": 0,
+          "OnKeyDown": "CBoxKeyDown"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/SGrid",
+        "class": "TColorStringGrid",
+        "properties": {
+          "Left": 0,
+          "Top": 72,
+          "Width": 602,
+          "Height": 345,
+          "Align": "alClient",
+          "TabOrder": 1,
+          "OnSelectCell": "SGridSelectCell",
+          "OnGetCellColor": "SGridGetCellColor"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/Panel1",
+        "class": "TPanel",
+        "properties": {
+          "Left": 0,
+          "Top": 40,
+          "Width": 0,
+          "Height": 32,
+          "Align": "alTop",
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/Panel1/LrsBmp10",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 8,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/Panel1/Label2",
+        "class": "TLabel",
+        "properties": {
+          "Left": 184,
+          "Top": 0,
+          "Width": 3,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/Panel1/OvrEdit1",
+        "class": "TOvrEdit",
+        "properties": {
+          "Left": 432,
+          "Top": 2,
+          "Width": 177,
+          "Height": 28,
+          "TabOrder": 0,
+          "OnChange": "OvrEdit1Change",
+          "OnKeyDown": "OvrEdit1KeyDown"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/Panel1/OvrEdit2",
+        "class": "TOvrEdit",
+        "properties": {
+          "Left": 48,
+          "Top": 2,
+          "Width": 129,
+          "Height": 28,
+          "TabOrder": 1,
+          "OnKeyDown": "OvrEdit2KeyDown"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/Panel1/RBHex",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 320,
+          "Top": 7,
+          "Width": 41,
+          "Height": 17,
+          "Caption": "16",
+          "Checked": true,
+          "TabOrder": 2,
+          "OnClick": "RBHexClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/Panel1/RBString",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 362,
+          "Top": 7,
+          "Width": 55,
+          "Height": 17,
+          "Caption": "10/str",
+          "TabOrder": 3,
+          "OnClick": "RBStringClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/Panel2",
+        "class": "TPanel",
+        "properties": {
+          "Left": -22,
+          "Top": 72,
+          "Width": 22,
+          "Height": 345,
+          "Align": "alRight",
+          "Caption": "Panel2",
+          "TabOrder": 3
+        }
+      },
+      {
+        "path": "Form1/PageC/TabEditor/Panel2/SBar1",
+        "class": "TLargeScrollBar",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 22,
+          "Height": 337,
+          "TabOrder": 0,
+          "OnScroll": "SBar1Scroll"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect",
+        "class": "TTabSheet",
+        "properties": {}
+      },
+      {
+        "path": "Form1/PageC/TabSelect/DirectoryListBox1",
+        "class": "TDirectoryListBox",
+        "properties": {
+          "Left": 0,
+          "Top": 64,
+          "Width": 193,
+          "Height": 321,
+          "TabOrder": 0,
+          "OnChange": "DirectoryListBox1Change"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect/DriveComboBox1",
+        "class": "TDriveComboBox",
+        "properties": {
+          "Left": 0,
+          "Top": 40,
+          "Width": 193,
+          "Height": 22,
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect/FilterComboBox1",
+        "class": "TFilterComboBox",
+        "properties": {
+          "Left": 0,
+          "Top": 387,
+          "Width": 193,
+          "Height": 24,
+          "Filter": "All files (*.*)|*.*|Save file (*.sav)|*.sav|Save file (*.dat)|*.dat|Save file (savegame.*)|savegame.*",
+          "TabOrder": 2,
+          "OnChange": "FilterComboBox1Change"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect/TilePanel6",
+        "class": "TTilePanel",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 0,
+          "Height": 40,
+          "Align": "alTop",
+          "TabOrder": 3
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect/TilePanel6/ListSubDirButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 2,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F1]",
+          "OnClick": "ListSubDirButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect/TilePanel6/ScanButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 186,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F4]",
+          "OnClick": "ScanButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect/TilePanel6/EditSaveButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 242,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F5]",
+          "OnClick": "EditSaveButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect/TilePanel6/AllFileButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 58,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F2]",
+          "OnClick": "AllFileButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect/TilePanel6/RefreshFileButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 114,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F3]",
+          "OnClick": "RefreshFileButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect/TilePanel6/StopAcessButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 298,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F6]",
+          "OnClick": "StopAcessButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSelect/ListViewExt1",
+        "class": "TListViewExt",
+        "properties": {
+          "Left": 198,
+          "Top": 40,
+          "Width": 427,
+          "Height": 373,
+          "OnDblClick": "ListViewExt1DblClick",
+          "OnCompare": "ListViewExt1Compare",
+          "TabOrder": 4
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE",
+        "class": "TTabSheet",
+        "properties": {}
+      },
+      {
+        "path": "Form1/PageC/TabGPE/TilePanel2",
+        "class": "TTilePanel",
+        "properties": {
+          "Left": 0,
+          "Top": 65,
+          "Width": 624,
+          "Height": 40,
+          "Align": "alTop",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/TilePanel2/LoadPicButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F1]",
+          "OnClick": "LoadPicButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/TilePanel2/gEditButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 168,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F4]",
+          "OnClick": "gEditButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/TilePanel2/gNameButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 56,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F2]",
+          "OnClick": "gNameButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/TilePanel2/gDelButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 112,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F3]",
+          "OnClick": "gDelButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/TilePanel2/GPEDir",
+        "class": "TEdit",
+        "properties": {
+          "Left": 328,
+          "Top": 8,
+          "Width": 289,
+          "Height": 24,
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/FileListBox",
+        "class": "TFileListBox",
+        "properties": {
+          "Left": 0,
+          "Top": 105,
+          "Width": 153,
+          "Height": 312,
+          "Align": "alLeft",
+          "TabOrder": 1,
+          "OnClick": "FileListBoxClick",
+          "OnKeyDown": "FileListBoxKeyDown"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3",
+        "class": "TPanel",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 624,
+          "Height": 65,
+          "Align": "alTop",
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1",
+        "class": "TGroupBox",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 624,
+          "Height": 65,
+          "Align": "alClient",
+          "Caption": "GPE",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1/LrsBmp11",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 88,
+          "Top": 14,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1/LrsBmp12",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 344,
+          "Top": 14,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1/LrsBmp13",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 520,
+          "Top": 14,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1/CapON",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 16,
+          "Top": 18,
+          "Width": 57,
+          "Height": 17,
+          "Caption": "ON",
+          "TabOrder": 0,
+          "OnClick": "CapONClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1/CapOFF",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 16,
+          "Top": 40,
+          "Width": 57,
+          "Height": 17,
+          "Caption": "OFF",
+          "Checked": true,
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1/CapNO",
+        "class": "TEdit",
+        "properties": {
+          "Left": 520,
+          "Top": 30,
+          "Width": 49,
+          "Height": 28,
+          "TabOrder": 2,
+          "Text": "0"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1/CapName",
+        "class": "TEdit",
+        "properties": {
+          "Left": 344,
+          "Top": 30,
+          "Width": 161,
+          "Height": 28,
+          "TabOrder": 3,
+          "Text": "pic"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1/CapPath",
+        "class": "TEdit",
+        "properties": {
+          "Left": 88,
+          "Top": 30,
+          "Width": 241,
+          "Height": 28,
+          "TabOrder": 4,
+          "Text": "c:\\temp"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1/addCheckBox",
+        "class": "TCheckBox",
+        "properties": {
+          "Left": 576,
+          "Top": 17,
+          "Width": 41,
+          "Height": 17,
+          "Caption": "++",
+          "TabOrder": 5
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/Panel3/GroupBox1/x2CheckBox",
+        "class": "TCheckBox",
+        "properties": {
+          "Left": 576,
+          "Top": 38,
+          "Width": 41,
+          "Height": 17,
+          "Caption": "x2",
+          "TabOrder": 6
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/ScrollBox1",
+        "class": "TScrollBox",
+        "properties": {
+          "Left": 153,
+          "Top": 105,
+          "Width": 471,
+          "Height": 312,
+          "Align": "alClient",
+          "TabOrder": 3
+        }
+      },
+      {
+        "path": "Form1/PageC/TabGPE/ScrollBox1/Image1",
+        "class": "TImage",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 467,
+          "Height": 308,
+          "Align": "alClient"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabMacKey",
+        "class": "TTabSheet",
+        "properties": {}
+      },
+      {
+        "path": "Form1/PageC/TabMacKey/TilePanel7",
+        "class": "TTilePanel",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 624,
+          "Height": 40,
+          "Align": "alTop",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabMacKey/TilePanel7/SetmackeyButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 1,
+          "Top": 0,
+          "Width": 51,
+          "Height": 40,
+          "Hint": "[F1]",
+          "OnClick": "SetmackeyButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabMacKey/TilePanel7/DelmackeyButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 58,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F2]",
+          "OnClick": "DelmackeyButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabMacKey/TilePanel7/UpdateMacroButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 114,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F3]",
+          "OnClick": "UpdateMacroButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabMacKey/TilePanel7/AddMouseLButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 170,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F4]",
+          "OnClick": "AddMouseLButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabMacKey/TilePanel7/AddMouseRButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 226,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F5]",
+          "OnClick": "AddMouseRButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabMacKey/TilePanel7/AddMouseDButton",
+        "class": "TExplorerButton",
+        "properties": {
+          "Left": 282,
+          "Top": 0,
+          "Width": 50,
+          "Height": 39,
+          "Hint": "[F6]",
+          "OnClick": "AddMouseDButtonClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabMacKey/SGmacro",
+        "class": "TStringGrid",
+        "properties": {
+          "Left": 0,
+          "Top": 40,
+          "Width": 624,
+          "Height": 377,
+          "Align": "alClient",
+          "TabOrder": 1,
+          "OnDblClick": "SGmacroDblClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSpeed",
+        "class": "TTabSheet",
+        "properties": {}
+      },
+      {
+        "path": "Form1/PageC/TabSpeed/LrsBmp26",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 54,
+          "Top": 105,
+          "Width": 76,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSpeed/LrsBmp27",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 22,
+          "Top": 153,
+          "Width": 66,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSpeed/LrsBmp28",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 542,
+          "Top": 153,
+          "Width": 66,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSpeed/LrsBmp29",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 62,
+          "Top": 257,
+          "Width": 66,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSpeed/RxLabel2",
+        "class": "TRxLabel",
+        "properties": {
+          "Left": 144,
+          "Top": 244,
+          "Width": 67,
+          "Height": 42,
+          "Caption": "OFF"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSpeed/TrackBar2",
+        "class": "TTrackBar",
+        "properties": {
+          "Left": 40,
+          "Top": 176,
+          "Width": 553,
+          "Height": 45,
+          "TabOrder": 0,
+          "OnChange": "TrackBar2Change"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSpeed/TilePanel8",
+        "class": "TTilePanel",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 624,
+          "Height": 40,
+          "Align": "alTop",
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "Form1/PageC/TabSpeed/RxSwitch1",
+        "class": "TRxSwitch",
+        "properties": {
+          "Left": 144,
+          "Top": 88,
+          "Width": 49,
+          "Height": 49,
+          "Caption": "RxSwitch1",
+          "TabOrder": 2,
+          "OnOn": "RxSwitch1On",
+          "OnOff": "RxSwitch1Off"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers",
+        "class": "TTabSheet",
+        "properties": {}
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox2",
+        "class": "TGroupBox",
+        "properties": {
+          "Left": 8,
+          "Top": 270,
+          "Width": 609,
+          "Height": 139,
+          "Caption": "Tool",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox2/AscEdit",
+        "class": "TEdit",
+        "properties": {
+          "Left": 16,
+          "Top": 20,
+          "Width": 465,
+          "Height": 28,
+          "TabOrder": 0,
+          "OnKeyUp": "AscEditKeyDown"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox2/HexEdit",
+        "class": "TEdit",
+        "properties": {
+          "Left": 16,
+          "Top": 103,
+          "Width": 465,
+          "Height": 28,
+          "TabOrder": 1,
+          "OnKeyUp": "HexEditKeyDown"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox2/ToHexBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 280,
+          "Top": 55,
+          "Width": 129,
+          "Height": 42,
+          "TabOrder": 2,
+          "OnClick": "ToHexBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox2/NoteBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 496,
+          "Top": 20,
+          "Width": 105,
+          "Height": 25,
+          "TabOrder": 3,
+          "OnClick": "NoteBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox2/ExplorerBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 496,
+          "Top": 49,
+          "Width": 105,
+          "Height": 25,
+          "TabOrder": 4,
+          "OnClick": "ExplorerBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox2/PaintBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 496,
+          "Top": 79,
+          "Width": 105,
+          "Height": 25,
+          "TabOrder": 5,
+          "OnClick": "PaintBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox2/CalBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 496,
+          "Top": 108,
+          "Width": 105,
+          "Height": 25,
+          "TabOrder": 6,
+          "OnClick": "CalBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox2/ToDecBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 104,
+          "Top": 55,
+          "Width": 129,
+          "Height": 42,
+          "TabOrder": 7,
+          "OnClick": "ToDecBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3",
+        "class": "TGroupBox",
+        "properties": {
+          "Left": 8,
+          "Top": 8,
+          "Width": 609,
+          "Height": 260,
+          "Caption": "Set",
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LrsBmp17",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 30,
+          "Top": 24,
+          "Width": 65,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LrsBmp18",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 270,
+          "Top": 24,
+          "Width": 65,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LrsBmp19",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 390,
+          "Top": 24,
+          "Width": 65,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/Label7",
+        "class": "TLabel",
+        "properties": {
+          "Left": 8,
+          "Top": 56,
+          "Width": 41,
+          "Height": 16,
+          "Caption": "Label7"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LrsBmp20",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 304,
+          "Top": 53,
+          "Width": 65,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LrsBmp21",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 198,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LrsBmp22",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 160,
+          "Top": 198,
+          "Width": 65,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LrsBmp25",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 150,
+          "Top": 24,
+          "Width": 68,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LrsBmp23",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 6,
+          "Top": 112,
+          "Width": 66,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LrsBmp30",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 6,
+          "Top": 136,
+          "Width": 33,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LrsBmp31",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 574,
+          "Top": 136,
+          "Width": 33,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/CBspy",
+        "class": "TCheckBox",
+        "properties": {
+          "Left": 8,
+          "Top": 24,
+          "Width": 22,
+          "Height": 17,
+          "TabOrder": 0,
+          "OnClick": "CBspyClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LimitCB",
+        "class": "TComboBox",
+        "properties": {
+          "Left": 8,
+          "Top": 72,
+          "Width": 161,
+          "Height": 24,
+          "Items.Strings": [
+            "Auto",
+            "2GB",
+            "3GB",
+            "4GB",
+            "DOS/16bit"
+          ],
+          "TabOrder": 1,
+          "OnChange": "LimitCBChange"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/TmpEdit",
+        "class": "TEdit",
+        "properties": {
+          "Left": 304,
+          "Top": 72,
+          "Width": 289,
+          "Height": 24,
+          "TabOrder": 2,
+          "Text": "c:\\temp"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/DBCB",
+        "class": "TCheckBox",
+        "properties": {
+          "Left": 248,
+          "Top": 24,
+          "Width": 22,
+          "Height": 17,
+          "TabOrder": 3,
+          "OnClick": "DBCBClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/HotKey1",
+        "class": "THotKey",
+        "properties": {
+          "Left": 8,
+          "Top": 216,
+          "Width": 137,
+          "Height": 22,
+          "TabOrder": 4,
+          "OnExit": "HotKey1Exit"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/SetBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 312,
+          "Top": 216,
+          "Width": 281,
+          "Height": 25,
+          "TabOrder": 5,
+          "OnClick": "SetBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/HotKey2",
+        "class": "THotKey",
+        "properties": {
+          "Left": 160,
+          "Top": 216,
+          "Width": 137,
+          "Height": 22,
+          "TabOrder": 6
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/CBspe",
+        "class": "TCheckBox",
+        "properties": {
+          "Left": 368,
+          "Top": 24,
+          "Width": 22,
+          "Height": 17,
+          "TabOrder": 7,
+          "OnClick": "CBspeClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/PageCBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 176,
+          "Top": 72,
+          "Width": 97,
+          "Height": 25,
+          "TabOrder": 8,
+          "OnClick": "PageCBitBtnClick"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/MisUndoCB",
+        "class": "TCheckBox",
+        "properties": {
+          "Left": 128,
+          "Top": 24,
+          "Width": 22,
+          "Height": 17,
+          "TabOrder": 9
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/LockTrackBar",
+        "class": "TTrackBar",
+        "properties": {
+          "Left": 8,
+          "Top": 152,
+          "Width": 593,
+          "Height": 29,
+          "TabOrder": 10,
+          "OnChange": "LockTrackBarChange"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabOthers/GroupBox3/slCheckBox",
+        "class": "TCheckBox",
+        "properties": {
+          "Left": 544,
+          "Top": 24,
+          "Width": 57,
+          "Height": 17,
+          "Caption": "s-list",
+          "TabOrder": 11
+        }
+      },
+      {
+        "path": "Form1/PageC/TabAbout",
+        "class": "TTabSheet",
+        "properties": {}
+      },
+      {
+        "path": "Form1/PageC/TabAbout/Label18",
+        "class": "TLabel",
+        "properties": {
+          "Left": 115,
+          "Top": 316,
+          "Width": 66,
+          "Height": 25,
+          "Caption": "WWW:"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabAbout/Label19",
+        "class": "TLabel",
+        "properties": {
+          "Left": 115,
+          "Top": 340,
+          "Width": 61,
+          "Height": 25,
+          "Caption": "E-mail:"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabAbout/Label24",
+        "class": "TLabel",
+        "properties": {
+          "Left": 268,
+          "Top": 278,
+          "Width": 6,
+          "Height": 29
+        }
+      },
+      {
+        "path": "Form1/PageC/TabAbout/LrsBmp24",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 174,
+          "Top": 104,
+          "Width": 275,
+          "Height": 87
+        }
+      },
+      {
+        "path": "Form1/PageC/TabAbout/RxLabel1",
+        "class": "TRxLabel",
+        "properties": {
+          "Left": 241,
+          "Top": 32,
+          "Width": 144,
+          "Height": 38,
+          "Caption": "FPE 2001"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabAbout/FPUrlLabel1",
+        "class": "TFPUrlLabel",
+        "properties": {
+          "Left": 184,
+          "Top": 316,
+          "Width": 285,
+          "Height": 25,
+          "Caption": "http://home.kimo.com.tw/jaw002/"
+        }
+      },
+      {
+        "path": "Form1/PageC/TabAbout/FPUrlLabel2",
+        "class": "TFPUrlLabel",
+        "properties": {
+          "Left": 184,
+          "Top": 340,
+          "Width": 222,
+          "Height": 25,
+          "Caption": "jaw001@ms49.url.com.tw"
+        }
+      },
+      {
+        "path": "Form1/FindD",
+        "class": "TFindDialog",
+        "properties": {
+          "OnFind": "FindDFind",
+          "Left": 298,
+          "Top": 265
+        }
+      },
+      {
+        "path": "Form1/DanHint1",
+        "class": "TDanHint",
+        "properties": {
+          "Left": 265,
+          "Top": 265
+        }
+      },
+      {
+        "path": "Form1/MMF",
+        "class": "TMemoryMappedFile",
+        "properties": {
+          "Left": 229,
+          "Top": 265
+        }
+      },
+      {
+        "path": "Form1/MMF2",
+        "class": "TMemoryMappedFile",
+        "properties": {
+          "Left": 194,
+          "Top": 265
+        }
+      },
+      {
+        "path": "Form1/MgPrevInstance1",
+        "class": "TMgPrevInstance",
+        "properties": {
+          "Left": 396,
+          "Top": 265
+        }
+      },
+      {
+        "path": "Form1/ImageList1",
+        "class": "TImageList",
+        "properties": {
+          "Left": 332,
+          "Top": 265
+        }
+      },
+      {
+        "path": "Form1/SaveDialog1",
+        "class": "TSaveDialog",
+        "properties": {
+          "DefaultExt": "fpe",
+          "Filter": "*.fpe|*.fpe|*.mis|*.mis|*.txt|*.txt",
+          "Left": 364,
+          "Top": 265
+        }
+      },
+      {
+        "path": "Form1/PopupMenu1",
+        "class": "TPopupMenu",
+        "properties": {
+          "Left": 180,
+          "Top": 308
+        }
+      },
+      {
+        "path": "Form1/PopupMenu1/Add1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Add",
+          "OnClick": "Add1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu1/Relist1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "ReList",
+          "OnClick": "Relist1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu1/Edit1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Edit",
+          "OnClick": "Edit1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu2",
+        "class": "TPopupMenu",
+        "properties": {
+          "Left": 220,
+          "Top": 308
+        }
+      },
+      {
+        "path": "Form1/PopupMenu2/New1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Add",
+          "OnClick": "New1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu2/Delete1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Delete",
+          "OnClick": "Delete1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu2/DeleteAll1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Delete All",
+          "OnClick": "DeleteAll1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu2/Modify1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Modify",
+          "OnClick": "Modify1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu2/Edit2",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Edit",
+          "OnClick": "Edit2Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu2/WriteNow1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Write Now!",
+          "OnClick": "WriteNow1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu2/Loadfpe1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Load .fpe",
+          "OnClick": "Loadfpe1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu2/Writefpe1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Save .fpe",
+          "OnClick": "Writefpe1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu3",
+        "class": "TPopupMenu",
+        "properties": {
+          "Left": 276,
+          "Top": 308
+        }
+      },
+      {
+        "path": "Form1/PopupMenu3/Scan1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Scan",
+          "OnClick": "Scan1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu3/Edit3",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Edit",
+          "OnClick": "Edit3Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu3/Stop1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Stop",
+          "OnClick": "Stop1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu4",
+        "class": "TPopupMenu",
+        "properties": {
+          "Left": 316,
+          "Top": 308
+        }
+      },
+      {
+        "path": "Form1/PopupMenu4/New2",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Clear",
+          "OnClick": "New2Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu4/New3",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "New",
+          "OnClick": "New3Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu4/Rename1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Rename",
+          "OnClick": "Rename1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu4/Loadmis1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Load .mis",
+          "OnClick": "Loadmis1Click"
+        }
+      },
+      {
+        "path": "Form1/PopupMenu4/Savemis1",
+        "class": "TMenuItem",
+        "properties": {
+          "Caption": "Save .mis",
+          "OnClick": "Savemis1Click"
+        }
+      },
+      {
+        "path": "Form1/OpenDialog1",
+        "class": "TOpenDialog",
+        "properties": {
+          "Filter": "*.fpe|*.fpe|*.txt|*.txt|*.fpe;*.txt|*.fpe;*.txt|*.mis|*.mis|*.*|*.*|*.bmp|*.bmp",
+          "Left": 159,
+          "Top": 265
+        }
+      }
+    ]
+  },
+  {
+    "offset": 1419948,
+    "form": "Form5",
+    "components": [
+      {
+        "path": "Form5",
+        "class": "TForm5",
+        "properties": {
+          "Left": 335,
+          "Top": 166,
+          "Caption": "File read/write",
+          "OnDestroy": "FormDestroy",
+          "OnShow": "FormShow"
+        }
+      },
+      {
+        "path": "Form5/LrsBmp1",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 302,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "Form5/FileListBox1",
+        "class": "TFileListBox",
+        "properties": {
+          "Left": 176,
+          "Top": 8,
+          "Width": 297,
+          "Height": 276,
+          "TabOrder": 0,
+          "OnDblClick": "FileListBox1DblClick"
+        }
+      },
+      {
+        "path": "Form5/DirectoryListBox1",
+        "class": "TDirectoryListBox",
+        "properties": {
+          "Left": 8,
+          "Top": 36,
+          "Width": 161,
+          "Height": 213,
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "Form5/DriveComboBox1",
+        "class": "TDriveComboBox",
+        "properties": {
+          "Left": 8,
+          "Top": 8,
+          "Width": 161,
+          "Height": 22,
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "Form5/FilterComboBox1",
+        "class": "TFilterComboBox",
+        "properties": {
+          "Left": 8,
+          "Top": 256,
+          "Width": 161,
+          "Height": 24,
+          "Filter": "FPE and Text file|*.fpe;*.txt|FPE file|*.fpe|Text file|*.txt",
+          "TabOrder": 3
+        }
+      },
+      {
+        "path": "Form5/BitBtn2",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 480,
+          "Top": 8,
+          "Width": 97,
+          "Height": 50,
+          "TabOrder": 4,
+          "OnClick": "BitBtn2Click"
+        }
+      },
+      {
+        "path": "Form5/BitBtn3",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 480,
+          "Top": 72,
+          "Width": 97,
+          "Height": 50,
+          "TabOrder": 5
+        }
+      },
+      {
+        "path": "Form5/Edit2",
+        "class": "TEdit",
+        "properties": {
+          "Left": 48,
+          "Top": 297,
+          "Width": 425,
+          "Height": 28,
+          "TabOrder": 6,
+          "Text": "*.fpe;*.txt"
+        }
+      },
+      {
+        "path": "Form5/DelBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 480,
+          "Top": 248,
+          "Width": 97,
+          "Height": 33,
+          "TabOrder": 7,
+          "OnClick": "DelBitBtnClick"
+        }
+      },
+      {
+        "path": "Form5/NewBitBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 480,
+          "Top": 208,
+          "Width": 97,
+          "Height": 33,
+          "TabOrder": 8,
+          "OnClick": "NewBitBtnClick"
+        }
+      }
+    ]
+  },
+  {
+    "offset": 1423848,
+    "form": "Form6",
+    "components": [
+      {
+        "path": "Form6",
+        "class": "TForm6",
+        "properties": {
+          "Left": 334,
+          "Top": 192,
+          "Caption": "Message"
+        }
+      },
+      {
+        "path": "Form6/LrsBmp1",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 8,
+          "Width": 461,
+          "Height": 39
+        }
+      },
+      {
+        "path": "Form6/Label1",
+        "class": "TLabel",
+        "properties": {
+          "Left": 169,
+          "Top": 6,
+          "Width": 22,
+          "Height": 25,
+          "Caption": "01"
+        }
+      },
+      {
+        "path": "Form6/BitBtn1",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 132,
+          "Top": 58,
+          "Width": 89,
+          "Height": 33,
+          "TabOrder": 0,
+          "Visible": false
+        }
+      },
+      {
+        "path": "Form6/BitBtn2",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 244,
+          "Top": 58,
+          "Width": 89,
+          "Height": 33,
+          "TabOrder": 1,
+          "Visible": false
+        }
+      },
+      {
+        "path": "Form6/BitBtn3",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 188,
+          "Top": 58,
+          "Width": 89,
+          "Height": 33,
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "Form6/Edit1",
+        "class": "TComboBox",
+        "properties": {
+          "Left": 6,
+          "Top": 26,
+          "Width": 465,
+          "Height": 28,
+          "Items.Strings": [
+            "生命值",
+            "魔法值",
+            "經驗值",
+            "無敵",
+            "金錢",
+            "體力",
+            "內力",
+            "活力",
+            "力量",
+            "生命力",
+            "防禦力",
+            "移動力",
+            "反應值",
+            "靈敏度",
+            "抗魔法力",
+            "職業",
+            "速度",
+            "時間",
+            "武器種類",
+            "武器數",
+            "炸彈數",
+            "子彈數",
+            "武器強度",
+            "武器能量",
+            "主武器",
+            "副武器",
+            "物品"
+          ],
+          "TabOrder": 3
+        }
+      }
+    ]
+  },
+  {
+    "offset": 1427468,
+    "form": "FPURLLabelAboutDlg",
+    "components": [
+      {
+        "path": "FPURLLabelAboutDlg",
+        "class": "TFPURLLabelAboutDlg",
+        "properties": {
+          "Left": 312,
+          "Top": 249,
+          "Caption": "About"
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/Bevel1",
+        "class": "TBevel",
+        "properties": {
+          "Left": -2,
+          "Top": 174,
+          "Width": 265,
+          "Height": 11
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/Label3",
+        "class": "TLabel",
+        "properties": {
+          "Left": 44,
+          "Top": 106,
+          "Width": 174,
+          "Height": 26,
+          "Caption": "Any questions, feedback or problems\r\n can be sent to me at "
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/lbName",
+        "class": "TLabel",
+        "properties": {
+          "Left": 0,
+          "Top": 2,
+          "Width": 265,
+          "Height": 24,
+          "Caption": "XXXXXXX"
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/Label6",
+        "class": "TLabel",
+        "properties": {
+          "Left": 56,
+          "Top": 23,
+          "Width": 148,
+          "Height": 13,
+          "Caption": "Freeware by Filippo Passeggieri"
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/Label7",
+        "class": "TLabel",
+        "properties": {
+          "Left": 97,
+          "Top": 35,
+          "Width": 65,
+          "Height": 13,
+          "Caption": "A.D. 1997/98"
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/Label10",
+        "class": "TLabel",
+        "properties": {
+          "Left": 4,
+          "Top": 140,
+          "Width": 26,
+          "Height": 13,
+          "Caption": "URL"
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/Label11",
+        "class": "TLabel",
+        "properties": {
+          "Left": 4,
+          "Top": 155,
+          "Width": 30,
+          "Height": 13,
+          "Caption": "MAIL"
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/Image1",
+        "class": "TImage",
+        "properties": {
+          "Left": 75,
+          "Top": 53,
+          "Width": 114,
+          "Height": 41
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/FPUrlLabel1",
+        "class": "TFPUrlLabel",
+        "properties": {
+          "Left": 42,
+          "Top": 139,
+          "Width": 3,
+          "Height": 13
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/FPUrlLabel3",
+        "class": "TFPUrlLabel",
+        "properties": {
+          "Left": 42,
+          "Top": 139,
+          "Width": 212,
+          "Height": 13,
+          "Caption": "www.geocities.com/SiliconValley/Way/7176"
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/FPUrlLabel2",
+        "class": "TFPUrlLabel",
+        "properties": {
+          "Left": 42,
+          "Top": 152,
+          "Width": 129,
+          "Height": 13,
+          "Caption": "passeggieri@geocities.com"
+        }
+      },
+      {
+        "path": "FPURLLabelAboutDlg/Button1",
+        "class": "TButton",
+        "properties": {
+          "Left": 92,
+          "Top": 182,
+          "Width": 75,
+          "Height": 25,
+          "Caption": "Ok",
+          "TabOrder": 0
+        }
+      }
+    ]
+  },
+  {
+    "offset": 1435536,
+    "form": "OKRightDlg",
+    "components": [
+      {
+        "path": "OKRightDlg",
+        "class": "TOKRightDlg",
+        "properties": {
+          "Left": 397,
+          "Top": 213,
+          "Caption": "Tab",
+          "OnCreate": "FormCreate",
+          "OnShow": "FormShow"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl",
+        "class": "TExtPageControl",
+        "properties": {
+          "Left": 0,
+          "Top": 0,
+          "Width": 387,
+          "Height": 398,
+          "Align": "alClient",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC",
+        "class": "TTabSheet",
+        "properties": {
+          "Caption": "PC"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/Image1",
+        "class": "TImage",
+        "properties": {
+          "Left": 328,
+          "Top": 32,
+          "Width": 32,
+          "Height": 32
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/LrsBmp1",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 22,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/LrsBmp2",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 150,
+          "Width": 35,
+          "Height": 16
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/LrsBmp3",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 24,
+          "Top": 86,
+          "Width": 47,
+          "Height": 16
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/LrsBmp4",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 253,
+          "Top": 46,
+          "Width": 65,
+          "Height": 16
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/LrsBmp7",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 296,
+          "Top": 86,
+          "Width": 48,
+          "Height": 16
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/Edit2",
+        "class": "TEdit",
+        "properties": {
+          "Left": 8,
+          "Top": 104,
+          "Width": 249,
+          "Height": 28,
+          "TabOrder": 0,
+          "OnEnter": "Edit2Enter"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/CheckBox1",
+        "class": "TCheckBox",
+        "properties": {
+          "Left": 232,
+          "Top": 40,
+          "Width": 22,
+          "Height": 27,
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/Edit1",
+        "class": "TOvrEdit",
+        "properties": {
+          "Left": 8,
+          "Top": 40,
+          "Width": 209,
+          "Height": 28,
+          "TabOrder": 2,
+          "Text": "00000000h"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/Edit3",
+        "class": "TComboBox",
+        "properties": {
+          "Left": 8,
+          "Top": 168,
+          "Width": 361,
+          "Height": 28,
+          "Items.Strings": [
+            "生命值",
+            "魔法值",
+            "經驗值",
+            "無敵",
+            "金錢",
+            "體力",
+            "內力",
+            "活力",
+            "力量",
+            "生命力",
+            "防禦力",
+            "移動力",
+            "反應值",
+            "靈敏度",
+            "抗魔法力",
+            "職業",
+            "速度",
+            "時間",
+            "武器種類",
+            "武器數",
+            "炸彈數",
+            "子彈數",
+            "武器強度",
+            "武器能量",
+            "主武器",
+            "副武器",
+            "物品"
+          ],
+          "TabOrder": 3
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/BitBtn1",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 184,
+          "Top": 331,
+          "Width": 83,
+          "Height": 25,
+          "TabOrder": 4,
+          "OnClick": "BitBtn1Click"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/BitBtn2",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 280,
+          "Top": 331,
+          "Width": 83,
+          "Height": 25,
+          "TabOrder": 5
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/LockValueRB",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 8,
+          "Top": 86,
+          "Width": 17,
+          "Height": 17,
+          "Checked": true,
+          "TabOrder": 6
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/UseMacroRB",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 280,
+          "Top": 86,
+          "Width": 17,
+          "Height": 17,
+          "Caption": "UseMacroRB",
+          "TabOrder": 7
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/ComboBox2",
+        "class": "TComboBox",
+        "properties": {
+          "Left": 280,
+          "Top": 104,
+          "Width": 89,
+          "Height": 28,
+          "Items.Strings": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "TabOrder": 8,
+          "OnEnter": "ComboBox2Enter"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox1",
+        "class": "TGroupBox",
+        "properties": {
+          "Left": 8,
+          "Top": 264,
+          "Width": 361,
+          "Height": 57,
+          "Caption": "If",
+          "TabOrder": 9
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox1/RadioButton1",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 5,
+          "Top": 24,
+          "Width": 36,
+          "Height": 17,
+          "Caption": "x",
+          "Checked": true,
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox1/RadioButton2",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 40,
+          "Top": 24,
+          "Width": 49,
+          "Height": 17,
+          "Caption": ">=",
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox1/RadioButton3",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 89,
+          "Top": 24,
+          "Width": 46,
+          "Height": 17,
+          "Caption": "=",
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox1/RadioButton4",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 128,
+          "Top": 24,
+          "Width": 49,
+          "Height": 17,
+          "Caption": "<=",
+          "TabOrder": 3
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox1/Edit4",
+        "class": "TEdit",
+        "properties": {
+          "Left": 280,
+          "Top": 19,
+          "Width": 73,
+          "Height": 28,
+          "TabOrder": 4
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox1/RadioButton5",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 177,
+          "Top": 24,
+          "Width": 46,
+          "Height": 17,
+          "Caption": "!=",
+          "TabOrder": 5
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox1/RadioButton6",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 217,
+          "Top": 24,
+          "Width": 56,
+          "Height": 17,
+          "Caption": "Time",
+          "TabOrder": 6
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox2",
+        "class": "TGroupBox",
+        "properties": {
+          "Left": 8,
+          "Top": 208,
+          "Width": 361,
+          "Height": 49,
+          "Caption": "Data Type",
+          "TabOrder": 10
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox2/ByteRB",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 76,
+          "Top": 24,
+          "Width": 41,
+          "Height": 17,
+          "Caption": "8",
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox2/WordRB",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 162,
+          "Top": 24,
+          "Width": 41,
+          "Height": 17,
+          "Caption": "16",
+          "TabOrder": 1
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabPC/GroupBox2/DwRB",
+        "class": "TRadioButton",
+        "properties": {
+          "Left": 256,
+          "Top": 24,
+          "Width": 41,
+          "Height": 17,
+          "Caption": "32",
+          "TabOrder": 2
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabEmu",
+        "class": "TTabSheet",
+        "properties": {
+          "Caption": "PS, SFC"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabEmu/LrsBmp5",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 2,
+          "Width": 84,
+          "Height": 16
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabEmu/LrsBmp6",
+        "class": "TLrsBmp",
+        "properties": {
+          "Left": 8,
+          "Top": 51,
+          "Width": 81,
+          "Height": 16
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabEmu/Memo1",
+        "class": "TMemo",
+        "properties": {
+          "Left": 8,
+          "Top": 68,
+          "Width": 361,
+          "Height": 230,
+          "TabOrder": 0
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabEmu/ComboBox1",
+        "class": "TComboBox",
+        "properties": {
+          "Left": 8,
+          "Top": 18,
+          "Width": 361,
+          "Height": 28,
+          "TabOrder": 1,
+          "OnChange": "ComboBox1Change"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabEmu/LoadBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 8,
+          "Top": 336,
+          "Width": 83,
+          "Height": 25,
+          "TabOrder": 2,
+          "OnClick": "LoadBtnClick"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabEmu/SaveBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 102,
+          "Top": 336,
+          "Width": 83,
+          "Height": 25,
+          "TabOrder": 3,
+          "OnClick": "SaveBtnClick"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabEmu/TrnOutBtn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 192,
+          "Top": 305,
+          "Width": 177,
+          "Height": 25,
+          "TabOrder": 4
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabEmu/TrnIn",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 8,
+          "Top": 305,
+          "Width": 177,
+          "Height": 25,
+          "TabOrder": 5,
+          "OnClick": "TrnInClick"
+        }
+      },
+      {
+        "path": "OKRightDlg/TabPageControl/TabEmu/BitBtn3",
+        "class": "TBitBtn",
+        "properties": {
+          "Left": 288,
+          "Top": 336,
+          "Width": 83,
+          "Height": 25,
+          "TabOrder": 6
+        }
+      }
+    ]
+  }
+]

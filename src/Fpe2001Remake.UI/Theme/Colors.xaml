@@ -2,46 +2,46 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
-    <!-- v2.3 Clear Blue 主题：参考现代 Win11 工具的浅灰画布、白色面板、蓝色交互和细分隔线。 -->
-    <SolidColorBrush x:Key="CanvasBrush" Color="#F7F8FA" />
-    <SolidColorBrush x:Key="WindowBrush" Color="#F1F3F5" />
+    <!-- v2.4 Deep Boundary Blue 主题：保留原布局与操作逻辑，提升灰蓝画布、控件边框和表格分隔线的对比度。 -->
+    <SolidColorBrush x:Key="CanvasBrush" Color="#E9EEF3" />
+    <SolidColorBrush x:Key="WindowBrush" Color="#DDE3EA" />
     <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="SurfaceAltBrush" Color="#F7FAFF" />
-    <SolidColorBrush x:Key="LineBrush" Color="#E1E5EA" />
-    <SolidColorBrush x:Key="LineStrongBrush" Color="#CBD2DA" />
-    <SolidColorBrush x:Key="TextBrush" Color="#20252B" />
-    <SolidColorBrush x:Key="MutedBrush" Color="#6D7682" />
-    <SolidColorBrush x:Key="PrimaryBrush" Color="#2F7BEA" />
-    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="#1F5FBE" />
-    <SolidColorBrush x:Key="PrimarySoftBrush" Color="#E6F1FF" />
+    <SolidColorBrush x:Key="SurfaceAltBrush" Color="#F4F7FA" />
+    <SolidColorBrush x:Key="LineBrush" Color="#AAB6C4" />
+    <SolidColorBrush x:Key="LineStrongBrush" Color="#75869A" />
+    <SolidColorBrush x:Key="TextBrush" Color="#18222E" />
+    <SolidColorBrush x:Key="MutedBrush" Color="#4F5F70" />
+    <SolidColorBrush x:Key="PrimaryBrush" Color="#245F9E" />
+    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="#174574" />
+    <SolidColorBrush x:Key="PrimarySoftBrush" Color="#D5E5F6" />
     <SolidColorBrush x:Key="SuccessBrush" Color="#2D9760" />
     <SolidColorBrush x:Key="WarningBrush" Color="#B97927" />
     <SolidColorBrush x:Key="DangerBrush" Color="#CF4B4B" />
 
     <LinearGradientBrush x:Key="WindowGradient" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="#F4F6F8" Offset="0" />
-        <GradientStop Color="#EEF1F4" Offset="1" />
+        <GradientStop Color="#E4EAF0" Offset="0" />
+        <GradientStop Color="#D8E0E8" Offset="1" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#F9FAFC" Offset="0" />
-        <GradientStop Color="#F3F6FA" Offset="1" />
+        <GradientStop Color="#E5EBF1" Offset="0" />
+        <GradientStop Color="#D7DFE8" Offset="1" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="SurfaceGradient" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Color="#FFFFFF" Offset="0" />
-        <GradientStop Color="#FAFBFC" Offset="1" />
+        <GradientStop Color="#F4F7FA" Offset="1" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="#3D88F4" Offset="0" />
-        <GradientStop Color="#2F7BEA" Offset="1" />
+        <GradientStop Color="#2F73B5" Offset="0" />
+        <GradientStop Color="#245F9E" Offset="1" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="ModuleIconGradient" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#F7FBFF" Offset="0" />
-        <GradientStop Color="#E5F1FF" Offset="1" />
+        <GradientStop Color="#F3F7FB" Offset="0" />
+        <GradientStop Color="#DCE9F5" Offset="1" />
     </LinearGradientBrush>
 
-    <DropShadowEffect x:Key="SoftShadow" BlurRadius="10" ShadowDepth="2" Direction="270" Opacity="0.07" Color="#1B2733" />
-    <DropShadowEffect x:Key="CardShadow" BlurRadius="14" ShadowDepth="3" Direction="270" Opacity="0.08" Color="#1B2733" />
-    <DropShadowEffect x:Key="ButtonShadow" BlurRadius="5" ShadowDepth="1" Direction="270" Opacity="0.06" Color="#1B2733" />
+    <DropShadowEffect x:Key="SoftShadow" BlurRadius="10" ShadowDepth="2" Direction="270" Opacity="0.12" Color="#233447" />
+    <DropShadowEffect x:Key="CardShadow" BlurRadius="14" ShadowDepth="3" Direction="270" Opacity="0.14" Color="#233447" />
+    <DropShadowEffect x:Key="ButtonShadow" BlurRadius="5" ShadowDepth="1" Direction="270" Opacity="0.11" Color="#233447" />
 
     <!-- 字体 -->
     <FontFamily x:Key="UiFont">Segoe UI Variable, Microsoft YaHei UI, Segoe UI</FontFamily>
