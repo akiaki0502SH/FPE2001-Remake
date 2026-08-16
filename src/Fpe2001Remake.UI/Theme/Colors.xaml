@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
-    <!-- v2.6 Deep Boundary Blue 主题：保留原布局与操作逻辑，增加窗口级 1px 边框与外侧透明阴影。 -->
+    <!-- v2.7 Deep Boundary Blue 主题：窗口外框、圆角和阴影改由 Windows 11 DWM 原生合成。 -->
     <SolidColorBrush x:Key="CanvasBrush" Color="#E9EEF3" />
     <SolidColorBrush x:Key="WindowBrush" Color="#DDE3EA" />
     <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFF" />
@@ -43,8 +43,6 @@
     <DropShadowEffect x:Key="SoftShadow" BlurRadius="10" ShadowDepth="2" Direction="270" Opacity="0.12" Color="#233447" />
     <DropShadowEffect x:Key="CardShadow" BlurRadius="14" ShadowDepth="3" Direction="270" Opacity="0.14" Color="#233447" />
     <DropShadowEffect x:Key="ButtonShadow" BlurRadius="5" ShadowDepth="1" Direction="270" Opacity="0.11" Color="#233447" />
-    <!-- 窗口级边界：2 DIP 可见范围、无偏移的透明阴影，避免改变命中区。 -->
-    <DropShadowEffect x:Key="WindowFrameShadow" BlurRadius="4" ShadowDepth="0" Opacity="0.18" Color="#233447" />
 
     <!-- 字体 -->
     <FontFamily x:Key="UiFont">Segoe UI Variable, Microsoft YaHei UI, Segoe UI</FontFamily>

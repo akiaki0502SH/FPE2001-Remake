@@ -1,6 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Shell;
 using Fpe2001Remake.UI.ViewModels;
 
@@ -8,6 +10,8 @@ namespace Fpe2001Remake.UI.Shell;
 
 public partial class MainWindow : Window
 {
+    private nint _windowHandle;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -17,6 +21,34 @@ public partial class MainWindow : Window
     }
 
     private MainViewModel? Main => DataContext as MainViewModel;
+
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
+        _windowHandle = new WindowInteropHelper(this).Handle;
+        Windows11WindowFrame.Apply(_windowHandle, GetWindowFrameColor(isActive: true));
+    }
+
+    protected override void OnActivated(EventArgs e)
+    {
+        base.OnActivated(e);
+        Windows11WindowFrame.SetBorderColor(_windowHandle, GetWindowFrameColor(isActive: true));
+    }
+
+    protected override void OnDeactivated(EventArgs e)
+    {
+        base.OnDeactivated(e);
+        Windows11WindowFrame.SetBorderColor(_windowHandle, GetWindowFrameColor(isActive: false));
+    }
+
+    private Color GetWindowFrameColor(bool isActive)
+    {
+        var resourceKey = isActive ? "WindowFrameBrush" : "LineBrush";
+        if (TryFindResource(resourceKey) is SolidColorBrush brush)
+            return brush.Color;
+
+        return isActive ? Color.FromRgb(0x75, 0x86, 0x9A) : Color.FromRgb(0xAA, 0xB6, 0xC4);
+    }
 
     // ---------- 窗口按钮 ----------
 

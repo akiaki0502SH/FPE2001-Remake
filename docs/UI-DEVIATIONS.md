@@ -1,6 +1,6 @@
 # UI-DEVIATIONS
 
-本文件记录 FPE2001-Remake 实现与 `FPE2001-Remake UI/UX 实施规格 v2.6`（Deep Boundary Blue + WindowFrame）之间的结构差异（验收项：UIUX 规格 §17）。
+本文件记录 FPE2001-Remake 实现与 `FPE2001-Remake UI/UX 实施规格 v2.7`（Deep Boundary Blue + Native DWM Frame）之间的结构差异（验收项：UIUX 规格 §17）。
 
 > 规则：九模块功能入口不得省略；结构差异必须记录；无法在实现中表达的设计意图标注原因。
 
@@ -155,6 +155,8 @@ HEX-001~004 全部通过：>4GB 稀疏文件跳转/覆盖/撤销/另存校验；
 
 ## v2.6 窗口级边界与透明阴影 — 2026-08-16
 
+> 已由 v2.7 废止：根 Border 的 `Margin=2` 会暴露窗口背景形成实色环带，WPF `DropShadowEffect` 也不是真正的窗口外阴影。
+
 ### 实施记录
 
 - `MainWindow` 根内容由 `WindowFrame` Border 统一包裹，`Margin=2`、`BorderThickness=1`、`CornerRadius=WindowRadius`、`ClipToBounds=True`。
@@ -167,3 +169,22 @@ HEX-001~004 全部通过：>4GB 稀疏文件跳转/覆盖/撤销/另存校验；
 - Release 构建：0 警告、0 错误；启动冒烟测试通过。
 - 文档验收：UI/UX v2.6、代码实施规格 v2.3、Win11 架构设计 v2.3 已完成回退渲染检查。
 - DPI 验收要求：100%、125%、150%、200% 下边框连续，阴影不裁切，文字和窗口按钮不遮挡。
+
+## v2.7 Windows 11 原生 DWM 窗口框架 — 2026-08-16
+
+### 更正与实现
+
+- 删除根级 `WindowFrame` Border 的 `Margin=2`、`ClipToBounds` 和 `WindowFrameShadow`，原四行 Grid 重新直接铺满客户区，窗口外不再出现同色填充带。
+- `WindowChrome.GlassFrameThickness` 调整为 `1`；`CaptionHeight=46`、`ResizeBorderThickness=6`、自定义标题栏和窗口按钮逻辑保持不变。
+- 新增 `Shell/Windows11WindowFrame.cs`，在 Windows 11 Build 22000+ 通过 `DwmSetWindowAttribute` 启用非客户区绘制、`DWMWCP_ROUND` 圆角和原生边框色。
+- 活动窗口使用 `WindowFrameBrush #75869A`，非活动窗口使用 `LineBrush #AAB6C4`；DWM 负责系统/DPI 对齐的边框像素。
+- 阴影由 Windows 11 DWM 在 HWND 之外合成，不参与 WPF 布局；宽度和透明度跟随系统、DPI 与激活状态，不再固定模拟为 2 DIP。
+- 普通窗口四个圆角完整可见；最大化状态由系统取消圆角，行为与 Clash Verge 和 Windows 11 标准窗口一致。
+
+### 验证记录
+
+- Release 构建：0 警告、0 错误；单元测试：76 通过、0 失败、0 跳过。
+- 带窗口外扩区域的实机截图确认：四角连续、外侧无实色环带、DWM 阴影位于窗口矩形之外。
+- UI Automation：最小化、最大化、还原和关闭全部通过。
+- 测试程序：`artifacts/ui-native-dwm-frame-v27/Fpe2001Remake.UI.exe`。
+- 对应文档：UI/UX v2.7、代码实施规格 v2.4、Win11 架构设计 v2.4。

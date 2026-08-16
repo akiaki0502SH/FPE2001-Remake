@@ -142,21 +142,12 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="46"
                       ResizeBorderThickness="6"
-                      GlassFrameThickness="0"
-                      CornerRadius="14"
+                      GlassFrameThickness="1"
+                      CornerRadius="10"
                       UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
 
-    <!-- 窗口级视觉边界：外侧保留 2 DIP 阴影空间，内侧 1 DIP 边框包住全部既有布局。 -->
-    <Border x:Name="WindowFrame"
-            Margin="2"
-            Background="{StaticResource WindowGradient}"
-            BorderBrush="{StaticResource WindowFrameBrush}"
-            BorderThickness="1"
-            CornerRadius="{StaticResource WindowRadius}"
-            ClipToBounds="True"
-            Effect="{StaticResource WindowFrameShadow}"
-            SnapsToDevicePixels="True">
+    <!-- v2.7：内容铺满客户区；外框、圆角和窗口外阴影由 Windows 11 DWM 原生绘制。 -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="{StaticResource TitlebarRowHeight}" />
@@ -165,7 +156,7 @@
             <RowDefinition Height="{StaticResource StatusbarRowHeight}" />
         </Grid.RowDefinitions>
 
-        <!-- ========== 标题栏：原结构不变，v2.6 Deep Boundary Blue + WindowFrame 视觉主题 ========== -->
+        <!-- ========== 标题栏：原结构不变，v2.7 Deep Boundary Blue + Native DWM Frame ========== -->
         <Border Grid.Row="0" Background="{StaticResource HeaderGradient}"
                 BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1">
             <DockPanel LastChildFill="False">
@@ -292,5 +283,4 @@
             </DockPanel>
         </Border>
     </Grid>
-    </Border>
 </Window>
