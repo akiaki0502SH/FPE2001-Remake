@@ -181,8 +181,8 @@ public sealed class ScanViewModel : ModuleViewModelBase
         }
         State = Targets.Count > 0 ? PageState.Ready : PageState.Empty;
         StateDetail = Targets.Count > 0
-            ? $"发现 {Targets.Count} 个窗口目标进程。"
-            : "未发现带窗口的目标进程；启动目标程序后点“刷新目标”。";
+            ? $"发现 {Targets.Count} 个可用目标进程（Windows 系统进程已隐藏）。"
+            : "未发现可用目标进程；Windows 系统进程已隐藏，启动目标程序后点“刷新”。";
     }
 
     private async Task ScanAsync()

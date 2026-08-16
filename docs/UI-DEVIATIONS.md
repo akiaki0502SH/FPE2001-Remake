@@ -1,6 +1,6 @@
 # UI-DEVIATIONS
 
-本文件记录 FPE2001-Remake 实现与 `FPE2001-Remake UI/UX 实施规格 v2.4`（Deep Boundary Blue）之间的结构差异（验收项：UIUX 规格 §17）。
+本文件记录 FPE2001-Remake 实现与 `FPE2001-Remake UI/UX 实施规格 v2.5`（Deep Boundary Blue + Process Target Filtering）之间的结构差异（验收项：UIUX 规格 §17）。
 
 > 规则：九模块功能入口不得省略；结构差异必须记录；无法在实现中表达的设计意图标注原因。
 
@@ -136,3 +136,19 @@ HEX-001~004 全部通过：>4GB 稀疏文件跳转/覆盖/撤销/另存校验；
 - 单元测试：70 通过，0 失败，0 跳过。
 - 实际运行窗口截图：`deliverables/FPE2001-Remake_UI_Mockups_v2.4/scan-deep-boundary-blue-implemented-v24.png`。
 - 测试程序：`artifacts/ui-deep-boundary-blue-v24/Fpe2001Remake.UI.exe`。
+
+## v2.5 进程列表优化 — 2026-08-16
+
+### 可见性边界
+
+- 扫描页仅展示交互式用户会话中的候选进程；`SessionId == 0` 的服务进程不展示。
+- 隐藏已知 Windows 系统进程名（例如 `System`、`svchost`、`lsass`、`csrss`、`dwm`、`winlogon` 等）。
+- 当可读取可执行文件路径时，隐藏位于 `%WINDIR%` 目录及其子目录的进程，避免仅依赖名称匹配。
+- 进程名或路径读取失败时保留非系统会话候选，避免误伤游戏模拟器；当前 FPE2001-Remake 进程始终排除。
+- 十六进制编辑器仍通过 PID 打开目标进程，过滤只影响扫描页下拉列表。
+
+### UI 与验证
+
+- 扫描页状态文本明确提示“Windows 系统进程已隐藏”，空列表时引导用户启动目标程序并刷新。
+- `ProcessTargetFilterTests` 覆盖 Session 0、已知系统名、Windows 目录、游戏/模拟器、路径不可读和当前进程六类边界。
+- Release 构建：0 警告、0 错误；单元测试：76 通过、0 失败、0 跳过。
