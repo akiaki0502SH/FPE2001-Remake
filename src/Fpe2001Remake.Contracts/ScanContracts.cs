@@ -14,6 +14,9 @@ public enum ScanDataType
     Bytes,
     Text,
     Unknown,
+
+    /// <summary>自动：同时按 8/16/32 位整数扫描，再次扫描时各自过滤并收敛出真实类型。</summary>
+    Auto,
 }
 
 /// <summary>扫描步骤：首次 / 再次（原版 Mission 语义）。</summary>
@@ -78,7 +81,11 @@ public sealed record ScanSession(
     string ProcessName,
     ScanStepKind CurrentStep,
     long CandidateCount,
-    string SnapshotPath);
+    string SnapshotPath,
+    IReadOnlyList<ScanSnapshotInfo>? SnapshotStats = null);
+
+/// <summary>单个快照的类型与候选数（自动模式 8/16/32 位各一份；单类型一份）。</summary>
+public sealed record ScanSnapshotInfo(ScanDataType DataType, long Count);
 
 /// <summary>
 /// 扫描引擎（规格 §8）。首次/再次扫描、Mission、进度、取消、FPSN 快照。

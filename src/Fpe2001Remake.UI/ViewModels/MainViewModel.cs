@@ -38,8 +38,16 @@ public sealed class MainViewModel : ViewModelBase
         var freeze = new FreezeService(addressBook.GetEntryById, addressBook.GetTargetIdentity);
         var scanApp = new ScanApplicationService(engine);
         _freeze = freeze;
+        var editor = new HexEditorViewModel();
 
-        var scanVm = new ScanViewModel(scanApp, engine, addressBook);
+        var scanVm = new ScanViewModel(scanApp, engine, addressBook, freeze, (pid, address) =>
+        {
+            // 从扫描候选跳转到十六进制编辑器：打开进程内存视图并定位到该地址
+            const ulong window = 0x1000;
+            var baseAddress = address - (address % window);
+            _ = editor.OpenProcessAtCoreAsync(pid, baseAddress, window, address);
+            ActivateModule(3);
+        });
         scanVm.TargetChanged += (target, processId) =>
         {
             CurrentTarget = target.ProcessName;
@@ -49,7 +57,6 @@ public sealed class MainViewModel : ViewModelBase
             StatusSource = $"目标：{target.Display} (PID {processId})";
         };
 
-        var editor = new HexEditorViewModel();
         var fileScan = new FileScanService();
         var legacyImport = new LegacyImportService();
         var settingsService = new JsonSettingsService();

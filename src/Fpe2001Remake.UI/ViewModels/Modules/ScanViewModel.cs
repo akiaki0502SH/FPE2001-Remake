@@ -33,6 +33,8 @@ public sealed record TargetItem(string ProcessName, IReadOnlyList<int> ProcessId
 public sealed record CandidateRow(
     ulong Address,
     string AddressText,
+    string TypeText,
+    byte Width,
     string CurrentValue,
     string PreviousValue,
     string HostEvidence)
@@ -50,10 +52,12 @@ public sealed class ScanViewModel : ModuleViewModelBase
     private readonly IScanEngine _engine;
     private readonly IAddressBookService _addressBook;
     private readonly IScanApplicationService _targets;
+    private readonly IFreezeService _freeze;
+    private readonly Action<int, ulong>? _openInEditor;
 
     private TargetItem? _selectedTarget;
     private int _selectedProcessId;
-    private string _selectedDataType = "32 位";
+    private string _selectedDataType = "自动";
     private string _selectedComparison = "等于";
     private string _valueText = "";
     private bool _isScanning;
@@ -61,16 +65,22 @@ public sealed class ScanViewModel : ModuleViewModelBase
     private string _progressText = "";
     private CandidateRow? _selectedCandidate;
     private string _missionName = "未命名任务";
+    private bool _candidateFreezeRunning;
+    private AddressBookEntry? _frozenCandidateEntry;
 
     public ScanViewModel(
         IScanApplicationService targets,
         IScanEngine engine,
-        IAddressBookService addressBook)
+        IAddressBookService addressBook,
+        IFreezeService freeze,
+        Action<int, ulong>? openInEditor = null)
         : base(ModuleCatalog.Scan)
     {
         _targets = targets;
         _engine = engine;
         _addressBook = addressBook;
+        _freeze = freeze;
+        _openInEditor = openInEditor;
 
         Targets = [];
         Candidates = [];
@@ -86,7 +96,12 @@ public sealed class ScanViewModel : ModuleViewModelBase
         Actions.Add(new ActionItem("停止", "F11", "\uE71A", IsDanger: true, IsEnabled: false, Command: new RelayCommand(_ => _ = StopAsync())));
 
         RefreshTargetsCommand = new RelayCommand(_ => _ = RefreshTargetsAsync());
-        AddToAddressTableCommand = new RelayCommand(_ => _ = AddToAddressTableAsync(), _ => SelectedCandidate is not null);
+        // 扫描命令（ActionBar “扫描”/F10 与值输入框 Enter 共用）
+        ScanCommand = new RelayCommand(_ => _ = ScanAsync(), _ => !IsScanning);
+        AddToAddressTableCommand = new RelayCommand(_ => _ = AddToAddressTableAsync(), _ => SelectedCandidate is not null && !IsScanning);
+        WriteCandidateCommand = new RelayCommand(_ => _ = WriteCandidateValueAsync(), _ => SelectedCandidate is not null && !IsScanning);
+        FreezeCandidateCommand = new RelayCommand(_ => _ = ToggleFreezeCandidateAsync(), _ => SelectedCandidate is not null && !IsScanning);
+        OpenInEditorCommand = new RelayCommand(_ => OpenCandidateInEditor(), _ => SelectedCandidate is not null);
 
         State = PageState.Ready;
         StateDetail = "选择目标进程后输入值开始扫描。";
@@ -131,9 +146,9 @@ public sealed class ScanViewModel : ModuleViewModelBase
     /// <summary>目标变化（标题栏/状态栏联动），携带程序项和精确 PID。</summary>
     public event Action<TargetItem, int>? TargetChanged;
 
-    /// <summary>数据类型（显示文本 → ScanDataType 映射由扫描逻辑处理）。</summary>
+    /// <summary>数据类型（显示文本 → ScanDataType 映射由扫描逻辑处理）。自动 = 8/16/32 位同时扫描。</summary>
     public IReadOnlyList<string> DataTypes { get; } =
-        ["8 位", "16 位", "32 位", "64 位", "浮点", "文本"];
+        ["自动", "8 位", "16 位", "32 位", "64 位", "浮点", "文本"];
 
     public string SelectedDataType
     {
@@ -172,6 +187,7 @@ public sealed class ScanViewModel : ModuleViewModelBase
                 OnPropertyChanged(nameof(ScanButtonText));
                 OnPropertyChanged(nameof(CanStartScan));
                 UpdateScanActionStates();
+                CommandManager.InvalidateRequerySuggested();
             }
         }
     }
@@ -196,6 +212,13 @@ public sealed class ScanViewModel : ModuleViewModelBase
             if (SetProperty(ref _selectedCandidate, value))
             {
                 OnPropertyChanged(nameof(CanAddToAddressTable));
+                // 切换候选时复位锁定按钮状态（其他候选的冻结在地址表管理）
+                if (_frozenCandidateEntry is not null && value is not null &&
+                    _frozenCandidateEntry.Address.Value != value.Address)
+                {
+                    CandidateFreezeRunning = false;
+                }
+                CommandManager.InvalidateRequerySuggested();
             }
         }
     }
@@ -204,7 +227,31 @@ public sealed class ScanViewModel : ModuleViewModelBase
 
     public ICommand RefreshTargetsCommand { get; }
 
+    /// <summary>首次/再次扫描（值输入框按 Enter 也可触发）。</summary>
+    public ICommand ScanCommand { get; }
+
     public ICommand AddToAddressTableCommand { get; }
+
+    public ICommand WriteCandidateCommand { get; }
+
+    public ICommand FreezeCandidateCommand { get; }
+
+    public ICommand OpenInEditorCommand { get; }
+
+    /// <summary>候选锁定状态（“锁定”按钮显示）。</summary>
+    public bool CandidateFreezeRunning
+    {
+        get => _candidateFreezeRunning;
+        set
+        {
+            if (SetProperty(ref _candidateFreezeRunning, value))
+            {
+                OnPropertyChanged(nameof(CandidateFreezeButtonText));
+            }
+        }
+    }
+
+    public string CandidateFreezeButtonText => CandidateFreezeRunning ? "停止锁定" : "锁定";
 
     public override string WorkspacePlaceholder => "M01 扫描工作区（P1 已实现）。";
 
@@ -319,8 +366,10 @@ public sealed class ScanViewModel : ModuleViewModelBase
             processId, MissionName, condition, null, null, progress, CancellationToken.None);
 
         _sessionId = session.Id;
-        ProgressText = $"首次扫描完成：{session.CandidateCount} 个候选（目标 {target.Display}，PID {processId}）。";
-        StateDetail = $"任务“{MissionName}”：{session.CandidateCount} 个候选。再次扫描可进一步筛选。";
+        var statsText = FormatSnapshotStats(session);
+        ProgressText = $"首次扫描完成：{session.CandidateCount:N0} 个候选（{statsText}）。";
+        StateDetail = $"任务“{MissionName}”：{session.CandidateCount:N0} 个候选。"
+            + "再次扫描（输入新值）可收敛出真实类型；候选列表“类型”列显示命中宽度。";
         State = session.CandidateCount > 0 ? PageState.Ready : PageState.Empty;
         await LoadCandidatesAsync();
     }
@@ -342,11 +391,38 @@ public sealed class ScanViewModel : ModuleViewModelBase
         var session = await _engine.RunNextScanAsync(
             _sessionId!.Value, condition, progress, CancellationToken.None);
 
-        ProgressText = $"再次扫描完成：{session.CandidateCount} 个候选。";
-        StateDetail = $"{session.CandidateCount} 个候选。";
+        ProgressText = $"再次扫描完成：{session.CandidateCount:N0} 个候选（{FormatSnapshotStats(session)}）。";
         State = session.CandidateCount > 0 ? PageState.Ready : PageState.Empty;
+        StateDetail = session.CandidateCount > 0
+            ? $"{session.CandidateCount:N0} 个候选。候选列表“类型”列显示命中宽度，选中可添加到地址表。"
+            : "0 个候选。常见原因：① 数值在内存中以其他类型/编码存储（可改试“8 位”或“16 位”，或用十六进制输入）；"
+              + "② 游戏数值在两次扫描之间又变化了（建议暂停游戏再扫描）；"
+              + "③ 选错了进程实例（同名程序多实例时，确认目标 PID 是游戏所在进程）。";
         await LoadCandidatesAsync();
     }
+
+    /// <summary>各类型快照候选数（自动模式如：8 位 1,120,000 / 16 位 2,900 / 32 位 300）。</summary>
+    private static string FormatSnapshotStats(ScanSession session)
+    {
+        if (session.SnapshotStats is null || session.SnapshotStats.Count == 0)
+        {
+            return "无快照信息";
+        }
+        return string.Join(" / ", session.SnapshotStats
+            .OrderByDescending(s => s.Count)
+            .Select(s => $"{WidthText(DataTypeWidth(s.DataType))} {s.Count:N0}"));
+    }
+
+    private static byte DataTypeWidth(ScanDataType type) => type switch
+    {
+        ScanDataType.UInt8 => 1,
+        ScanDataType.UInt16 => 2,
+        ScanDataType.UInt32 => 4,
+        ScanDataType.UInt64 => 8,
+        ScanDataType.Float32 => 4,
+        ScanDataType.Float64 => 8,
+        _ => 4,
+    };
 
     private async Task StopAsync()
     {
@@ -363,14 +439,36 @@ public sealed class ScanViewModel : ModuleViewModelBase
         var rows = await _engine.ReadCandidatesAsync(_sessionId.Value, 0, 500, CancellationToken.None);
         foreach (var c in rows)
         {
+            var width = (byte)(c.Address.PointerWidthBits / 8);
             Candidates.Add(new CandidateRow(
                 c.Address.Value,
                 AddressFormatting.ToHex16(c.Address.Value),
+                WidthText(width),
+                width,
                 c.CurrentValueText ?? "",
                 c.PreviousValueText ?? "",
                 c.HostEvidence ?? ""));
         }
     }
+
+    /// <summary>宽度 → 类型显示文本（自动模式候选可能来自 8/16/32 位快照）。</summary>
+    private static string WidthText(byte width) => width switch
+    {
+        1 => "8 位",
+        2 => "16 位",
+        4 => "32 位",
+        8 => "64 位",
+        _ => $"{width * 8} 位",
+    };
+
+    /// <summary>自动模式候选的宽度 → 整数类型（添加到地址表时使用真实命中类型）。</summary>
+    private static ScanDataType WidthToDataType(byte width) => width switch
+    {
+        1 => ScanDataType.UInt8,
+        2 => ScanDataType.UInt16,
+        8 => ScanDataType.UInt64,
+        _ => ScanDataType.UInt32,
+    };
 
     private async Task AddToAddressTableAsync()
     {
@@ -379,25 +477,129 @@ public sealed class ScanViewModel : ModuleViewModelBase
             return;
         }
 
-        var dataType = MapDataType(SelectedDataType);
+        var entry = CreateEntryForCandidate(SelectedCandidate);
+        await _addressBook.UpsertAsync(entry, CancellationToken.None);
+        StateDetail = $"已添加 {SelectedCandidate.AddressText}（{SelectedCandidate.TypeText}）到地址表。";
+    }
+
+    /// <summary>把候选转为地址表条目（自动模式用候选真实命中类型；手动模式用用户选择类型）。</summary>
+    private AddressBookEntry CreateEntryForCandidate(CandidateRow candidate)
+    {
+        var dataType = SelectedDataType == "自动"
+            ? WidthToDataType(candidate.Width)
+            : MapDataType(SelectedDataType);
         var endianness = Endianness.LittleEndian;
-        var entry = new AddressBookEntry(
+        return new AddressBookEntry(
             Guid.NewGuid(),
-            SelectedCandidate.ToLogicalAddress(SelectedProcessId, endianness, WidthOf(dataType)),
-            $"候选 {SelectedCandidate.AddressText}",
+            candidate.ToLogicalAddress(SelectedProcessId, endianness, (byte)(candidate.Width * 8)),
+            $"候选 {candidate.AddressText}",
             "扫描结果",
-            SelectedTarget.ProcessName,
+            SelectedTarget!.ProcessName,
             null,
             null,
             dataType,
             endianness,
             null,
             true,
-            SelectedCandidate.CurrentValue,
-            SelectedCandidate.CurrentValue);
+            candidate.CurrentValue,
+            candidate.CurrentValue);
+    }
 
+    /// <summary>写入：修改选中候选的值（立即写内存，并加入地址表）。</summary>
+    private async Task WriteCandidateValueAsync()
+    {
+        if (SelectedCandidate is null || SelectedTarget is null || SelectedProcessId <= 0)
+        {
+            return;
+        }
+        var row = SelectedCandidate;
+        var dialog = new Fpe2001Remake.UI.Views.TextInputDialog(
+            "写入候选值", $"新值（{row.TypeText}，当前 {row.CurrentValue}）", row.CurrentValue);
+        if (dialog.ShowDialog() != true)
+        {
+            return;
+        }
+        var newValue = dialog.ValueText;
+        if (newValue.Length == 0)
+        {
+            StateDetail = "请输入新值。";
+            return;
+        }
+
+        var entry = CreateEntryForCandidate(row);
         await _addressBook.UpsertAsync(entry, CancellationToken.None);
-        StateDetail = $"已添加 {SelectedCandidate.AddressText} 到地址表。";
+        var ok = await _addressBook.WriteNowAsync(entry.Id, newValue, CancellationToken.None);
+        StateDetail = ok
+            ? $"已写入 {row.AddressText} = {newValue}（条目已加入地址表）。"
+            : $"写入失败：{row.AddressText}（进程不可达或值无效）。";
+
+        if (ok)
+        {
+            await _addressBook.RefreshValuesAsync(entry.Id, CancellationToken.None);
+            var entries = await _addressBook.ListAsync(CancellationToken.None);
+            var fresh = entries.FirstOrDefault(e => e.Id == entry.Id);
+            if (fresh?.CurrentValueText is not null)
+            {
+                var idx = Candidates.IndexOf(row);
+                if (idx >= 0)
+                {
+                    Candidates[idx] = row with { CurrentValue = fresh.CurrentValueText };
+                }
+            }
+        }
+    }
+
+    /// <summary>锁定：持续把选中候选的值写回内存（冻结）；再点一次解除。</summary>
+    private async Task ToggleFreezeCandidateAsync()
+    {
+        if (SelectedCandidate is null || SelectedTarget is null || SelectedProcessId <= 0)
+        {
+            return;
+        }
+        var row = SelectedCandidate;
+
+        if (_frozenCandidateEntry is not null && _frozenCandidateEntry.Address.Value == row.Address)
+        {
+            await _freeze.StopAsync(_frozenCandidateEntry.Id, CancellationToken.None);
+            _frozenCandidateEntry = null;
+            CandidateFreezeRunning = false;
+            StateDetail = $"已解除锁定 {row.AddressText}。";
+            return;
+        }
+
+        var entry = CreateEntryForCandidate(row);
+        await _addressBook.UpsertAsync(entry, CancellationToken.None);
+        if (!ulong.TryParse(row.CurrentValue, out var target))
+        {
+            StateDetail = $"锁定失败：{row.AddressText} 当前值无法解析为整数。";
+            return;
+        }
+        try
+        {
+            var status = await _freeze.StartAsync(new FreezeSpec(
+                entry.Id, FreezeConditionKind.Always, target, null, null,
+                TimeSpan.FromMilliseconds(250), 5), CancellationToken.None);
+            _frozenCandidateEntry = status.Running ? entry : null;
+            CandidateFreezeRunning = status.Running;
+            StateDetail = status.Running
+                ? $"已锁定 {row.AddressText} = {row.CurrentValue}（持续写回中；条目已加入地址表）。"
+                : $"锁定失败：{row.AddressText}。";
+        }
+        catch (InvalidOperationException ex)
+        {
+            StateDetail = $"锁定失败：{ex.Message}";
+        }
+    }
+
+    /// <summary>在十六进制编辑器中打开选中候选的地址（跳转 M03 并定位）。</summary>
+    private void OpenCandidateInEditor()
+    {
+        if (SelectedCandidate is null || SelectedProcessId <= 0 || _openInEditor is null)
+        {
+            return;
+        }
+        _openInEditor(SelectedProcessId, SelectedCandidate.Address);
+        StateDetail = $"已在十六进制编辑器打开 {SelectedCandidate.AddressText}（PID {SelectedProcessId}）。";
     }
 
     private void NotifyTargetChanged()
@@ -476,6 +678,7 @@ public sealed class ScanViewModel : ModuleViewModelBase
 
     private static ScanDataType MapDataType(string text) => text switch
     {
+        "自动" => ScanDataType.Auto,
         "8 位" => ScanDataType.UInt8,
         "16 位" => ScanDataType.UInt16,
         "32 位" => ScanDataType.UInt32,
@@ -493,6 +696,7 @@ public sealed class ScanViewModel : ModuleViewModelBase
         ScanDataType.UInt64 => 64,
         ScanDataType.Float32 => 32,
         ScanDataType.Float64 => 64,
+        ScanDataType.Auto => 32, // 自动模式不直接使用；候选行携带真实宽度
         _ => 32,
     };
 }

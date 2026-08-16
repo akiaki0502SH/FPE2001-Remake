@@ -172,6 +172,97 @@ public sealed class ScanFreezeIntegrationTests : IDisposable
         Assert.Contains(candidates, c => c.Address.Value == counterAddress && c.CurrentValueText == "42");
     }
 
+    /// <summary>
+    /// 模拟用户 SFC 场景（默认"自动"类型）：8 位数值 21 → 19。
+    /// 首次自动扫描（8/16/32 位同时）→ 改写 → 再次自动扫描 → 收敛出真实地址且类型为 8 位。
+    /// </summary>
+    [Fact]
+    public async Task AutoScan_21_to_19_Converges_On_UInt8()
+    {
+        var targetAddress = _baseAddress + 0x2000;
+        var (rangeStart, rangeEnd) = ScanRange(_target.Id, _baseAddress);
+
+        // 1. 在 base+0x2000 写入 8 位值 21（模拟游戏初始数值）
+        var hpEntry = new AddressBookEntry(
+            Guid.NewGuid(),
+            new LogicalAddress(AddressSpace.HostVirtual, $"pid:{_target.Id}", targetAddress),
+            "hp8", "synthetic", "", null, "自动扫描测试", ScanDataType.UInt8,
+            Endianness.LittleEndian, null, true, null, "21");
+        _entries.Add(hpEntry);
+        await _addressBook.UpsertAsync(hpEntry, default);
+        Assert.True(await _addressBook.WriteNowAsync(hpEntry.Id, "21", default), "写入 8 位值 21 应成功。");
+
+        // 2. 自动首次扫描 21
+        var first = await _scan.BeginFirstScanAsync(
+            _target.Id, "auto-21",
+            new ScanCondition(ScanStepKind.FirstScan, ScanComparison.Equal,
+                new ScanValueSpec(ScanDataType.Auto, "21")),
+            rangeStart, rangeEnd, null, default);
+        Assert.True(first.CandidateCount >= 1, "自动首次扫描应至少命中 1 个候选。");
+
+        // 3. 游戏数值变为 19
+        Assert.True(await _addressBook.WriteNowAsync(hpEntry.Id, "19", default), "改写为 19 应成功。");
+
+        // 4. 自动再次扫描 19：8/16/32 位快照各自过滤后收敛
+        var second = await _scan.RunNextScanAsync(
+            first.Id,
+            new ScanCondition(ScanStepKind.NextScan, ScanComparison.Equal,
+                new ScanValueSpec(ScanDataType.Auto, "19")),
+            null, default);
+        Assert.True(second.CandidateCount >= 1, "自动再次扫描应保留候选。");
+
+        // 5. 目标地址必须保留且类型为 8 位、值为 19
+        var candidates = await _scan.ReadCandidatesAsync(second.Id, 0, 500, default);
+        Assert.Contains(candidates,
+            c => c.Address.Value == targetAddress
+                 && c.Address.PointerWidthBits == 8
+                 && c.CurrentValueText == "19");
+    }
+
+    /// <summary>
+    /// 回归：候选地址位于 < 1 MiB 小区域/区域末尾时，再次扫描的 1 MiB 块读跨区域边界
+    /// 整体失败会导致候选整块丢弃（修复 ReadBlockWithRetry）。目标地址放在 64 MiB 区域末尾 4KB 内。
+    /// </summary>
+    [Fact]
+    public async Task AutoScan_RegionTail_KeepsCandidate()
+    {
+        var targetAddress = _baseAddress + (64UL * 1024 * 1024) - 0x1000;
+        var rangeEnd = new LogicalAddress(AddressSpace.HostVirtual, $"pid:{_target.Id}",
+            _baseAddress + 64UL * 1024 * 1024 + 0x5000);
+        var (rangeStart, _) = ScanRange(_target.Id, _baseAddress);
+
+        var tailEntry = new AddressBookEntry(
+            Guid.NewGuid(),
+            new LogicalAddress(AddressSpace.HostVirtual, $"pid:{_target.Id}", targetAddress),
+            "tail8", "synthetic", "", null, "区域边界回归测试", ScanDataType.UInt8,
+            Endianness.LittleEndian, null, true, null, "21");
+        _entries.Add(tailEntry);
+        await _addressBook.UpsertAsync(tailEntry, default);
+        Assert.True(await _addressBook.WriteNowAsync(tailEntry.Id, "21", default), "写入 8 位值 21 应成功。");
+
+        var first = await _scan.BeginFirstScanAsync(
+            _target.Id, "auto-tail-21",
+            new ScanCondition(ScanStepKind.FirstScan, ScanComparison.Equal,
+                new ScanValueSpec(ScanDataType.Auto, "21")),
+            rangeStart, rangeEnd, null, default);
+        Assert.True(first.CandidateCount >= 1, "自动首次扫描应至少命中 1 个候选。");
+
+        Assert.True(await _addressBook.WriteNowAsync(tailEntry.Id, "19", default), "改写为 19 应成功。");
+
+        var second = await _scan.RunNextScanAsync(
+            first.Id,
+            new ScanCondition(ScanStepKind.NextScan, ScanComparison.Equal,
+                new ScanValueSpec(ScanDataType.Auto, "19")),
+            null, default);
+        Assert.True(second.CandidateCount >= 1, "修复后：区域末尾候选在再次扫描中必须保留。");
+
+        var candidates = await _scan.ReadCandidatesAsync(second.Id, 0, 2000, default);
+        Assert.Contains(candidates,
+            c => c.Address.Value == targetAddress
+                 && c.Address.PointerWidthBits == 8
+                 && c.CurrentValueText == "19");
+    }
+
     public void Dispose()
     {
         _freeze.Dispose();

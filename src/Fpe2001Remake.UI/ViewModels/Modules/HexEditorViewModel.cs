@@ -17,6 +17,8 @@ public sealed class HexRow : ViewModelBase
     private string _hex = "";
     private string _text = "";
     private bool _isModified;
+    private readonly byte[] _bytes = new byte[16];
+    private readonly bool[] _available = new bool[16];
 
     public HexRow(HexDocument document, ulong offset)
     {
@@ -27,6 +29,19 @@ public sealed class HexRow : ViewModelBase
     public ulong Offset { get; }
 
     public string OffsetText => AddressFormatting.ToHex16(Offset);
+
+    /// <summary>按字节列索引取十六进制文本（XAML 16 个字节列绑定 {Binding [i]}）。不可读字节显示 ??。</summary>
+    public string this[int columnIndex]
+    {
+        get
+        {
+            if (columnIndex < 0 || columnIndex >= 16)
+            {
+                return "";
+            }
+            return _available[columnIndex] ? _bytes[columnIndex].ToString("X2") : "??";
+        }
+    }
 
     public string Hex
     {
@@ -51,34 +66,35 @@ public sealed class HexRow : ViewModelBase
     {
         var data = new byte[16];
         var read = _document.ReadBytes(Offset, data);
-        Span<char> hexChars = stackalloc char[read * 3];
-        for (var i = 0; i < read; i++)
+        for (var i = 0; i < 16; i++)
         {
-            var available = _document.IsRangeAvailable(Offset + (ulong)i, 1);
-            hexChars[i * 3] = available ? HexChars[data[i] >> 4] : '?';
-            hexChars[i * 3 + 1] = available ? HexChars[data[i] & 0x0F] : '?';
-            hexChars[i * 3 + 2] = ' ';
+            _available[i] = i < read && _document.IsRangeAvailable(Offset + (ulong)i, 1);
+            _bytes[i] = i < read ? data[i] : (byte)0;
         }
-        Hex = new string(hexChars).TrimEnd();
-
-        Span<char> textChars = stackalloc char[read];
-        for (var i = 0; i < read; i++)
+        for (var i = 0; i < 16; i++)
         {
-            textChars[i] = _document.IsRangeAvailable(Offset + (ulong)i, 1) && data[i] is >= 0x20 and <= 0x7E
-                ? (char)data[i] : '.';
+            OnPropertyChanged($"{nameof(Hex)}_b{i}");
         }
-        Text = new string(textChars);
-        IsModified = _document.IsDirtyInRange(Offset, read);
+        OnPropertyChanged("Item[]");
+        OnPropertyChanged(nameof(Hex));
+        OnPropertyChanged(nameof(Text));
+        OnPropertyChanged(nameof(IsModified));
     }
-
-    private static readonly char[] HexChars = "0123456789ABCDEF".ToCharArray();
 }
 
-/// <summary>虚拟行集合：O(1) 索引，DataGrid 虚拟化按需取行。</summary>
+/// <summary>
+/// 虚拟行集合：O(1) 索引，DataGrid 虚拟化按需取行。
+/// 行实例带缓存：同一索引始终返回同一实例，保证 ScrollIntoView/选中引用一致
+/// （否则每次 new 出新实例，DataGrid 找不到匹配项导致滚动定位失败）。
+/// </summary>
 public sealed class VirtualHexRows : IList<HexRow>
 {
     private readonly HexDocument _document;
     private readonly ulong _rowCount;
+    private readonly Dictionary<int, HexRow> _cache = [];
+
+    /// <summary>缓存上限：超过即整体重建（DataGrid 渲染窗口远小于此，正常滚动不触发）。</summary>
+    private const int MaxCacheEntries = 2048;
 
     public VirtualHexRows(HexDocument document)
     {
@@ -90,8 +106,17 @@ public sealed class VirtualHexRows : IList<HexRow>
     {
         get
         {
+            if (_cache.TryGetValue(index, out var cached))
+            {
+                return cached;
+            }
             var row = new HexRow(_document, (ulong)index * 16);
             row.Refresh();
+            if (_cache.Count >= MaxCacheEntries)
+            {
+                _cache.Clear(); // 大面积滚动后重建；当前窗口会立即重新缓存
+            }
+            _cache[index] = row;
             return row;
         }
         set => throw new NotSupportedException();
@@ -141,6 +166,28 @@ public sealed class HexEditorViewModel : ModuleViewModelBase
     private HexRow? _selectedRow;
     private string _sourceLabel = "";
     private string? _openedFilePath;
+    private ulong? _selectedByteOffset;
+    private ulong? _pendingFocusOffset;
+
+    // 进程视图参数（编辑提交成功后刷新视图用）
+    private int _openedPid;
+    private ulong _openedBaseAddress;
+    private ulong _openedViewLength;
+    private ulong _openedFocusOffset;
+    private bool _hasOpenedProcess;
+
+    /// <summary>最近一次定位请求的目标字节偏移（页面未就绪时缓存，View 就绪后消费）。</summary>
+    public ulong? PendingFocusOffset => _pendingFocusOffset;
+
+    /// <summary>当前选中的字节偏移（字节级编辑起点）。</summary>
+    public ulong? SelectedByteOffset
+    {
+        get => _selectedByteOffset;
+        private set => SetProperty(ref _selectedByteOffset, value);
+    }
+
+    /// <summary>最近定位/选中的字节在行内的列索引（0-15），View 定位单元格用。</summary>
+    public int FocusByteColumn { get; private set; }
 
     public HexEditorViewModel(IByteSourceFactory? factory = null, IHexEditorService? editor = null)
         : base(ModuleCatalog.Editor)
@@ -153,7 +200,7 @@ public sealed class HexEditorViewModel : ModuleViewModelBase
         SaveCommand = new RelayCommand(_ => _ = SaveAsync(), _ => CanSave);
         UndoCommand = new RelayCommand(_ => Undo(), _ => CanUndo);
         FindCommand = new RelayCommand(_ => _ = FindAsync());
-        ApplyEditCommand = new RelayCommand(_ => ApplyEdit(), _ => CanApplyEdit);
+        ApplyEditCommand = new RelayCommand(_ => _ = ApplyEditAsync(), _ => CanApplyEdit);
         ToggleEditModeCommand = new RelayCommand(_ => ToggleEditMode());
 
         Actions.Add(new ActionItem("打开", "F1", "\uE8E5", IsEnabled: true, Command: OpenFileCommand, ToolTip: "打开文件到十六进制视图（默认可编辑，编辑模式需手动开启）"));
@@ -222,7 +269,13 @@ public sealed class HexEditorViewModel : ModuleViewModelBase
     public string EditValue
     {
         get => _editValue;
-        set => SetProperty(ref _editValue, value);
+        set
+        {
+            if (SetProperty(ref _editValue, value))
+            {
+                OnPropertyChanged(nameof(CanApplyEdit));
+            }
+        }
     }
 
     public HexRow? SelectedRow
@@ -262,6 +315,9 @@ public sealed class HexEditorViewModel : ModuleViewModelBase
     public ICommand ToggleEditModeCommand { get; }
 
     public override string WorkspacePlaceholder => "M03 十六进制工作台（P2 已实现）。";
+
+    /// <summary>请求视图滚动到选中行（View 订阅后 ScrollIntoView；虚拟化 DataGrid 不会自动滚动）。</summary>
+    public event Action? ScrollRequested;
 
     // ---------- 打开 ----------
 
@@ -305,15 +361,38 @@ public sealed class HexEditorViewModel : ModuleViewModelBase
         }
         try
         {
-            var source = new ProcessMemoryByteSource(input.ProcessId, $"pid:{input.ProcessId}", input.BaseAddress, input.ViewLength);
-            _openedFilePath = null;
-            await AttachSourceAsync(source, $"进程内存：PID {input.ProcessId} @0x{input.BaseAddress:X16}");
+            await OpenProcessAtCoreAsync(input.ProcessId, input.BaseAddress, input.ViewLength, input.BaseAddress);
         }
         catch (Exception ex)
         {
             State = PageState.Failed;
             StateDetail = $"打开失败：{ex.Message}";
         }
+    }
+
+    /// <summary>按 PID/基址/长度打开进程内存视图并滚动到焦点地址（扫描候选“在编辑器中打开”跳转；探针/测试可复用）。</summary>
+    public async Task OpenProcessAtCoreAsync(int pid, ulong baseAddress, ulong viewLength, ulong focusOffset)
+    {
+        _openedPid = pid;
+        _openedBaseAddress = baseAddress;
+        _openedViewLength = viewLength;
+        _openedFocusOffset = focusOffset;
+        _hasOpenedProcess = true;
+        _openedFilePath = null;
+
+        var source = new ProcessMemoryByteSource(pid, $"pid:{pid}", baseAddress, viewLength);
+        await AttachSourceAsync(source, $"进程内存：PID {pid} @0x{baseAddress:X16}");
+
+        // 关键：文档偏移 = 绝对地址 - 视图基址（视图只有 viewLength 字节，绝对地址必然越界）
+        if (focusOffset < baseAddress || focusOffset - baseAddress >= viewLength)
+        {
+            StatusText = $"焦点地址 0x{focusOffset:X16} 不在视图范围内（0x{baseAddress:X16}~0x{baseAddress + viewLength:X16}）。";
+            return;
+        }
+        var docOffset = focusOffset - baseAddress;
+        ScrollToOffset(docOffset);
+        SelectByte(docOffset);
+        StatusText = $"已定位并选中字节 0x{focusOffset:X16}（PID {pid}）；点“编辑模式”后输入十六进制并“应用覆盖”，即写回进程内存。";
     }
 
     private async Task AttachSourceAsync(IEditableByteSource source, string label)
@@ -344,42 +423,94 @@ public sealed class HexEditorViewModel : ModuleViewModelBase
         StatusText = EditMode ? "编辑模式已开启（覆盖写）" : "只读模式";
     }
 
-    private void ApplyEdit()
+    /// <summary>应用覆盖编辑。起点 = 当前选中的字节；文件来源写入文档缓存手动保存，进程内存立即写回。</summary>
+    private async Task ApplyEditAsync()
     {
-        if (_document is null || SelectedRow is null || !EditMode) return;
-
-        var rowOffset = SelectedRow.Offset;
-        var valueText = EditValue.Replace(" ", "").Replace("0x", "", StringComparison.OrdinalIgnoreCase);
-        if (valueText.Length == 0 || valueText.Length % 2 != 0)
+        if (_document is null)
         {
-            StatusText = "请输入偶数位十六进制（如 DE AD BE EF）";
+            StatusText = "未打开来源。";
+            return;
+        }
+        if (SelectedByteOffset is not ulong startOffset)
+        {
+            if (SelectedRow is null)
+            {
+                StatusText = "请先点选一个字节。";
+                return;
+            }
+            startOffset = SelectedRow.Offset;
+        }
+        if (!EditMode)
+        {
+            StatusText = "请先点击“编辑模式”开启覆盖编辑（进程内存只读视图需先开启）。";
             return;
         }
 
+        var valueText = EditValue.Replace(" ", "").Replace("0x", "", StringComparison.OrdinalIgnoreCase);
+        if (valueText.Length == 0 || valueText.Length % 2 != 0)
+        {
+            StatusText = "请输入偶数位十六进制（如 DE AD BE EF；从选中字节起覆盖）";
+            return;
+        }
+
+        byte[] bytes;
         try
         {
-            var bytes = new byte[valueText.Length / 2];
+            bytes = new byte[valueText.Length / 2];
             for (var i = 0; i < bytes.Length; i++)
             {
                 bytes[i] = Convert.ToByte(valueText.Substring(i * 2, 2), 16);
             }
 
-            if (rowOffset + (ulong)bytes.Length > _document.Length)
+            if (startOffset + (ulong)bytes.Length > _document.Length)
             {
                 StatusText = "编辑范围超出文档长度";
                 return;
             }
 
-            _document.Overwrite(rowOffset, bytes);
-            RefreshVisibleRows(rowOffset);
-            StatusText = $"已覆盖 {bytes.Length} 字节 @{AddressFormatting.ToHex16(rowOffset)}；可撤销或保存。";
-            OnPropertyChanged(nameof(CanSave));
-            OnPropertyChanged(nameof(CanUndo));
+            _document.Overwrite(startOffset, bytes);
+            RefreshVisibleRows(startOffset);
         }
         catch (Exception ex)
         {
             StatusText = $"编辑失败：{ex.Message}";
+            return;
         }
+
+        // 进程内存：应用即写回目标进程（无需手动保存）
+        if (_editableSource is not null && !_editableSource.Capabilities.HasFlag(ByteSourceCapabilities.AtomicCommit))
+        {
+            var result = await _editableSource.CommitAsync(
+                _document.BuildChangeSet(),
+                new CommitOptions(VerifyVersionToken: false, CreateBackup: false),
+                CancellationToken.None);
+            if (result.Success)
+            {
+                StatusText = $"已写入进程内存 {bytes.Length} 字节 @{AddressFormatting.ToHex16(startOffset)}。";
+                State = PageState.Ready;
+                // 重新加载视图：文档干净、显示写入后的当前值
+                if (_hasOpenedProcess)
+                {
+                    await OpenProcessAtCoreAsync(_openedPid, _openedBaseAddress, _openedViewLength, _openedFocusOffset);
+                }
+            }
+            else
+            {
+                StatusText = $"写入被拒绝：{result.Message}";
+                // 写前比较失败（游戏值已变化）或进程不可达：刷新视图便于重试
+                if (_hasOpenedProcess)
+                {
+                    await OpenProcessAtCoreAsync(_openedPid, _openedBaseAddress, _openedViewLength, _openedFocusOffset);
+                    StatusText += " 已刷新视图（读取最新值），可重新编辑。";
+                }
+            }
+            return;
+        }
+
+        // 文件来源：保持手动保存
+        StatusText = $"已覆盖 {bytes.Length} 字节 @{AddressFormatting.ToHex16(startOffset)}；可撤销或保存。";
+        OnPropertyChanged(nameof(CanSave));
+        OnPropertyChanged(nameof(CanUndo));
     }
 
     private void Undo()
@@ -471,14 +602,52 @@ public sealed class HexEditorViewModel : ModuleViewModelBase
         ScrollToOffset(keepOffset);
     }
 
-    /// <summary>滚动到指定偏移（选择对应行）。</summary>
+    /// <summary>滚动到指定偏移（选择对应行并通知视图滚动到可见区域）。</summary>
     public void ScrollToOffset(ulong offset)
     {
+        _pendingFocusOffset = offset;
+        FocusByteColumn = (int)(offset % 16);
         var rowIndex = (int)(offset / 16);
         if (Rows is not null && rowIndex < Rows.Count)
         {
             SelectedRow = Rows[rowIndex];
+            ScrollRequested?.Invoke();
         }
+    }
+
+    /// <summary>页面就绪后消费缓存的定位请求（解决模块切换时滚动请求早于页面创建而丢失）。</summary>
+    public void ConsumePendingFocus()
+    {
+        if (_pendingFocusOffset is ulong offset)
+        {
+            _pendingFocusOffset = null;
+            ScrollToOffset(offset);
+        }
+    }
+
+    /// <summary>字节级选中：定位到指定字节偏移并预填编辑值（View 单元格点击/定位时调用）。</summary>
+    public void SelectByte(ulong byteOffset)
+    {
+        SelectedByteOffset = byteOffset;
+        FocusByteColumn = (int)(byteOffset % 16);
+        var rowIndex = (int)(byteOffset / 16);
+        if (Rows is not null && rowIndex < Rows.Count)
+        {
+            SelectedRow = Rows[rowIndex];
+        }
+        if (_document is not null)
+        {
+            try
+            {
+                var b = _document.ReadByte(byteOffset);
+                EditValue = b.ToString("X2");
+            }
+            catch
+            {
+                EditValue = "";
+            }
+        }
+        StatusText = $"选中字节 0x{byteOffset:X}（行内第 {FocusByteColumn} 列）；输入新值后点“应用覆盖”即写回。";
     }
 
     public void NotifyDirtyChanged() => OnPropertyChanged(nameof(CanSave));

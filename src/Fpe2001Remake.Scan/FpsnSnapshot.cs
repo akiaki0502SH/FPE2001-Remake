@@ -1,4 +1,3 @@
-using System.Buffers;
 using System.Text;
 using Fpe2001Remake.Contracts;
 using Fpe2001Remake.Domain;
@@ -25,10 +24,15 @@ public sealed class FpsnSnapshot : IDisposable
     public const uint Version = 1;
     public const int HeaderSize = 128;
 
+    /// <summary>写缓冲大小：候选量百万级时，逐条小 IO 是性能瓶颈，积攒后批量写入。</summary>
+    private const int WriteBufferSize = 256 * 1024;
+
     private readonly string _path;
     private FileStream _stream;
     private readonly bool _writable;
     private ulong _count;
+    private byte[]? _writeBuffer;
+    private int _writeLen;
 
     private FpsnSnapshot(string path, FileStream stream, bool writable, ulong count,
         ScanDataType dataType, Endianness endianness, int valueSize)
@@ -110,38 +114,73 @@ public sealed class FpsnSnapshot : IDisposable
         {
             throw new ArgumentException($"值长度 {value.Length} 与快照宽度 {ValueSize} 不符。");
         }
-        // 顺序写：FileStream 维护 Position，避免 Seek(End) 引发的缓冲 flush（候选量大时是性能灾难）
-        Span<byte> buf = stackalloc byte[8];
-        System.Buffers.Binary.BinaryPrimitives.WriteUInt64LittleEndian(buf, address);
-        _stream.Write(buf);
-        _stream.Write(value);
+        // 积攒到写缓冲，满 256 KiB 才落盘：避免每候选两次小 Write 的系统调用开销
+        if (_writeBuffer is null || _writeLen + 8 + value.Length > _writeBuffer.Length)
+        {
+            FlushWriteBuffer();
+            _writeBuffer ??= new byte[WriteBufferSize];
+        }
+        System.Buffers.Binary.BinaryPrimitives.WriteUInt64LittleEndian(_writeBuffer.AsSpan(_writeLen), address);
+        _writeLen += 8;
+        value.CopyTo(_writeBuffer.AsSpan(_writeLen));
+        _writeLen += value.Length;
         _count++;
     }
 
-    /// <summary>遍历全部记录。</summary>
-    public IEnumerable<(ulong Address, byte[] Value)> ReadAll()
+    /// <summary>
+    /// 顺序遍历全部记录（大块读 + 回调，零逐条 IO、零逐条分配）。
+    /// onRecord 收到的 value span 仅在回调期间有效；返回 false 提前终止遍历。
+    /// </summary>
+    public void ReadAllBulk(Func<ulong, ReadOnlySpan<byte>, bool> onRecord)
     {
-        var buffer = ArrayPool<byte>.Shared.Rent(Stride);
-        try
+        _stream.Seek(HeaderSize, SeekOrigin.Begin);
+        var block = new byte[ReadBlockSize + Stride - 1];
+        long totalRead = 0;
+        long remaining = checked((long)(_count * (ulong)Stride));
+        var tail = 0;
+        var stop = false;
+
+        while (totalRead < remaining && !stop)
         {
-            _stream.Seek(HeaderSize, SeekOrigin.Begin);
-            for (ulong i = 0; i < _count; i++)
+            var toRead = (int)Math.Min(remaining - totalRead, ReadBlockSize);
+            var read = _stream.Read(block, tail, toRead);
+            if (read <= 0)
             {
-                var read = _stream.Read(buffer, 0, Stride);
-                if (read < Stride)
-                {
-                    yield break;
-                }
-                var address = System.Buffers.Binary.BinaryPrimitives.ReadUInt64LittleEndian(buffer);
-                var value = new byte[ValueSize];
-                Buffer.BlockCopy(buffer, 8, value, 0, ValueSize);
-                yield return (address, value);
+                break;
             }
+            var window = tail + read;
+            var pos = 0;
+            var last = window - Stride;
+            while (pos <= last)
+            {
+                var address = System.Buffers.Binary.BinaryPrimitives.ReadUInt64LittleEndian(block.AsSpan(pos));
+                if (!onRecord(address, block.AsSpan(pos + 8, ValueSize)))
+                {
+                    stop = true;
+                    break;
+                }
+                pos += Stride;
+            }
+            tail = window - pos; // 不足一条记录的尾部，下一轮补上
+            if (tail > 0)
+            {
+                Buffer.BlockCopy(block, pos, block, 0, tail);
+            }
+            totalRead += read;
         }
-        finally
+    }
+
+    private const int ReadBlockSize = 1024 * 1024;
+
+    /// <summary>把写缓冲落盘（保持流位置语义：写路径仅顺序追加）。</summary>
+    private void FlushWriteBuffer()
+    {
+        if (!_writable || _writeLen == 0)
         {
-            ArrayPool<byte>.Shared.Return(buffer);
+            return;
         }
+        _stream.Write(_writeBuffer!, 0, _writeLen);
+        _writeLen = 0;
     }
 
     /// <summary>关闭当前写句柄（供替换后清理）。</summary>
@@ -169,6 +208,7 @@ public sealed class FpsnSnapshot : IDisposable
     private void WriteCountBack()
     {
         if (_stream is null) return;
+        FlushWriteBuffer();
         Span<byte> buf = stackalloc byte[8];
         System.Buffers.Binary.BinaryPrimitives.WriteUInt64LittleEndian(buf, _count);
         var pos = _stream.Position;

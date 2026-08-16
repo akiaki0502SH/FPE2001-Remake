@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\src\Fpe2001Remake.BinaryEditor.Core\Fpe2001Remake.BinaryEditor.Core.csproj" />
     <ProjectReference Include="..\..\src\Fpe2001Remake.Domain\Fpe2001Remake.Domain.csproj" />
     <ProjectReference Include="..\..\src\Fpe2001Remake.Contracts\Fpe2001Remake.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.UI\Fpe2001Remake.UI.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,12 @@
                     <TextBox Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}"
                              Width="200" Height="30" Margin="8,0,0,0" VerticalContentAlignment="Center"
                              Padding="8,0" BorderBrush="{StaticResource LineBrush}"
-                             FontFamily="{StaticResource MonoFont}" FontSize="12" />
+                             FontFamily="{StaticResource MonoFont}" FontSize="12"
+                             ToolTip="输入后按 Enter 直接查找">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding FindCommand}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
                     <Button Content="查找 (F2)" Style="{StaticResource ActionButton}" Height="30" Margin="8,0,0,0"
                             Command="{Binding FindCommand}" />
                     <TextBlock Text="编码" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" Margin="20,0,0,0" />
@@ -56,8 +61,8 @@
 
         <!-- ===== 十六进制网格（虚拟化） ===== -->
         <Grid Margin="12">
-            <DataGrid ItemsSource="{Binding Rows}"
-                      SelectedItem="{Binding SelectedRow}"
+            <DataGrid x:Name="HexGrid"
+                      ItemsSource="{Binding Rows}"
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       CanUserAddRows="False"
@@ -70,9 +75,12 @@
                       BorderThickness="1"
                       FontFamily="{StaticResource MonoFont}" FontSize="12.5"
                       SelectionMode="Single"
+                      SelectionUnit="Cell"
+                      CurrentCellChanged="HexGrid_CurrentCellChanged"
                       VirtualizingPanel.IsVirtualizing="True"
                       VirtualizingPanel.VirtualizationMode="Recycling"
-                      ScrollViewer.IsDeferredScrollingEnabled="False">
+                      ScrollViewer.IsDeferredScrollingEnabled="False"
+                      ColumnHeaderHeight="26">
                 <DataGrid.Resources>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Background" Value="{StaticResource CanvasBrush}" />
@@ -90,8 +98,9 @@
                         <Setter Property="Background" Value="Transparent" />
                         <Style.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="{StaticResource PrimarySoftBrush}" />
-                                <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
+                                <!-- 字节级高亮：醒目黄色 + 深色字（定位/选中当前字节用） -->
+                                <Setter Property="Background" Value="#FFFFD54F" />
+                                <Setter Property="Foreground" Value="#FF202020" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -105,8 +114,23 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="偏移" Binding="{Binding OffsetText}" Width="180" />
-                    <DataGridTextColumn Header="00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F" Binding="{Binding Hex}" Width="300" />
+                    <DataGridTextColumn Header="偏移" Binding="{Binding OffsetText}" Width="150" />
+                    <DataGridTextColumn Header="00" Binding="{Binding [0]}" Width="44" />
+                    <DataGridTextColumn Header="01" Binding="{Binding [1]}" Width="44" />
+                    <DataGridTextColumn Header="02" Binding="{Binding [2]}" Width="44" />
+                    <DataGridTextColumn Header="03" Binding="{Binding [3]}" Width="44" />
+                    <DataGridTextColumn Header="04" Binding="{Binding [4]}" Width="44" />
+                    <DataGridTextColumn Header="05" Binding="{Binding [5]}" Width="44" />
+                    <DataGridTextColumn Header="06" Binding="{Binding [6]}" Width="44" />
+                    <DataGridTextColumn Header="07" Binding="{Binding [7]}" Width="44" />
+                    <DataGridTextColumn Header="08" Binding="{Binding [8]}" Width="44" />
+                    <DataGridTextColumn Header="09" Binding="{Binding [9]}" Width="44" />
+                    <DataGridTextColumn Header="0A" Binding="{Binding [10]}" Width="44" />
+                    <DataGridTextColumn Header="0B" Binding="{Binding [11]}" Width="44" />
+                    <DataGridTextColumn Header="0C" Binding="{Binding [12]}" Width="44" />
+                    <DataGridTextColumn Header="0D" Binding="{Binding [13]}" Width="44" />
+                    <DataGridTextColumn Header="0E" Binding="{Binding [14]}" Width="44" />
+                    <DataGridTextColumn Header="0F" Binding="{Binding [15]}" Width="44" />
                     <DataGridTextColumn Header="文本" Binding="{Binding Text}" Width="120" />
                 </DataGrid.Columns>
             </DataGrid>

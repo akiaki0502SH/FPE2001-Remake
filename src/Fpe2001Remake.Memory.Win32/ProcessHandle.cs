@@ -78,20 +78,24 @@ public sealed class ProcessHandle : IDisposable
         }
     }
 
-    /// <summary>读取内存；返回实际读到的字节数。</summary>
+    /// <summary>读取内存；返回实际读到的字节数。unsafe fixed 零拷贝（扫描热路径，1 MiB 块读）。</summary>
     public int Read(ulong address, Span<byte> buffer)
     {
         ThrowIfClosed();
         if (buffer.IsEmpty) return 0;
-        var bytes = buffer.ToArray();
-        var ok = NativeMethods.ReadProcessMemory(
-            _handle, new IntPtr((long)address), bytes, (nuint)bytes.Length, out var read);
-        if (!ok)
+        unsafe
         {
-            return 0;
+            fixed (byte* p = buffer)
+            {
+                var ok = NativeMethods.ReadProcessMemory(
+                    _handle, new IntPtr((long)address), p, (nuint)buffer.Length, out var read);
+                if (!ok)
+                {
+                    return 0;
+                }
+                return (int)read;
+            }
         }
-        bytes.AsSpan(0, (int)read).CopyTo(buffer);
-        return (int)read;
     }
 
     /// <summary>写入内存；返回实际写入的字节数。写入前必须由调用方复验 Identity。</summary>
@@ -99,10 +103,15 @@ public sealed class ProcessHandle : IDisposable
     {
         ThrowIfClosed();
         if (data.IsEmpty) return 0;
-        var bytes = data.ToArray();
-        var ok = NativeMethods.WriteProcessMemory(
-            _handle, new IntPtr((long)address), bytes, (nuint)bytes.Length, out var written);
-        return ok ? (int)written : 0;
+        unsafe
+        {
+            fixed (byte* p = data)
+            {
+                var ok = NativeMethods.WriteProcessMemory(
+                    _handle, new IntPtr((long)address), p, (nuint)data.Length, out var written);
+                return ok ? (int)written : 0;
+            }
+        }
     }
 
     /// <summary>写前比较 + 写入 + 读回校验（规格 §6 进程写入三要素）。</summary>

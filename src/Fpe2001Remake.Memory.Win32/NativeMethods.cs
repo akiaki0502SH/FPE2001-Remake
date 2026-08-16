@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 namespace Fpe2001Remake.Memory.Win32;
 
 /// <summary>Win32 进程内存访问 P/Invoke（规格 §8：区域枚举/读取/写入，不注入、不做内核驱动）。</summary>
-internal static class NativeMethods
+internal static unsafe class NativeMethods
 {
     // OpenProcess 访问权限
     public const uint PROCESS_VM_READ = 0x0010;
@@ -39,11 +39,11 @@ internal static class NativeMethods
 
     [DllImport("kernel32.dll", SetLastError = true)]
     public static extern bool ReadProcessMemory(
-        IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, nuint nSize, out nuint lpNumberOfBytesRead);
+        IntPtr hProcess, IntPtr lpBaseAddress, byte* lpBuffer, nuint nSize, out nuint lpNumberOfBytesRead);
 
     [DllImport("kernel32.dll", SetLastError = true)]
     public static extern bool WriteProcessMemory(
-        IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, nuint nSize, out nuint lpNumberOfBytesWritten);
+        IntPtr hProcess, IntPtr lpBaseAddress, byte* lpBuffer, nuint nSize, out nuint lpNumberOfBytesWritten);
 
     [DllImport("kernel32.dll", SetLastError = true)]
     public static extern nuint VirtualQueryEx(

@@ -67,7 +67,11 @@
                                  Margin="8,0,0,0" Padding="8,0"
                                  BorderBrush="{StaticResource LineBrush}"
                                  FontFamily="{StaticResource MonoFont}" FontSize="12.5"
-                                 ToolTip="十进制数值；比较类型为“变化/未变/未知值”时可为空" />
+                                 ToolTip="十进制数值；支持 0x 十六进制（如 0x21=33 十进制）。比较类型为“变化/未变/未知值”时可为空。输入后按 Enter 直接扫描">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter" Command="{Binding ScanCommand}" />
+                            </TextBox.InputBindings>
+                        </TextBox>
                     </StackPanel>
                     <TextBlock Text="{Binding StateDetail}"
                                Foreground="{StaticResource MutedBrush}" FontSize="11"
@@ -133,6 +137,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="地址" Binding="{Binding AddressText}" Width="190"
                                         FontFamily="{StaticResource MonoFont}" />
+                    <DataGridTextColumn Header="类型" Binding="{Binding TypeText}" Width="64" />
                     <DataGridTextColumn Header="当前值" Binding="{Binding CurrentValue}" Width="130" />
                     <DataGridTextColumn Header="上次值" Binding="{Binding PreviousValue}" Width="130" />
                     <DataGridTextColumn Header="宿主证据" Binding="{Binding HostEvidence}" Width="220" />
@@ -142,8 +147,15 @@
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
                 <Button Content="添加到地址表" Style="{StaticResource PrimaryButton}"
                         Command="{Binding AddToAddressTableCommand}" />
+                <Button Content="写入" Style="{StaticResource GhostButton}" Margin="8,0,0,0"
+                        Command="{Binding WriteCandidateCommand}"
+                        ToolTip="修改选中候选的值（立即写入内存，并自动加入地址表）" />
+                <Button Content="{Binding CandidateFreezeButtonText}" Style="{StaticResource GhostButton}" Margin="8,0,0,0"
+                        Command="{Binding FreezeCandidateCommand}"
+                        ToolTip="锁定选中候选的值（持续写回，防游戏改变）；再点一次解除" />
                 <Button Content="在编辑器中打开" Style="{StaticResource GhostButton}" Margin="8,0,0,0"
-                        IsEnabled="False" ToolTip="P2 阶段实现" />
+                        Command="{Binding OpenInEditorCommand}"
+                        ToolTip="跳转十六进制编辑器并定位到选中候选的地址" />
             </StackPanel>
         </Grid>
     </DockPanel>

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fpe2001Remake.BinaryEditor.Core\Fpe2001Remake.BinaryEditor.Core.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.ByteSources.Process\Fpe2001Remake.ByteSources.Process.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Memory.Win32\Fpe2001Remake.Memory.Win32.csproj" />
+    <ProjectReference Include="..\..\src\Fpe2001Remake.Contracts\Fpe2001Remake.Contracts.csproj" />
+  </ItemGroup>
+</Project>
