@@ -6,6 +6,14 @@
 
         <!-- ===== 动作栏 ===== -->
         <views:ActionBar DockPanel.Dock="Top" />
+        <Border DockPanel.Dock="Top" Background="#99FBFBFA" BorderBrush="{StaticResource LineBrush}"
+                BorderThickness="0,0,0,1" Padding="20,13,20,11">
+            <StackPanel>
+                <TextBlock Text="地址表" Style="{StaticResource PageTitleText}" />
+                <TextBlock Text="管理变量、静态地址与指针表达式，并执行写入、回读和冻结。"
+                           Style="{StaticResource PageSubtitleText}" Margin="0,3,0,0" />
+            </StackPanel>
+        </Border>
 
         <!-- ===== 底部操作 ===== -->
         <Border DockPanel.Dock="Bottom" Background="{StaticResource SurfaceBrush}"

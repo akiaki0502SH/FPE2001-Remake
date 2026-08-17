@@ -6,6 +6,14 @@
 
         <!-- ===== 动作栏 ===== -->
         <views:ActionBar DockPanel.Dock="Top" />
+        <Border DockPanel.Dock="Top" Background="#99FBFBFA" BorderBrush="{StaticResource LineBrush}"
+                BorderThickness="0,0,0,1" Padding="20,13,20,11">
+            <StackPanel>
+                <TextBlock Text="内存搜索" Style="{StaticResource PageTitleText}" />
+                <TextBlock Text="选择目标进程，按原版任务路径完成首次搜索、再次过滤、写入与冻结。"
+                           Style="{StaticResource PageSubtitleText}" Margin="0,3,0,0" />
+            </StackPanel>
+        </Border>
 
         <!-- ===== 顶部条件面板 ===== -->
         <Border DockPanel.Dock="Top" Background="{StaticResource SurfaceBrush}"

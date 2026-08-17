@@ -6,6 +6,14 @@
     <DockPanel Background="{StaticResource WindowBrush}">
 
         <views:ActionBar DockPanel.Dock="Top" />
+        <Border DockPanel.Dock="Top" Background="#99FBFBFA" BorderBrush="{StaticResource LineBrush}"
+                BorderThickness="0,0,0,1" Padding="20,13,20,11">
+            <StackPanel>
+                <TextBlock Text="图片工具" Style="{StaticResource PageTitleText}" />
+                <TextBlock Text="加载、预览、命名、缩放和导出游戏图片资源。"
+                           Style="{StaticResource PageSubtitleText}" Margin="0,3,0,0" />
+            </StackPanel>
+        </Border>
 
         <!-- 路径栏 -->
         <Border DockPanel.Dock="Top" Background="{StaticResource SurfaceBrush}"
@@ -41,7 +49,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type vm:MediaItemRow}">
                         <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}"
-                                BorderThickness="1" CornerRadius="4" Margin="4" Padding="8"
+                                BorderThickness="1" CornerRadius="9" Margin="4" Padding="8"
                                 Width="150" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown">
                             <StackPanel>
                                 <Border Height="100" Background="{StaticResource CanvasBrush}" CornerRadius="2">
@@ -60,3 +68,4 @@
         </ScrollViewer>
     </DockPanel>
 </UserControl>
+

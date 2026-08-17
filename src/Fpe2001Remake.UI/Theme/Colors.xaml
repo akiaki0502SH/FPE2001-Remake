@@ -2,47 +2,47 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
-    <!-- v2.7 Deep Boundary Blue 主题：窗口外框、圆角和阴影改由 Windows 11 DWM 原生合成。 -->
-    <SolidColorBrush x:Key="CanvasBrush" Color="#E9EEF3" />
-    <SolidColorBrush x:Key="WindowBrush" Color="#DDE3EA" />
-    <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="SurfaceAltBrush" Color="#F4F7FA" />
-    <SolidColorBrush x:Key="LineBrush" Color="#AAB6C4" />
-    <SolidColorBrush x:Key="LineStrongBrush" Color="#75869A" />
-    <SolidColorBrush x:Key="TextBrush" Color="#18222E" />
-    <SolidColorBrush x:Key="MutedBrush" Color="#4F5F70" />
-    <SolidColorBrush x:Key="PrimaryBrush" Color="#245F9E" />
-    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="#174574" />
-    <SolidColorBrush x:Key="PrimarySoftBrush" Color="#D5E5F6" />
-    <SolidColorBrush x:Key="SuccessBrush" Color="#2D9760" />
-    <SolidColorBrush x:Key="WarningBrush" Color="#B97927" />
-    <SolidColorBrush x:Key="DangerBrush" Color="#CF4B4B" />
-    <SolidColorBrush x:Key="WindowFrameBrush" Color="#75869A" />
+    <!-- v3.0 Design Kit v2.1：低饱和灰青工具界面。窗口边框与阴影由 DWM 绘制。 -->
+    <SolidColorBrush x:Key="CanvasBrush" Color="#D9DDDF" />
+    <SolidColorBrush x:Key="WindowBrush" Color="#F5F6F6" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="#FBFBFA" />
+    <SolidColorBrush x:Key="SurfaceAltBrush" Color="#EDF0F0" />
+    <SolidColorBrush x:Key="LineBrush" Color="#CFD5D6" />
+    <SolidColorBrush x:Key="LineStrongBrush" Color="#BBC4C6" />
+    <SolidColorBrush x:Key="TextBrush" Color="#283538" />
+    <SolidColorBrush x:Key="MutedBrush" Color="#6C797C" />
+    <SolidColorBrush x:Key="PrimaryBrush" Color="#526F75" />
+    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="#344B50" />
+    <SolidColorBrush x:Key="PrimarySoftBrush" Color="#DBE5E6" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="#607A69" />
+    <SolidColorBrush x:Key="WarningBrush" Color="#8A7655" />
+    <SolidColorBrush x:Key="DangerBrush" Color="#855E5E" />
+    <SolidColorBrush x:Key="WindowFrameBrush" Color="#AEB8BA" />
 
     <LinearGradientBrush x:Key="WindowGradient" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="#E4EAF0" Offset="0" />
-        <GradientStop Color="#D8E0E8" Offset="1" />
+        <GradientStop Color="#F7F8F8" Offset="0" />
+        <GradientStop Color="#F1F3F3" Offset="1" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#E5EBF1" Offset="0" />
-        <GradientStop Color="#D7DFE8" Offset="1" />
+        <GradientStop Color="#F1F3F3" Offset="0" />
+        <GradientStop Color="#ECEFEF" Offset="1" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="SurfaceGradient" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Color="#FFFFFF" Offset="0" />
-        <GradientStop Color="#F4F7FA" Offset="1" />
+        <GradientStop Color="#F7F8F7" Offset="1" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="#2F73B5" Offset="0" />
-        <GradientStop Color="#245F9E" Offset="1" />
+        <GradientStop Color="#607C82" Offset="0" />
+        <GradientStop Color="#526F75" Offset="1" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="ModuleIconGradient" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#F3F7FB" Offset="0" />
-        <GradientStop Color="#DCE9F5" Offset="1" />
+        <GradientStop Color="#F7F9F9" Offset="0" />
+        <GradientStop Color="#E2EAEA" Offset="1" />
     </LinearGradientBrush>
 
-    <DropShadowEffect x:Key="SoftShadow" BlurRadius="10" ShadowDepth="2" Direction="270" Opacity="0.12" Color="#233447" />
-    <DropShadowEffect x:Key="CardShadow" BlurRadius="14" ShadowDepth="3" Direction="270" Opacity="0.14" Color="#233447" />
-    <DropShadowEffect x:Key="ButtonShadow" BlurRadius="5" ShadowDepth="1" Direction="270" Opacity="0.11" Color="#233447" />
+    <DropShadowEffect x:Key="SoftShadow" BlurRadius="8" ShadowDepth="1" Direction="270" Opacity="0.08" Color="#2D3639" />
+    <DropShadowEffect x:Key="CardShadow" BlurRadius="9" ShadowDepth="2" Direction="270" Opacity="0.07" Color="#2D3639" />
+    <DropShadowEffect x:Key="ButtonShadow" BlurRadius="4" ShadowDepth="1" Direction="270" Opacity="0.06" Color="#2D3639" />
 
     <!-- 字体 -->
     <FontFamily x:Key="UiFont">Segoe UI Variable, Microsoft YaHei UI, Segoe UI</FontFamily>
@@ -50,20 +50,20 @@
     <FontFamily x:Key="IconFont">Segoe MDL2 Assets</FontFamily>
 
     <!-- 尺寸（DIP） -->
-    <sys:Double x:Key="TitlebarHeight">46</sys:Double>
-    <sys:Double x:Key="ModuleStripHeight">72</sys:Double>
-    <sys:Double x:Key="ActionbarHeight">48</sys:Double>
+    <sys:Double x:Key="TitlebarHeight">44</sys:Double>
+    <sys:Double x:Key="ModuleStripHeight">66</sys:Double>
+    <sys:Double x:Key="ActionbarHeight">44</sys:Double>
     <sys:Double x:Key="StatusbarHeight">31</sys:Double>
     <sys:Double x:Key="ControlHeight">33</sys:Double>
 
     <!-- 网格行高（GridLength） -->
-    <GridLength x:Key="TitlebarRowHeight">46</GridLength>
-    <GridLength x:Key="ModuleStripRowHeight">72</GridLength>
+    <GridLength x:Key="TitlebarRowHeight">44</GridLength>
+    <GridLength x:Key="ModuleStripRowHeight">66</GridLength>
     <GridLength x:Key="StatusbarRowHeight">31</GridLength>
 
     <!-- 圆角 -->
     <CornerRadius x:Key="WindowRadius">10</CornerRadius>
-    <CornerRadius x:Key="CardRadius">8</CornerRadius>
+    <CornerRadius x:Key="CardRadius">9</CornerRadius>
     <CornerRadius x:Key="ControlRadius">6</CornerRadius>
 
 </ResourceDictionary>

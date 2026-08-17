@@ -6,6 +6,14 @@
     <DockPanel Background="{StaticResource WindowBrush}">
 
         <views:ActionBar DockPanel.Dock="Top" />
+        <Border DockPanel.Dock="Top" Background="#99FBFBFA" BorderBrush="{StaticResource LineBrush}"
+                BorderThickness="0,0,0,1" Padding="20,13,20,11">
+            <StackPanel>
+                <TextBlock Text="宏按键" Style="{StaticResource PageTitleText}" />
+                <TextBlock Text="创建、录制与回放经授权的输入步骤，并随时停止。"
+                           Style="{StaticResource PageSubtitleText}" Margin="0,3,0,0" />
+            </StackPanel>
+        </Border>
 
         <!-- 状态栏 -->
         <Border DockPanel.Dock="Bottom" Background="{StaticResource CanvasBrush}"
@@ -26,7 +34,7 @@
 
             <!-- 宏列表 -->
             <Border Grid.Column="0" Background="{StaticResource SurfaceBrush}"
-                    BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="4">
+                    BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="9">
                 <ListBox ItemsSource="{Binding Macros}" SelectedItem="{Binding Selected}"
                          BorderThickness="0" Background="Transparent">
                     <ListBox.ItemTemplate>
@@ -123,3 +131,4 @@
         </Grid>
     </DockPanel>
 </UserControl>
+

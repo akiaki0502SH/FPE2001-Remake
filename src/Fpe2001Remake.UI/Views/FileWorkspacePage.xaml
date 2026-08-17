@@ -6,6 +6,14 @@
     <DockPanel Background="{StaticResource WindowBrush}">
 
         <views:ActionBar DockPanel.Dock="Top" />
+        <Border DockPanel.Dock="Top" Background="#99FBFBFA" BorderBrush="{StaticResource LineBrush}"
+                BorderThickness="0,0,0,1" Padding="20,13,20,11">
+            <StackPanel>
+                <TextBlock Text="文件选择与内容扫描" Style="{StaticResource PageTitleText}" />
+                <TextBlock Text="浏览目录和文件，扫描字节内容，并将命中项交给十六进制编辑器。"
+                           Style="{StaticResource PageSubtitleText}" Margin="0,3,0,0" />
+            </StackPanel>
+        </Border>
 
         <!-- ===== 扫描面板 ===== -->
         <Border DockPanel.Dock="Top" Background="{StaticResource SurfaceBrush}"
@@ -45,7 +53,7 @@
 
             <!-- 目录树 -->
             <Border Grid.Column="0" Background="{StaticResource SurfaceBrush}"
-                    BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="4">
+                    BorderBrush="{StaticResource LineBrush}" BorderThickness="1" CornerRadius="9">
                 <TreeView ItemsSource="{Binding Root.Children}" SelectedItemChanged="Tree_SelectedItemChanged"
                           BorderThickness="0" Background="Transparent"
                           VirtualizingPanel.IsVirtualizing="True">
@@ -104,3 +112,4 @@
         </Grid>
     </DockPanel>
 </UserControl>
+

@@ -5,6 +5,14 @@
     <DockPanel Background="{StaticResource WindowBrush}">
 
         <views:ActionBar DockPanel.Dock="Top" />
+        <Border DockPanel.Dock="Top" Background="#99FBFBFA" BorderBrush="{StaticResource LineBrush}"
+                BorderThickness="0,0,0,1" Padding="20,13,20,11">
+            <StackPanel>
+                <TextBlock Text="十六进制编辑器" Style="{StaticResource PageTitleText}" />
+                <TextBlock Text="以文件或进程内存为来源，执行定位、查找、字节编辑、撤销和安全保存。"
+                           Style="{StaticResource PageSubtitleText}" Margin="0,3,0,0" />
+            </StackPanel>
+        </Border>
 
         <!-- ===== 查找/编辑面板 ===== -->
         <Border DockPanel.Dock="Bottom" Background="{StaticResource SurfaceBrush}"

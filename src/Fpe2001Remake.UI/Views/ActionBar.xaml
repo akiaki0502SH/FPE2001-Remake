@@ -6,13 +6,13 @@
         <conv:BoolToBrushConverter x:Key="DangerBrushConverter" />
     </UserControl.Resources>
     <Border Height="{StaticResource ActionbarHeight}"
-            Background="{StaticResource SurfaceBrush}"
+            Background="#F2F3F3"
             BorderBrush="{StaticResource LineBrush}"
             BorderThickness="0,0,0,1">
         <ItemsControl ItemsSource="{Binding Actions}" VerticalAlignment="Center">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="10,0" />
+                                <StackPanel Orientation="Horizontal" Margin="10,0" VerticalAlignment="Center" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>

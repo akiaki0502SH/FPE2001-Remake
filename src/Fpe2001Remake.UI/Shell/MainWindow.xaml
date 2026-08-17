@@ -10,7 +10,7 @@
         Icon="/Fpe2001Remake.UI;component/Assets/FPE2001-Remake.ico"
         Width="1440" Height="900" MinWidth="1100" MinHeight="720"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource WindowGradient}"
+        Background="{StaticResource WindowBrush}"
         FontFamily="{StaticResource UiFont}"
         FontSize="13"
         Foreground="{StaticResource TextBrush}"
@@ -46,6 +46,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vmmod:SpeedViewModel}">
             <views:SpeedPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vmmod:AboutViewModel}">
+            <views:AboutPage />
         </DataTemplate>
 
         <!-- 模块页统一模板（动作栏 44 + 内容区；其余模块 P1 保持占位，逐阶段替换） -->
@@ -140,14 +143,14 @@
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="46"
+        <WindowChrome CaptionHeight="44"
                       ResizeBorderThickness="6"
                       GlassFrameThickness="1"
                       CornerRadius="10"
                       UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
 
-    <!-- v2.7：内容铺满客户区；外框、圆角和窗口外阴影由 Windows 11 DWM 原生绘制。 -->
+    <!-- v3.0：Design Kit v2.1 的 44/66/内容/31 六层窗口结构。 -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="{StaticResource TitlebarRowHeight}" />
@@ -156,37 +159,42 @@
             <RowDefinition Height="{StaticResource StatusbarRowHeight}" />
         </Grid.RowDefinitions>
 
-        <!-- ========== 标题栏：原结构不变，v2.7 Deep Boundary Blue + Native DWM Frame ========== -->
+        <!-- 标题栏：品牌左置、当前目标居中、状态与系统按钮固定最右。 -->
         <Border Grid.Row="0" Background="{StaticResource HeaderGradient}"
                 BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1">
-            <DockPanel LastChildFill="False">
-                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="18,0,0,0">
-                        <Border Width="28" Height="28" CornerRadius="7" Background="{StaticResource PrimarySoftBrush}"
-                            BorderBrush="#8BA5BE" BorderThickness="1">
-                        <Image Source="/Fpe2001Remake.UI;component/Assets/FPE2001-Remake.ico" Width="20" Height="20" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="280" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="18,0,0,0">
+                    <Border Width="25" Height="25" CornerRadius="7" Background="{StaticResource PrimaryBrush}">
+                        <Image Source="/Fpe2001Remake.UI;component/Assets/FPE2001-Remake.ico" Width="18" Height="18" />
                     </Border>
-                    <TextBlock Text="FPE2001-Remake" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
-                    <Border Margin="14,0,0,0" Padding="9,3" CornerRadius="6"
-                            Background="{StaticResource PrimarySoftBrush}" BorderBrush="#8BA5BE" BorderThickness="1">
-                        <TextBlock Text="{Binding CurrentTarget}"
-                                   Foreground="{StaticResource PrimaryDarkBrush}" FontSize="12"
-                                   VerticalAlignment="Center" />
-                    </Border>
-                    <TextBlock Text="{Binding TargetDetail}" Margin="6,0,0,0"
-                               Foreground="{StaticResource MutedBrush}" FontSize="11.5"
-                               VerticalAlignment="Center" />
+                    <TextBlock Text="FPE2001-Remake" FontWeight="SemiBold" FontSize="13.5"
+                               VerticalAlignment="Center" Margin="9,0,0,0" />
                 </StackPanel>
 
-                <!-- 运行状态徽章（冻结/宏/速度） -->
-                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal"
-                            VerticalAlignment="Center" Margin="24,0,0,0">
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="当前目标：" Foreground="{StaticResource MutedBrush}" FontSize="11" />
+                    <TextBlock Text="{Binding CurrentTarget}" Foreground="{StaticResource SuccessBrush}"
+                               FontWeight="SemiBold" FontSize="11" />
+                    <TextBlock Text="  " />
+                    <TextBlock Text="{Binding TargetDetail}" Foreground="{StaticResource MutedBrush}"
+                               FontSize="10.5" TextTrimming="CharacterEllipsis" MaxWidth="300" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- 运行状态徽章（冻结/宏/速度） -->
                     <Border Style="{StaticResource StatusBadge}"
-                            Background="#F6EBD9" BorderBrush="#C9A96C"
+                            Background="#EEE8DE" BorderBrush="#D8CCB8"
                             Visibility="{Binding FreezeRunning, Converter={StaticResource BoolToVisibilityConverter}}">
                         <TextBlock Text="冻结运行中" Foreground="{StaticResource WarningBrush}" FontSize="11" />
                     </Border>
                     <Border Style="{StaticResource StatusBadge}"
-                            Background="#F6EBD9" BorderBrush="#C9A96C"
+                            Background="#EEE8DE" BorderBrush="#D8CCB8"
                             Margin="6,0,0,0"
                             Visibility="{Binding MacroRunning, Converter={StaticResource BoolToVisibilityConverter}}">
                         <TextBlock Text="宏运行中" Foreground="{StaticResource WarningBrush}" FontSize="11" />
@@ -198,11 +206,9 @@
                             <Run Text="速度 " /><Run Text="{Binding SpeedText, Mode=OneWay}" />
                         </TextBlock>
                     </Border>
-                </StackPanel>
-
-                <!-- 窗口按钮 -->
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="8,0,8,0"
-                            chrome:WindowChrome.IsHitTestVisibleInChrome="True">
+                    <!-- 窗口按钮 -->
+                    <StackPanel Orientation="Horizontal" Margin="8,0,8,0"
+                                chrome:WindowChrome.IsHitTestVisibleInChrome="True">
                     <Button x:Name="MinimizeButton" Click="MinimizeButton_Click"
                             Width="46" Height="44" Background="Transparent" BorderThickness="0"
                             Foreground="{StaticResource MutedBrush}" ToolTip="最小化"
@@ -227,17 +233,18 @@
                             Style="{StaticResource CloseWindowButton}">
                         <TextBlock Text="&#xE8BB;" FontFamily="{StaticResource IconFont}" FontSize="10" />
                     </Button>
+                    </StackPanel>
                 </StackPanel>
-            </DockPanel>
+            </Grid>
         </Border>
 
         <!-- ========== 九模块横向导航：结构与顺序保持不变 ========== -->
-        <Border Grid.Row="1" Background="{StaticResource SurfaceBrush}"
+        <Border Grid.Row="1" Background="#E7EAEA"
                 BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1">
             <ItemsControl ItemsSource="{Binding Modules}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
+                        <UniformGrid Rows="1" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

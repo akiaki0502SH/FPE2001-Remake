@@ -4,14 +4,14 @@
     <!-- 通用按钮 -->
     <Style x:Key="GhostButton" TargetType="Button">
         <Setter Property="Height" Value="{StaticResource ControlHeight}" />
-        <Setter Property="MinWidth" Value="76" />
-        <Setter Property="Padding" Value="14,0" />
+        <Setter Property="MinWidth" Value="68" />
+        <Setter Property="Padding" Value="11,0" />
         <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
         <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource LineBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FontFamily" Value="{StaticResource UiFont}" />
-        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Effect" Value="{StaticResource ButtonShadow}" />
         <Setter Property="Template">
@@ -29,11 +29,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#EEF4FA" />
+                            <Setter TargetName="Bd" Property="Background" Value="#F3F6F6" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#D6E4F2" />
+                            <Setter TargetName="Bd" Property="Background" Value="#E2E8E8" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Bd" Property="Opacity" Value="0.45" />
@@ -64,10 +64,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#2F73B5" />
+                            <Setter TargetName="Bd" Property="Background" Value="#607C82" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#174574" />
+                            <Setter TargetName="Bd" Property="Background" Value="#415E64" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Bd" Property="Opacity" Value="0.45" />
@@ -97,10 +97,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#F8E8E8" />
+                            <Setter TargetName="Bd" Property="Background" Value="#F5EDED" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#F2D5D7" />
+                            <Setter TargetName="Bd" Property="Background" Value="#EADADA" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Bd" Property="Opacity" Value="0.45" />
@@ -113,19 +113,18 @@
 
     <!-- 动作栏按钮（含 F 键提示） -->
     <Style x:Key="ActionButton" TargetType="Button" BasedOn="{StaticResource GhostButton}">
-        <Setter Property="Height" Value="36" />
+        <Setter Property="Height" Value="30" />
         <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Padding" Value="12,0" />
-        <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="Padding" Value="11,0" />
+        <Setter Property="FontSize" Value="11.5" />
     </Style>
 
-    <!-- 模块带按钮：保留原横向布局，使用更清晰的灰蓝边界和立体图标底板。 -->
+    <!-- v3.0 模块带：固定图标+名称两行，不显示开发标记，活动项为白色抬起标签。 -->
     <Style x:Key="ModuleButton" TargetType="RadioButton">
-        <!-- 按钮高度必须包含在 72 DIP 模块带内；外边距不能叠加到整行高度之外。 -->
-        <Setter Property="Height" Value="60" />
-        <Setter Property="MinWidth" Value="88" />
-        <Setter Property="Margin" Value="4,5" />
-        <Setter Property="Padding" Value="12,3" />
+        <Setter Property="Height" Value="52" />
+        <Setter Property="MinWidth" Value="92" />
+        <Setter Property="Margin" Value="3,7" />
+        <Setter Property="Padding" Value="10,4" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
@@ -140,37 +139,36 @@
                             CornerRadius="8"
                             Padding="{TemplateBinding Padding}">
                         <StackPanel VerticalAlignment="Center">
-                            <Border x:Name="IconPlate" Width="30" Height="30"
-                                    CornerRadius="7" Background="Transparent"
-                                    BorderBrush="Transparent" BorderThickness="1"
+                            <Border x:Name="IconPlate" Width="20" Height="18"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent" BorderThickness="0"
                                     HorizontalAlignment="Center">
                                 <TextBlock x:Name="Icon"
                                            Text="{TemplateBinding Tag}"
                                            FontFamily="{StaticResource IconFont}"
-                                           FontSize="18"
+                                           FontSize="14"
                                            Foreground="{TemplateBinding Foreground}"
                                            HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <TextBlock x:Name="Label"
                                        Text="{TemplateBinding Content}"
                                        FontFamily="{StaticResource UiFont}"
-                                       FontSize="12"
+                                       FontSize="11.5"
                                        Foreground="{TemplateBinding Foreground}"
                                        HorizontalAlignment="Center"
-                                       Margin="0,3,0,0" />
+                                       Margin="0,2,0,0" />
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#E2EBF4" />
-                            <Setter TargetName="Bd" Property="BorderBrush" Value="#93A8BC" />
-                            <Setter TargetName="IconPlate" Property="Background" Value="#D7E4F0" />
+                            <Setter TargetName="Bd" Property="Background" Value="#EEF2F2" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="#C3CCCD" />
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryDarkBrush}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource PrimarySoftBrush}" />
-                            <Setter TargetName="Bd" Property="BorderBrush" Value="#6E8EAE" />
-                            <Setter TargetName="IconPlate" Property="Background" Value="#C6DAED" />
-                            <Setter TargetName="IconPlate" Property="BorderBrush" Value="#8BA5BE" />
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceBrush}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource LineStrongBrush}" />
+                            <Setter TargetName="Bd" Property="Effect" Value="{StaticResource SoftShadow}" />
                             <Setter TargetName="Label" Property="Foreground" Value="{StaticResource PrimaryBrush}" />
                             <Setter TargetName="Icon" Property="Foreground" Value="{StaticResource PrimaryBrush}" />
                         </Trigger>
@@ -204,11 +202,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#C9D4E0" />
+                            <Setter TargetName="Bd" Property="Background" Value="#E0E5E5" />
                             <Setter Property="Foreground" Value="{StaticResource PrimaryDarkBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#B5C3D2" />
+                            <Setter TargetName="Bd" Property="Background" Value="#D2DADA" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -225,11 +223,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#F7DFE1" />
+                            <Setter TargetName="Bd" Property="Background" Value="#F2E7E7" />
                             <Setter Property="Foreground" Value="{StaticResource DangerBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="#EFC3C7" />
+                            <Setter TargetName="Bd" Property="Background" Value="#E6D1D1" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -276,6 +274,75 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="8,0" />
         <Setter Property="Effect" Value="{x:Null}" />
+    </Style>
+
+    <!-- 页面与面板层级 -->
+    <Style x:Key="PageTitleText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+    </Style>
+    <Style x:Key="PageSubtitleText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+    </Style>
+    <Style x:Key="CardBorder" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource LineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{StaticResource CardRadius}" />
+        <Setter Property="Effect" Value="{StaticResource CardShadow}" />
+    </Style>
+    <Style x:Key="PanelTitleText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+    </Style>
+
+    <!-- 表格：灰青表头、细分隔线、选中行使用 PrimarySoft。 -->
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource LineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="HorizontalGridLinesBrush" Value="#E3E7E7" />
+        <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
+        <Setter Property="RowBackground" Value="{StaticResource SurfaceBrush}" />
+        <Setter Property="AlternatingRowBackground" Value="#FAFBFA" />
+        <Setter Property="HeadersVisibility" Value="Column" />
+        <Setter Property="RowHeight" Value="36" />
+        <Setter Property="ColumnHeaderHeight" Value="34" />
+    </Style>
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource LineBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+    <Style TargetType="DataGridRow">
+        <Setter Property="BorderThickness" Value="0" />
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource PrimarySoftBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="DataGridCell">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

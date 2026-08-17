@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:views="clr-namespace:Fpe2001Remake.UI.Views">
     <DockPanel Background="{StaticResource WindowBrush}">
-
         <views:ActionBar DockPanel.Dock="Top" />
-
-        <!-- 状态栏 -->
+        <Border DockPanel.Dock="Top" Background="#99FBFBFA" BorderBrush="{StaticResource LineBrush}"
+                BorderThickness="0,0,0,1" Padding="20,13,20,11">
+            <StackPanel>
+                <TextBlock Text="其他与设置" Style="{StaticResource PageTitleText}" />
+                <TextBlock Text="配置扫描、文件编辑、冻结间隔、兼容导入与隐私选项。"
+                           Style="{StaticResource PageSubtitleText}" Margin="0,3,0,0" />
+            </StackPanel>
+        </Border>
         <Border DockPanel.Dock="Bottom" Background="{StaticResource CanvasBrush}"
                 BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Padding="12,4">
             <DockPanel>
@@ -15,104 +20,67 @@
                            HorizontalAlignment="Right" TextTrimming="CharacterEllipsis" />
             </DockPanel>
         </Border>
-
-        <ScrollViewer Margin="12" VerticalScrollBarVisibility="Auto">
-            <StackPanel MaxWidth="640" HorizontalAlignment="Left">
-
-                <!-- 扫描 -->
-                <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}"
-                        BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,10">
+        <Grid Margin="20,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="14" />
+                <ColumnDefinition Width="700" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Style="{StaticResource CardBorder}" Padding="8">
+                <StackPanel>
+                    <Border Background="{StaticResource PrimarySoftBrush}" CornerRadius="5" Padding="10,8">
+                        <TextBlock Text="常规与兼容性" Foreground="{StaticResource PrimaryDarkBrush}" />
+                    </Border>
+                    <TextBlock Text="扫描与内存" Margin="10,13,10,0" />
+                    <TextBlock Text="文件与编辑器" Margin="10,13,10,0" />
+                    <TextBlock Text="写入与冻结" Margin="10,13,10,0" />
+                    <TextBlock Text="兼容与隐私" Margin="10,13,10,0" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="2" Style="{StaticResource CardBorder}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <TextBlock Text="扫描" FontWeight="SemiBold" Margin="0,0,0,8" />
-                        <Grid>
+                        <Border Height="40" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1" Padding="13,0">
+                            <TextBlock Text="常规与兼容性" Style="{StaticResource PanelTitleText}" VerticalAlignment="Center" />
+                        </Border>
+                        <Grid Margin="18,10,18,16">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="180" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="250" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="56" /><RowDefinition Height="56" />
+                                <RowDefinition Height="56" /><RowDefinition Height="56" />
+                                <RowDefinition Height="56" /><RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <TextBlock Text="内存读取上限 (MiB)" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" />
-                            <TextBox Grid.Column="1" Text="{Binding MemoryLimitMb}" Height="30" VerticalContentAlignment="Center" Padding="8,0" BorderBrush="{StaticResource LineBrush}" />
-                            <TextBlock Grid.Row="1" Text="扫描块大小 (KiB)" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" Margin="0,8,0,0" />
-                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ScanBlockSizeKb}" Height="30" Margin="0,8,0,0" VerticalContentAlignment="Center" Padding="8,0" BorderBrush="{StaticResource LineBrush}" />
+                            <StackPanel VerticalAlignment="Center"><TextBlock Text="内存读取上限" FontWeight="SemiBold" /><TextBlock Text="单次扫描允许读取的最大 MiB" Style="{StaticResource PageSubtitleText}" /></StackPanel>
+                            <TextBox Grid.Column="1" Text="{Binding MemoryLimitMb}" Height="33" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+                            <StackPanel Grid.Row="1" VerticalAlignment="Center"><TextBlock Text="扫描块大小" FontWeight="SemiBold" /><TextBlock Text="每个内存读取块的 KiB 大小" Style="{StaticResource PageSubtitleText}" /></StackPanel>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ScanBlockSizeKb}" Height="33" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+                            <StackPanel Grid.Row="2" VerticalAlignment="Center"><TextBlock Text="临时目录" FontWeight="SemiBold" /><TextBlock Text="留空时使用系统临时目录" Style="{StaticResource PageSubtitleText}" /></StackPanel>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TempDirectory}" Height="33" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+                            <StackPanel Grid.Row="3" VerticalAlignment="Center"><TextBlock Text="撤销配额" FontWeight="SemiBold" /><TextBlock Text="编辑器撤销历史的 MiB 上限" Style="{StaticResource PageSubtitleText}" /></StackPanel>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding UndoQuotaMb}" Height="33" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+                            <StackPanel Grid.Row="4" VerticalAlignment="Center"><TextBlock Text="冻结写入间隔" FontWeight="SemiBold" /><TextBlock Text="最短 16 ms，推荐 100–250 ms" Style="{StaticResource PageSubtitleText}" /></StackPanel>
+                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding FreezeIntervalMs}" Height="33" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+                            <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Margin="0,10,0,0">
+                                <CheckBox Content="保存前创建备份" IsChecked="{Binding BackupEnabled}" />
+                                <TextBlock Text="旧配置导入预览" FontWeight="SemiBold" Margin="0,16,0,6" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                    <TextBox Text="{Binding ImportPath, UpdateSourceTrigger=PropertyChanged}" Height="33" VerticalContentAlignment="Center" />
+                                    <Button Grid.Column="1" Content="预览导入" Style="{StaticResource PrimaryButton}" Margin="8,0,0,0" Command="{Binding ImportPreviewCommand}" />
+                                </Grid>
+                                <TextBlock Text="{Binding ImportStatus}" Style="{StaticResource PageSubtitleText}" Margin="0,6,0,0" />
+                                <DataGrid ItemsSource="{Binding ImportFields}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Height="150" Margin="0,8,0,0" FontSize="11.5">
+                                    <DataGrid.Columns><DataGridTextColumn Header="字段" Binding="{Binding Name}" Width="180" /><DataGridTextColumn Header="值" Binding="{Binding Value}" Width="*" /></DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
                         </Grid>
                     </StackPanel>
-                </Border>
-
-                <!-- 文件与编辑 -->
-                <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}"
-                        BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,10">
-                    <StackPanel>
-                        <TextBlock Text="文件与编辑" FontWeight="SemiBold" Margin="0,0,0,8" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="180" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="临时目录" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" />
-                            <TextBox Grid.Column="1" Text="{Binding TempDirectory}" Height="30" VerticalContentAlignment="Center" Padding="8,0" BorderBrush="{StaticResource LineBrush}" ToolTip="留空使用系统临时目录" />
-                            <TextBlock Grid.Row="1" Text="保存前创建备份" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" Margin="0,8,0,0" />
-                            <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding BackupEnabled}" VerticalAlignment="Center" Margin="4,8,0,0" />
-                            <TextBlock Grid.Row="2" Text="撤销配额 (MiB)" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" Margin="0,8,0,0" />
-                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding UndoQuotaMb}" Height="30" Margin="0,8,0,0" VerticalContentAlignment="Center" Padding="8,0" BorderBrush="{StaticResource LineBrush}" />
-                        </Grid>
-                    </StackPanel>
-                </Border>
-
-                <!-- 写入与锁定 -->
-                <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}"
-                        BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,10">
-                    <StackPanel>
-                        <TextBlock Text="写入与锁定" FontWeight="SemiBold" Margin="0,0,0,8" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="180" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="冻结间隔 (ms)" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" />
-                            <TextBox Grid.Column="1" Text="{Binding FreezeIntervalMs}" Height="30" VerticalContentAlignment="Center" Padding="8,0" BorderBrush="{StaticResource LineBrush}" ToolTip="最短 16ms，默认 250ms" />
-                        </Grid>
-                    </StackPanel>
-                </Border>
-
-                <!-- 兼容与隐私 -->
-                <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}"
-                        BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,10">
-                    <StackPanel>
-                        <TextBlock Text="兼容与隐私" FontWeight="SemiBold" Margin="0,0,0,8" />
-                        <TextBlock Text="旧配置导入预览（FPE2001 旧版 INI/CSV/TSV/二进制）"
-                                   Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="0,0,0,6" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBox Text="{Binding ImportPath, UpdateSourceTrigger=PropertyChanged}" Height="30"
-                                     VerticalContentAlignment="Center" Padding="8,0" BorderBrush="{StaticResource LineBrush}"
-                                     ToolTip="旧配置文件路径" />
-                            <Button Grid.Column="1" Content="预览导入" Style="{StaticResource PrimaryButton}" Height="30"
-                                    Margin="8,0,0,0" Command="{Binding ImportPreviewCommand}" />
-                        </Grid>
-                        <TextBlock Text="{Binding ImportStatus}" Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="0,6,0,0" />
-                        <DataGrid ItemsSource="{Binding ImportFields}" AutoGenerateColumns="False" IsReadOnly="True"
-                                  CanUserAddRows="False" HeadersVisibility="Column" RowHeight="24" Height="160"
-                                  Margin="0,8,0,0" Background="{StaticResource SurfaceBrush}"
-                                  BorderBrush="{StaticResource LineBrush}" BorderThickness="1" FontSize="11.5">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="字段" Binding="{Binding Name}" Width="180" />
-                                <DataGridTextColumn Header="值" Binding="{Binding Value}" Width="*" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-        </ScrollViewer>
+                </ScrollViewer>
+            </Border>
+        </Grid>
     </DockPanel>
 </UserControl>
